@@ -15,7 +15,7 @@ const city=ref("城市")
         <!-- 留空白 -->
         <li>招聘</li>
         <li>求职</li>
-        <li>登录</li>
+        <li>登录/注册</li>
     </ul>
 </header>
 </template>

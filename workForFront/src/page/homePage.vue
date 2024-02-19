@@ -1,4 +1,4 @@
-<script setup lang='js'>
+<script setup>
 import { ref,reactive} from 'vue'
 import headerHome from '../components/header.vue';
 </script>

@@ -21,3 +21,5 @@ sass
 vue-router
 
 ## SEO优化以后完成
+
+## 路由守卫
