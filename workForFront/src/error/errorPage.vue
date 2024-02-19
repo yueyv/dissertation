@@ -1,6 +1,6 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerError from '../components/header.vue'
+import headerError from '../components/header/header.vue'
 import { Button as AButton} from 'ant-design-vue' ;
 </script>
 

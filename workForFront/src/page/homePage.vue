@@ -1,6 +1,6 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerHome from '../components/header.vue';
+import headerHome from '../components/header/header.vue';
 </script>
 
 <template>

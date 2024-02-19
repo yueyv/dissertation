@@ -15,7 +15,7 @@ const city=ref("城市")
         <!-- 留空白 -->
         <li>招聘</li>
         <li>求职</li>
-        <li>登录/注册</li>
+        <li><router-link  to="login">登录</router-link>/<router-link to="register">注册</router-link></li>
     </ul>
 </header>
 </template>
@@ -26,11 +26,12 @@ header{
     top: 0%;
     height: 5vh;
     width: 100%;
-    background-color: black;
-    opacity: 0.5;
+    background-color: rgba(0,0,0,0.5);
     border-radius: 9px 9px 0px 0px;
 }
 .top-nav{
+    z-index: 2;
+    font-size: 16;
     // position: fixed;
     padding: 0 10vw 0 10vw;
     display: flex;
@@ -48,10 +49,23 @@ header{
         &:hover{
             color: pink;
         }
+        a{
+            color: white;
+            font-size: inherit;
+            text-decoration: none;
+            font-size: inherit;
+            &:hover{
+                color: #f1a9a9;
+            }
+        }
     }
-    :first-child{
+    li:first-child{
+        font-weight: 600;
         font-size: larger;
-        color: red;
+        color: #f1a9a9;
+    }
+    li:last-child{
+        color: white;
     }
 }
 </style>

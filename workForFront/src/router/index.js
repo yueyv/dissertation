@@ -18,6 +18,31 @@ const routes = [
         },
         component: ()=>import("../error/errorPage.vue")
       },
+      {
+        path: '/login',
+        // alias:'/',
+        name: '登录',
+        meta: {
+            title: '登录'
+        },
+        component: () => import('../components/login/login.vue')
+    },
+    {
+        path: '/loading',
+        name: 'loading',
+        meta: {
+            title: '验证中',
+        },
+        component: () => import('../components/login/loading.vue')
+    },
+    {
+        path: '/register',
+        name: '注册',
+        meta: {
+            title: '注册'
+        },
+        component: () => import('../components/login/register.vue')
+    },
    
 ]
 export const router = createRouter({
