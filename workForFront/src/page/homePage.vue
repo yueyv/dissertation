@@ -1,10 +1,11 @@
-<script setup lang='ts'>
+<script setup lang='js'>
 import { ref,reactive} from 'vue'
-
+import headerHome from '../components/header.vue';
 </script>
 
 <template>
-<box class="text">233</box>
+    <headerHome></headerHome>
+    <box class="text">22</box>
 </template>
 
 <style scoped lang='scss'>
