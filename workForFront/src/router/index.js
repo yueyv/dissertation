@@ -51,12 +51,18 @@ export const router = createRouter({
 })
 // 路由守卫
 router.beforeEach((to, from) => {
+    const pageTitle = to.meta.title;
+    if (pageTitle) {
+      document.title = pageTitle;
+    }
     // 检查目标路由是否存在
     if (to.name && router.hasRoute(to.name)) {
         return true;
     } else {
         console.log('errorPage');
+        document.title = "错误页面";
         return { name: 'errorPage' };
     }
+
 });
 

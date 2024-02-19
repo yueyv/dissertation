@@ -31,7 +31,7 @@ header{
 }
 .top-nav{
     z-index: 2;
-    font-size: 16;
+    font-size: 20px;
     // position: fixed;
     padding: 0 10vw 0 10vw;
     display: flex;
