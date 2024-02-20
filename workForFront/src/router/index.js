@@ -11,6 +11,14 @@ const routes = [
         component: () => import('../page/homePage.vue')
     }, 
     {
+        path: '/searchPage',
+        name: 'searchPage',
+        meta: {
+            title: '搜索页面'
+        },
+        component: () => import('../page/searchPage.vue')
+    }, 
+    {
         path: '/errorPage',
         name: 'errorPage',
         meta:{

@@ -1,23 +1,75 @@
 <script setup lang='js'>
 import { ref,reactive} from 'vue'
-const city=ref("城市")
+import {Alert} from 'ant-design-vue';
+import {getCity,getIP} from '../../hooks/useGetCity'
+import {useIPStore} from '../../store/index.js'
+import { storeToRefs } from 'pinia'
+// 使用pinia
+const ipStore=useIPStore()
+const {ip}=storeToRefs(ipStore)
+const {useGetIP}=ipStore
+const fetchIP=async()=>{
+    console.log(222);
+    await useGetIP()
+    console.log(ip.value);
+}
+fetchIP()
+const city=ref("定位中")
+const props = defineProps({
+  activeNav: {
+    type: Number,
+    default: 0 
+  }
+});
+const navItems=[{
+    linkTo:'/',
+    title:"首页"
+},{
+    linkTo:'#',
+    title:"推荐"
+},{
+    linkTo:"/searchPage",
+    title:"搜素"
+},{
+    linkTo:"#",
+    title:""
+},{
+    linkTo:"/faqPage",
+    title:"FAQ"
+},{
+    linkTo:"/bringInPage",
+    title:"招聘"
+},{
+    linkTo:"/huntJobPage",
+    title:"求职"
+},]
+// TODO 受同源策略,后端更改
+// const fetchCity = async () => {
+// //   const data = await getCity();
+// const data = await getIP();
+//   city.value = data;
+// };
+// fetchCity()
+console.log(props.activeNav);
+// 存到store中
 </script>
 
 <template>
 <header>
     <ul class="top-nav">
         <li>云聘</li>
-        <li>{{city}}</li>
-        <li>首页</li>
-        <li>推荐</li>
-        <li>搜素</li>
-        <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        <!-- 留空白 -->
-        <li>招聘</li>
-        <li>求职</li>
+        <li style="display: flex;justify-content: center; align-items: center;" ><img  style="width: 1.2em;margin-bottom: 3px;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMwMjg0YzciIGQ9Ik0xMiAxMnEuODI1IDAgMS40MTMtLjU4N1QxNCAxMHEwLS44MjUtLjU4Ny0xLjQxMlQxMiA4cS0uODI1IDAtMS40MTIuNTg4VDEwIDEwcTAgLjgyNS41ODggMS40MTNUMTIgMTJtMCAxMHEtNC4wMjUtMy40MjUtNi4wMTItNi4zNjJUNCAxMC4ycTAtMy43NSAyLjQxMy01Ljk3NVQxMiAycTMuMTc1IDAgNS41ODggMi4yMjVUMjAgMTAuMnEwIDIuNS0xLjk4NyA1LjQzOFQxMiAyMiIvPjwvc3ZnPg==">
+            <div>{{city}}</div>
+        </li>
+        <li v-for="(item,index) in navItems" :key="index" :class="index==activeNav?`active`:``">
+            <router-link :to="item.linkTo">
+                {{ item.title }}
+            </router-link>
+        </li>
         <li><router-link  to="login">登录</router-link>/<router-link to="register">注册</router-link></li>
     </ul>
 </header>
+
 </template>
 
 <style scoped lang='scss'>
@@ -31,7 +83,7 @@ header{
 }
 .top-nav{
     z-index: 2;
-    font-size: 20px;
+    font-size: 1.2rem;
     // position: fixed;
     padding: 0 10vw 0 10vw;
     display: flex;
@@ -42,20 +94,21 @@ header{
     line-height: 5vh;
     li{
         flex-grow: 1;
-        color: white;
-        .active{
-            color: red;
+        color: #FFFFFF;
+        &.active{
+            color: #FF4081;
+            pointer-events: none;
         }
         &:hover{
-            color: pink;
+            color: #E91E63;
         }
         a{
-            color: white;
+            color: inherit;
             font-size: inherit;
             text-decoration: none;
             font-size: inherit;
             &:hover{
-                color: #f1a9a9;
+                color: #E91E63;
             }
         }
     }

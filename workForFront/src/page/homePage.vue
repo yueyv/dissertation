@@ -4,7 +4,7 @@ import headerHome from '../components/header/header.vue';
 </script>
 
 <template>
-    <headerHome></headerHome>
+    <headerHome :active-nav="0"></headerHome>
     <box class="text">22</box>
 </template>
 
