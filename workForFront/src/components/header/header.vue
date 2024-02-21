@@ -29,7 +29,7 @@ const navItems=[{
     title:"推荐"
 },{
     linkTo:"/searchPage",
-    title:"搜素"
+    title:"搜索"
 },{
     linkTo:"#",
     title:""

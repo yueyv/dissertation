@@ -11,6 +11,14 @@ const routes = [
         component: () => import('../page/homePage.vue')
     }, 
     {
+        path: '/test',
+        name: 'testPage',
+        meta: {
+            title: '测试页面'
+        },
+        component: () => import('../page/testPage.vue')
+    }, 
+    {
         path: '/searchPage',
         name: 'searchPage',
         meta: {
@@ -25,8 +33,8 @@ const routes = [
             title:'错误页面'
         },
         component: ()=>import("../error/errorPage.vue")
-      },
-      {
+    },
+    {
         path: '/login',
         // alias:'/',
         name: '登录',
@@ -51,6 +59,31 @@ const routes = [
         },
         component: () => import('../components/login/register.vue')
     },
+    {
+        path: '/faqPage',
+        name: 'faqPage',
+        meta: {
+            title: 'FAQ页面'
+        },
+        component: () => import('../page/faqPage.vue')
+    }, 
+    {
+        path: '/bringInPage',
+        name: 'bringInPage',
+        meta: {
+            title: '求职页面'
+        },
+        component: () => import('../page/bringInPage.vue')
+    }, 
+    {
+        path: '/huntJobPage',
+        name: 'huntJobPage',
+        meta: {
+            title: '搜索页面'
+        },
+        component: () => import('../page/huntJobPage.vue')
+    }, 
+
    
 ]
 export const router = createRouter({
