@@ -19,6 +19,14 @@ const routes = [
         component: () => import('../page/testPage.vue')
     }, 
     {
+        path: '/commendPage',
+        name: 'commendPage',
+        meta: {
+            title: '推荐页面'
+        },
+        component: () => import('../page/commendPage.vue')
+    }, 
+    {
         path: '/searchPage',
         name: 'searchPage',
         meta: {

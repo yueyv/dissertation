@@ -25,7 +25,7 @@ const navItems=[{
     linkTo:'/',
     title:"首页"
 },{
-    linkTo:'#',
+    linkTo:'/commendPage',
     title:"推荐"
 },{
     linkTo:"/searchPage",

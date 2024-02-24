@@ -1,16 +1,11 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerHome from '../components/header/header.vue';
-import searchHome from '../components/search/index.vue'
+import headerCommend from '../components/header/header.vue';
 </script>
 
 <template>
-    <headerHome :active-nav="0"></headerHome>
-    <div class="advs">毕业设计火热制作中</div>
-    <div style="margin-top:50px">
-        <searchHome></searchHome>
-    </div>
-    
+    <headerCommend :active-nav="1"></headerCommend>
+    <div class="advs">热招岗位</div>
 </template>
 
 <style scoped lang='scss'>
