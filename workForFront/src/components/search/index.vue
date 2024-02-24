@@ -1,55 +1,112 @@
-<script setup lang='ts'>
+<script setup >
 import { message } from 'ant-design-vue'
 import { ref, reactive } from 'vue'
-const search_content = ref<string>()
-const search_start = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
+import { DownOutlined } from '@ant-design/icons-vue';
+const search_content = ref()
+//TODO 搜索页面
+const search_start = () => {
         const searchUrl = `https://www.bing.com/?q=${search_content.value}`
         window.open(searchUrl, '_blank')
-    }
+
 }   
 // const auto_fit=()=>{
 //     message.info(window.innerWidth)
 // }
+const searchHead = [
+    1, 2, 3, 4, 5
+]
+const searchHeadValue = ref("类型")
+const clickSearchHeadItem=(item)=>{
+    searchHeadValue.value=item
+}
 </script>
 
 <template>
     <div class="searchbox">
-        <input v-model="search_content" type="text" placeholder="站内搜索" class="search_input" @keypress="search_start">
+        <div class="search-head">
+            <a-dropdown>
+                <a class="ant-dropdown-link" @click.prevent>
+                    {{ searchHeadValue }}
+                    <DownOutlined />
+                </a>
+                <template #overlay>
+                    <a-menu>
+                        <a-menu-item v-for="item in searchHead" :key="item" @click="clickSearchHeadItem(item)">
+                            {{ item }}
+                        </a-menu-item>
+                    </a-menu>
+                </template>
+            </a-dropdown>
+        </div>
+        <input v-model="search_content" type="text" placeholder="站内搜索" class="search-input" @keypress="search_start">
+        <div class="search-enter" @click="search_start()">搜索</div>
     </div>
 </template>
 
 <style scoped lang='less'>
 .searchbox {
-    width: 100%;
+    margin-right: 15vw;
+    padding:5px;
+    margin-left: 15vw;
+    background-color: #00BCD4;
+    border-radius: 20px;
+    margin-top: 50px;
+    // width: 100%;
     // width: 80vw;
-    display: grid;
+    display: flex;
     justify-content: center;
     margin-bottom: 20px;
     // grid-template-columns: min(80vw,700px);
 }
-.search_input{
+
+.search-input {
     height: 50px;
-    width: 60vw;
-    
+    width: 40vw;
     max-width: 600px;
-    border-radius: 20px;
     border: none;
-    text-align: center;
+    padding-left: 20px;
+    text-align: left;
     width: max-content(700px);
     display: block;
     font-size: 18px;
+    border-radius: 0px 20px 20px 0px;
     background-color: rgba(255, 255, 255, 0.5);
-    &:focus{
+
+    &:focus {
         border: none;
         outline: none;
         background-color: rgba(255, 255, 255, 0.8);
-        box-shadow: 0px 5px 1px 1px rgba(255, 255, 255, 0.2);
+        // box-shadow: 0px 5px 1px 1px rgba(255, 255, 255, 0.2);
     }
 }
+
+.search-head {
+    font-weight: 600;
+    color: #212121;
+    line-height: 50px;
+    text-align: center;
+    display: inline-flexbox;
+    height: 50px;
+    width: 15vw;
+    font-size: 18px;
+    border-radius: 20px 0px 0px 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.search-enter {
+    font-weight: 600;
+    color:#FFFFFF;
+    line-height: 50px;
+    text-align: center;
+    display: inline-flexbox;
+    height: 50px;
+    width: 15vw;
+    font-size: 20px;
+    background-color: #00BCD4;
+}
+
 // @media(min-width: 700px){
-//     .search_input{
+//     .search-input{
 //         min-width: 80vw;
 //     }
-// }
-</style>
+// }</style>

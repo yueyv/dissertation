@@ -59,8 +59,10 @@ console.log(props.activeNav);
     <ul class="top-nav">
         <li>云聘</li>
         <li style="display: flex;justify-content: center; align-items: center;" ><img  style="width: 1.2em;margin-bottom: 3px;" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMwMjg0YzciIGQ9Ik0xMiAxMnEuODI1IDAgMS40MTMtLjU4N1QxNCAxMHEwLS44MjUtLjU4Ny0xLjQxMlQxMiA4cS0uODI1IDAtMS40MTIuNTg4VDEwIDEwcTAgLjgyNS41ODggMS40MTNUMTIgMTJtMCAxMHEtNC4wMjUtMy40MjUtNi4wMTItNi4zNjJUNCAxMC4ycTAtMy43NSAyLjQxMy01Ljk3NVQxMiAycTMuMTc1IDAgNS41ODggMi4yMjVUMjAgMTAuMnEwIDIuNS0xLjk4NyA1LjQzOFQxMiAyMiIvPjwvc3ZnPg==">
-            <div>{{city}}</div>
+            <div>{{city}}<p class="city-input">[切换]</p></div>
         </li>
+        <!-- TODO 从后端返回city数据，[切换按钮实现手动输入] -->
+        <!-- 通过ip和腾讯服务实现 -->
         <li v-for="(item,index) in navItems" :key="index" :class="index==activeNav?`active`:``">
             <router-link :to="item.linkTo">
                 {{ item.title }}
@@ -111,14 +113,25 @@ header{
                 color: #E91E63;
             }
         }
+        &:nth-child(2){
+            color: #FFFFFF;
+        }
     }
     li:first-child{
         font-weight: 600;
         font-size: larger;
         color: #f1a9a9;
     }
+   
     li:last-child{
         color: white;
+    }
+}
+.city-input{
+    display: inline-block;
+    font-size: x-small;
+    &:hover{
+        color: #E91E63;
     }
 }
 </style>

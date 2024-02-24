@@ -126,7 +126,7 @@ onMounted(() => {
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.4);
     background-color: rgba(255, 255, 255, 0.2);
-    width: 250px;
+    width: 280px;
     padding: 10px 15px;
     border-radius: 3px;
     margin: 0 auto 10px auto;
