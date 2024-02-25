@@ -1,10 +1,10 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerhuntJob from '../components/header/header.vue';
+import myHeader from '../components/header/header.vue';
 </script>
 
 <template>
-    <headerhuntJob :active-nav="5"></headerhuntJob>
+    <myHeader :active-nav="5"></myHeader>
 </template>
 
 <style scoped lang='scss'>

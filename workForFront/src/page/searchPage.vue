@@ -1,12 +1,12 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerSearch from '../components/header/header.vue';
+import myHeader from '../components/header/header.vue';
 import search from '../components/search/index.vue'   
 
 </script>
 
 <template>
-<headerSearch :active-nav="2"></headerSearch>
+<myHeader :active-nav="2"></myHeader>
 <div class="advs">检索岗位</div>
 <div style="margin-top:50px">
 <search></search>

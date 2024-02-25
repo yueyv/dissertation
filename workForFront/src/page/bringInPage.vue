@@ -1,10 +1,10 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerBringIn from '../components/header/header.vue';
+import myHeader from '../components/header/header.vue';
 </script>
 
 <template>
-    <headerBringIn :active-nav="4"></headerBringIn>
+    <myHeader :active-nav="6"></myHeader>
 </template>
 
 <style scoped lang='scss'>

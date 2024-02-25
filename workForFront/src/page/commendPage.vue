@@ -1,10 +1,10 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import headerCommend from '../components/header/header.vue';
+import myHeader from '../components/header/header.vue';
 </script>
 
 <template>
-    <headerCommend :active-nav="1"></headerCommend>
+    <myHeader :active-nav="1"></myHeader>
     <div class="advs">热招岗位</div>
 </template>
 
