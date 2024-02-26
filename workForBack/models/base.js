@@ -7,13 +7,13 @@ class Base {
         return knex(this.table).select();
     }
     inquire(id){
-        return knex(this.table).where('id','=',id)
+        return knex(this.table).where('username','=',id)
     }
     insert(params){
         return knex(this.table).insert(params)
     }
     update(id,params) {
-        return knex(this.table).where('id','=',id).update(params)
+        return knex(this.table).where('username','=',id).update(params)
     }
     delete(id){
         return knex(this.table).where('id','=',id).del();

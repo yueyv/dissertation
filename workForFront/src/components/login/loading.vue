@@ -6,7 +6,7 @@ import { message } from 'ant-design-vue';
 const router = useRouter()
 // MARK鉴定token
 const login = setTimeout(() => {
-    if ((sessionStorage.getItem("token")?.length ??1) > 40){
+    if ((localStorage.getItem("token")?.length ??1) > 40){
         message.success("登录成功")
         router.push('/')    
     }else{

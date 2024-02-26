@@ -16,26 +16,30 @@ const useController = {
     },
     login: async function (req, res, next) {
         try {
-            let id = req.body.account
+            // console.log(req);
+
+            let username = req.body.account
             let pwd = req.body.password
-            let userData = await User.inquire(id)
+            let userData = await User.inquire(username)
             let data = JSON.parse(JSON.stringify(userData))
             const newData = { ...data }['0']
-            const useId = Buffer.from(newData.id, 'utf-8').toString('base64')
+            console.log(newData);
             if (newData.password == pwd) {
+                const params = {
+                    username: `${username}`,
+                    password: `${pwd}`,
+                }
+                let jwtToken=jwt.sign(params)
                 res.json({
                     code: 200,
                     message: "success",
-                    data: {
-                        token: `${useId}`
-                    }
+                    data: `${jwtToken}`
                 })
             } else {
                 res.json({
                     code: 202,
                     message: 'pwderrow',
                     data: {
-
                     }
                 })
             }
@@ -56,14 +60,11 @@ const useController = {
             }
             await User.insert(params)
             let jwtToken=jwt.sign(params)
-            console.log(jwtToken);
+            // console.log(jwtToken);
             res.json({
                 code: 200,
                 message: "success",
-                data: {
-                    username:`${username}`,
-                    token: `${jwtToken}`
-                }
+                data: `${jwtToken}`
             })
         } catch (e) {
             console.log(e)

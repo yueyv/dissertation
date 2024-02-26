@@ -15,14 +15,16 @@ const second_password = ref("")
 async function response(result) {
     if (result.status === 200) {
         // 在session中存储token
-        await sessionStorage.setItem("token", JSON.stringify(result.data.data))
-        // message.success(sessionStorage.getItem("userId"))
+        if((result.data.code)==200){
+            localStorage.setItem("token", JSON.stringify(result.data.data))
+        }
     }
     setTimeout(() => {
         message.info(result.data.message)
     }, 1000)
 }
 async function check() {
+    localStorage.removeItem('token');
     await axios.post('/api/register', { account: `${account.value}`, password: `${md5(password.value+mdtSalt)}` })
         .then(response)
         .catch(err => {

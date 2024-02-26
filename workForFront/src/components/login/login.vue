@@ -3,21 +3,26 @@ import { message } from 'ant-design-vue';
 import { ref, onMounted,onBeforeUnmount} from 'vue'
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import md5 from 'js-md5'
 // 要操作的元素
 const router = useRouter()
 const account = ref("");
 const password = ref("");
+const mdtSalt="yueyv";
 async function response(result) {
+
     if (result.status === 200) {
-        sessionStorage.setItem("userId", JSON.stringify(result.data.data))
-        // message.success(sessionStorage.getItem("userId"))
+        if(result.data.code==200){
+            localStorage.setItem("token", JSON.stringify(result.data.data))
+        }
     }
-
-    console.log(result.data.message)
-
+    setTimeout(() => {
+        message.info(result.data.message)
+    }, 1000)
 }
 async function check() {
-    await axios.post('/api/login', { account: `${account.value}`, password: `${password.value}` })
+    localStorage.removeItem('token');
+    await axios.post('/api/login', { account: `${account.value}`,  password: `${md5(password.value+mdtSalt)}` })
         .then(response)
         .catch(err => {
             console.log(err)
@@ -51,7 +56,7 @@ function register() {
 
 onMounted(()=>{
     // MARK 预检
-    check()
+    // check()
     document.body.style.overflow = 'hidden';
 }) 
 onBeforeUnmount(() => {

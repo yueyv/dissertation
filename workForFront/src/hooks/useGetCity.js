@@ -2,7 +2,7 @@
  * @return {string} 
  */
 import {keyData} from '../../key/key.js' ;
-
+import axios from '../pingins/axiosBase.js';
 
 
 
@@ -21,33 +21,39 @@ const getIP = async () => {
     return '0.0.0.1';
   }
 };
-const getCity=async()=>{
-  const IP=await getIP()
-  // console.log(IP);
-  if(IP!='0.0.0.1'){
-    try {
-      const response = await fetch(`https://apis.map.qq.com/ws/location/v1/ip?ip=${IP}&key=IDHBZ-7F2KM-SFY6S-6OQYE-6VWRE-WVB5N`);
-      if (!response.ok) {
-        throw new Error('无法获取城市地址');
+const getCity = async (IP) => {
+  if (IP !== '0.0.0.1') {
+      try {
+          const res = await axios.get('/get_city', { params: { ip: IP } });
+          // console.log(res);
+          if (res.code === 200) {
+              // console.log(res.city);
+              return res.city;
+          }
+      } catch (error) {
+          console.error('获取城市地址时出现错误：', error);
       }
-      const data = await response.json();
-      // console.log(data);
-      if(data.status==0){
-        const city=data.result.ad_info.city
-        // console.log(city);
-        return city;
-      }else{
-        throw new Error("解析错误")
-      }
-    } catch (error) {
-      console.error('获取城市地址时出现错误：', error);
-      return '手动定位';
-    }
+  }else{
+    return '手动定位';
   }
-    
-  return '手动定位'
-  
-}
+};
 // console.log(await getCity());
-
+// //    try {
+//       const response = await fetch(`https://apis.map.qq.com/ws/location/v1/ip?ip=${IP}&key=IDHBZ-7F2KM-SFY6S-6OQYE-6VWRE-WVB5N`);
+//       if (!response.ok) {
+//         throw new Error('无法获取城市地址');
+//       }
+//       const data = await response.json();
+//       // console.log(data);
+//       if(data.status==0){
+//         const city=data.result.ad_info.city
+//         // console.log(city);
+//         return city;
+//       }else{
+//         throw new Error("解析错误")
+//       }
+//     } catch (error) {
+//       console.error('获取城市地址时出现错误：', error);
+//       return '手动定位';
+//     }
 export {getIP,getCity}
