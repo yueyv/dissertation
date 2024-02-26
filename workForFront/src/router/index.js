@@ -1,5 +1,5 @@
 import { createRouter,createWebHistory} from 'vue-router'
-
+import {message} from 'ant-design-vue';
 
 const routes = [
     {
@@ -9,14 +9,6 @@ const routes = [
             title: '云聘'
         },
         component: () => import('../page/homePage.vue')
-    }, 
-    {
-        path: '/test',
-        name: 'testPage',
-        meta: {
-            title: '测试页面'
-        },
-        component: () => import('../page/testPage.vue')
     }, 
     {
         path: '/commendPage',
@@ -91,7 +83,27 @@ const routes = [
         },
         component: () => import('../page/huntJobPage.vue')
     }, 
-
+// MARK鉴权
+{
+    path: '/test',
+    name: 'testPage',
+    meta: {
+      title: '测试页面',
+      permission: true
+    },
+    component: () => import('../page/testPage.vue'),
+    // IM 鉴权方法
+    // beforeEnter: (to, from, next) => {
+    //   console.log(233);
+    //   // 检查用户是否已登录
+    //   if (sessionStorage.getItem("token")) {
+    //     next();
+    //   } else {
+    //     message.warning("请先登录");
+    //     next("/login");
+    //   }
+    // }
+  }
    
 ]
 export const router = createRouter({
@@ -99,19 +111,18 @@ export const router = createRouter({
     routes,
 })
 // 路由守卫
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
     const pageTitle = to.meta.title;
     if (pageTitle) {
       document.title = pageTitle;
     }
     // 检查目标路由是否存在
-    if (to.name && router.hasRoute(to.name)) {
-        return true;
+    if (router.hasRoute(to.name)) {
+      next(); // 继续路由导航
     } else {
-        console.log('errorPage');
-        document.title = "错误页面";
-        return { name: 'errorPage' };
+      console.log('errorPage');
+      document.title = "错误页面";
+      next({ name: 'errorPage' }); // 跳转到错误页面
     }
-
-});
+  });
 

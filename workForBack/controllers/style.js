@@ -1,4 +1,4 @@
-const Style=require('../models/style')
+const Style=require('../models/message')
 const useController={
     showStyle:async function(req,res,next){
         try{

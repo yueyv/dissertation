@@ -60,7 +60,6 @@ const clickSearchHeadItem=(item)=>{
 }
 
 .search-input {
-    height: 50px;
     width: 40vw;
     max-width: 600px;
     border: none;

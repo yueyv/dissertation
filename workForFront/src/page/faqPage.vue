@@ -1,12 +1,78 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import myHeader from '../components/header/header.vue';
+import myHeader from '@/components/header/header.vue';
+import { message } from 'ant-design-vue';
 
+import { CustomerServiceOutlined, CommentOutlined } from '@ant-design/icons-vue';
+// mark 动画效果 
+const faqMain=[
+    {
+        title:"待填充",
+        content:"233233",
+
+    }, {
+        title:"",
+        content:"",
+
+    }, {
+        title:"",
+        content:"",
+
+    }, {
+        title:"",
+        content:"",
+    }, {
+        title:"",
+        content:"",
+    },
+]
+const faqActive=ref(Array(5).fill(-1))
+const faqActiveFunc=(index)=>{
+        faqActive.value[index]*=-1
+        // console.log(faqActive.value);
+    }
+    // Mark 原生剪切
+    // IM 需要https
+  const copyText=async (content)=> {
+    try{
+      await navigator.clipboard.writeText(content);
+      message.success(`已粘贴到剪切板,${content}`);
+    }catch{
+      message.warning(`粘贴失败,手动输入${content}`);
+    }
+    
+ 
+};
 </script>
 
 <template>
-    <myHeader :active-nav="5"></myHeader>
+    <myHeader :active-nav="4"></myHeader>
     <div class="advs">使用说明及反馈</div>
+    <div class="tip-head" v-for="(item,index) in faqMain" @click="faqActiveFunc(index)">
+    <p>{{ item.title }}</p><i :class="faqActive[index]>0?'rotating-element':''" class="bi bi-arrow-up-short" style="font-size: 30px; color: white; justify-self: end; padding: 0px 5px;"></i>
+    <p class="faqContent" :class="faqActive[index]<0?'hidden':''">233</p>
+    </div>
+    <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw'}">
+    <template #icon>
+      <CustomerServiceOutlined />
+    </template>
+    <a-float-button @click="copyText('05552333233')">
+      <template #icon >
+        <i class="bi bi-telephone" ></i>
+        <!-- MARK 黏贴到剪切板 -->
+      </template>
+    </a-float-button>
+    <a-float-button @click="copyText('yueyvlunhui@outlook.com')">
+      <template #icon>
+        <i class="bi bi-envelope" ></i>
+      </template>
+    </a-float-button>
+    <!-- TODO 和客服交流 -->
+    <a-float-button>
+      <template #icon>
+      <CustomerServiceOutlined />
+    </template></a-float-button>
+  </a-float-button-group>
 </template>
 
 <style scoped lang='scss'>
@@ -21,4 +87,45 @@ import myHeader from '../components/header/header.vue';
     height: 200px;
     background: linear-gradient(to top left, #9fffef, #e7cbc8, #71e3ff);
 }
+.tip-head{
+    color: white;
+    margin-left: 15vw;
+    margin-top: 20px;
+    margin-right: 15vw;
+    padding-right: 20px;
+    background-color: #e7cbc8;
+    // height: 40px;
+    border-radius: 20px;
+    padding-left: 20px;
+    line-height: 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    &:hover{
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); 
+    }
+}
+@keyframes rotate180 {
+  0% {
+    transform: rotate(0deg); /* 开始时角度为 0 度 */
+  }
+  100% {
+    transform: rotate(180deg); /* 结束时角度为 180 度 */
+  }
+}
+
+.rotating-element {
+    transform-origin: center center; /* 将变换原点设置为元素中心 */
+    animation: rotate180 0.5s linear forwards; /* 应用旋转动画 */
+}
+.faqContent{
+    height: 100px;
+    overflow: hidden;
+    transition: height 0.5s ease; 
+}
+.hidden{
+    height: 0px;
+    overflow: hidden;
+    transition:  height 0.5s ease; 
+}
+
 </style>

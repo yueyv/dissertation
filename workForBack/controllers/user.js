@@ -1,5 +1,5 @@
-const user = require('../models/user')
 const User = require('../models/user')
+const jwt=require('../utils/jwt')
 const useController = {
     showUser: async function (req, res, next) {
         try {
@@ -16,11 +16,8 @@ const useController = {
     },
     login: async function (req, res, next) {
         try {
-            // let id=req.query.id
-            // console.log(req.body);
             let id = req.body.account
             let pwd = req.body.password
-            // console.log(req.query.id)
             let userData = await User.inquire(id)
             let data = JSON.parse(JSON.stringify(userData))
             const newData = { ...data }['0']
@@ -49,31 +46,28 @@ const useController = {
     },
     register: async function (req, res, next) {
         try {
-            // let id=req.query.id
-            // console.log(req.body);
-            let id = req.body.account
+            // console.log(req);
+            let username = req.body.account
             let pwd = req.body.password
             // console.log(req.query.id)
             const params = {
-                id: `${id}`,
-                name: 'unknown',
+                username: `${username}`,
                 password: `${pwd}`,
-                innertime: `00:00`,
-                icon: ''
             }
-            let result = await User.insert(params)
-            console.log(result)
-            const useId = Buffer.from(id, 'utf-8').toString('base64')
+            await User.insert(params)
+            let jwtToken=jwt.sign(params)
+            console.log(jwtToken);
             res.json({
                 code: 200,
                 message: "success",
                 data: {
-                    token: `${useId}`
+                    username:`${username}`,
+                    token: `${jwtToken}`
                 }
             })
         } catch (e) {
             console.log(e)
-            res.json({ code: 202, message: "iderror", data: {}})
+            res.json({ code: 202, message: "iderror,已存在", data: {}})
         }
     }
 }

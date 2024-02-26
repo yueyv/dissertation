@@ -4,12 +4,11 @@ import {Alert} from 'ant-design-vue';
 import {getCity,getIP} from '../../hooks/useGetCity'
 import {useIPStore} from '../../store/index.js'
 import { storeToRefs } from 'pinia'
-// 使用pinia
+// TODO使用pinia
 const ipStore=useIPStore()
 const {ip}=storeToRefs(ipStore)
 const {useGetIP}=ipStore
 const fetchIP=async()=>{
-    console.log(222);
     await useGetIP()
     console.log(ip.value);
 }

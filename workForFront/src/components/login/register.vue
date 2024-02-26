@@ -3,6 +3,10 @@ import { message } from 'ant-design-vue';
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router';
 import axios from 'axios';
+import md5 from 'js-md5'
+import {onMounted,onBeforeUnmount} from 'vue'
+// Mark 加密
+const mdtSalt="yueyv"
 // 要操作的元素
 const router = useRouter()
 const password = ref("");
@@ -10,7 +14,8 @@ const account = ref("");
 const second_password = ref("")
 async function response(result) {
     if (result.status === 200) {
-        await sessionStorage.setItem("userId", JSON.stringify(result.data.data))
+        // 在session中存储token
+        await sessionStorage.setItem("token", JSON.stringify(result.data.data))
         // message.success(sessionStorage.getItem("userId"))
     }
     setTimeout(() => {
@@ -18,16 +23,13 @@ async function response(result) {
     }, 1000)
 }
 async function check() {
-    await axios.post('/api/register', { account: `${account.value}`, password: `${password.value}` })
+    await axios.post('/api/register', { account: `${account.value}`, password: `${md5(password.value+mdtSalt)}` })
         .then(response)
         .catch(err => {
             console.log(err)
         })
 }
 function register() {
-    // setTimeout(()=>{
-    //     router.push('/loading')
-    // },1000)
     // 验证输入规则
     new Promise((res, rej) => {
         if (password.value == "" || account.value == "" || second_password.value == "") {
@@ -51,6 +53,12 @@ function register() {
     })
 
 }
+onMounted(()=>{
+    document.body.style.overflow = 'hidden';
+}) 
+onBeforeUnmount(() => {
+    document.body.style.overflow = 'auto';
+})
 function login() {
     router.push('/login')
 }
@@ -130,7 +138,7 @@ function login() {
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.4);
     background-color: rgba(255, 255, 255, 0.2);
-    width: 280px;
+    width: 250px;
     padding: 10px 15px;
     border-radius: 3px;
     margin: 0 auto 10px auto;
@@ -285,4 +293,5 @@ function login() {
         transform: translateY(-120vh) rotate(600deg);
     }
 }
+
 </style>

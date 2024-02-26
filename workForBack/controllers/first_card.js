@@ -1,4 +1,4 @@
-const first_card=require('../models/first_card')
+const first_card=require('../models/admin')
 const useController={
     show_first_card:async function(req,res,next){
         try{

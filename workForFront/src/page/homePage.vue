@@ -1,7 +1,7 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import myHeader from '../components/header/header.vue';
-import searchHome from '../components/search/index.vue'
+import myHeader from '@/components/header/header.vue';
+import searchHome from '@/components/search/index.vue';
 const commendTags=[
     {
         title:"Java",
@@ -24,10 +24,10 @@ const commendTags=[
 </script>
 
 <template>
-    <headerHome :active-nav="0"></headerHome>
+    <myHeader :active-nav="0"></myHeader>
     <div class="advs">毕业设计火热制作中</div>
     <div style="margin-top:50px">
-        <myHeader></myHeader>
+        <searchHome></searchHome>
         <div class="commend-tag">
             <p style="color: #9E9E9E;">热招岗位:</p>
             <p v-for="item in commendTags" class="smart-tag">{{ item.title }}</p>

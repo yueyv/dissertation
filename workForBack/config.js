@@ -1,14 +1,16 @@
 
 const configs = {
+    // IM 链接mysql
     mysql: {
-        host: '114.132.50.228',
+        host: 'localhost',
         user: 'root',
-        password: '129218219',
+        password: 'yueyv',
         port: '3306',
-        database: 'website'
+        database: 'schoolWork'
     },
     log:{
         error(message){
+            console.log("连接mysql失败");
             console.log('[knex error]',message)
         }
     }

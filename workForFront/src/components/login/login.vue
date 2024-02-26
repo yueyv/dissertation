@@ -1,6 +1,6 @@
 <script setup>
 import { message } from 'ant-design-vue';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted,onBeforeUnmount} from 'vue'
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 // 要操作的元素
@@ -48,8 +48,14 @@ function login() {
 function register() {
     router.push('/register')
 }
-onMounted(() => {
+
+onMounted(()=>{
+    // MARK 预检
     check()
+    document.body.style.overflow = 'hidden';
+}) 
+onBeforeUnmount(() => {
+    document.body.style.overflow = 'auto';
 })
 </script>
 
@@ -126,7 +132,7 @@ onMounted(() => {
     outline: none;
     border: 1px solid rgba(255, 255, 255, 0.4);
     background-color: rgba(255, 255, 255, 0.2);
-    width: 280px;
+    width: 250px;
     padding: 10px 15px;
     border-radius: 3px;
     margin: 0 auto 10px auto;

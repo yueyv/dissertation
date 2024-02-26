@@ -1,4 +1,4 @@
-const Note=require('../models/note')
+const Note=require('../models/jobs')
 const useController={
     showNote:async function(req,res,next){
         try{

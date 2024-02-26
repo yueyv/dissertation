@@ -10,6 +10,7 @@ module.exports=require('knex')({
     },
     log:{
         error(message){
+            console.log("连接失败knex");
             console.log('[knex error]',message)         
         }
     }

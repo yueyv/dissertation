@@ -1,14 +1,16 @@
 <script setup>
 import { ref,reactive} from 'vue'
-import {Button as AButton} from "ant-design-vue"
+import {Button as AButton,message} from "ant-design-vue"
 import {axiosBase} from '../pingins/axiosBase'
-const testAxios=axiosBase.get('/ask_city').then((e)=>{
-    console.log(e);
-})
+import md5 from 'js-md5'   
+
+console.log(md5("233"));
+message.info(md5("323"))
 </script>
 
 <template>
-<a-button @click="testAxios" type="primary">Primary Button</a-button>
+<a-button @click="" type="primary">Primary Button</a-button>
+
 </template>
 
 <style scoped lang='scss'>

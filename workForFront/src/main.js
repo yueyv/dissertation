@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import {router} from './router'
+import 'bootstrap-icons/font/bootstrap-icons.scss'
 import { createPinia } from 'pinia'
 import Antd from 'ant-design-vue';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'

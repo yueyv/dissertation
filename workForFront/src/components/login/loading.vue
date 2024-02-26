@@ -4,10 +4,11 @@ import { onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 const router = useRouter()
+// MARK鉴定token
 const login = setTimeout(() => {
-    if ((sessionStorage.getItem("userId")?.length ??1) > 2&&(sessionStorage.getItem("userId")?.length ??51)<50) {
+    if ((sessionStorage.getItem("token")?.length ??1) > 40){
         message.success("登录成功")
-        router.push('/home')    
+        router.push('/')    
     }else{
         message.error("失败，返回")
         router.back()
