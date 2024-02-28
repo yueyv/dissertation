@@ -1,7 +1,8 @@
 <script setup lang='js'>
-import { ref, reactive, onBeforeMount } from 'vue'
-import { Alert } from 'ant-design-vue';
+import { ref, reactive, watch, onBeforeMount } from 'vue'
+import { Alert,Input,Space } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
+import { message } from 'ant-design-vue';
 import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
@@ -16,9 +17,7 @@ onBeforeMount(() => {
         useGetCity()
     }
 })
-const switchCity = () => {
-    manualUpdateCity("dwawdaw")
-}
+const newCity = ref('');
 
 const props = defineProps({
     activeNav: {
@@ -59,10 +58,18 @@ const navItems = [{
 // 存到store中
 const userId = ref(JSON.parse(localStorage.getItem('userId')) ?? "")
 // console.log(userId.value);
-const exitLogin=()=>{
+const exitLogin = () => {
     localStorage.removeItem("userId")
     localStorage.removeItem("token")
 }
+const switchCity = () => {
+    open.value = true;
+}
+const open = ref(false);
+const handleOk = (e) => {
+    open.value = false;
+    manualUpdateCity(newCity.value)
+};
 
 </script>
 
@@ -75,7 +82,13 @@ const exitLogin=()=>{
                     style="width: 1.2em;margin-bottom: 3px;"
                     src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMwMjg0YzciIGQ9Ik0xMiAxMnEuODI1IDAgMS40MTMtLjU4N1QxNCAxMHEwLS44MjUtLjU4Ny0xLjQxMlQxMiA4cS0uODI1IDAtMS40MTIuNTg4VDEwIDEwcTAgLjgyNS41ODggMS40MTNUMTIgMTJtMCAxMHEtNC4wMjUtMy40MjUtNi4wMTItNi4zNjJUNCAxMC4ycTAtMy43NSAyLjQxMy01Ljk3NVQxMiAycTMuMTc1IDAgNS41ODggMi4yMjVUMjAgMTAuMnEwIDIuNS0xLjk4NyA1LjQzOFQxMiAyMiIvPjwvc3ZnPg==">
                 <div>{{ city }}
+
                     <p class="city-input" @click="switchCity()">[切换]</p>
+                    <a-modal cancelText="取消" okText="确认" v-model:open="open" title="切换城市" @ok="handleOk">
+                        <a-space direction="vertical">
+                            <a-input v-model:value="newCity" placeholder="请输入城市,例如南京" />
+                        </a-space>
+                    </a-modal>
                 </div>
             </li>
             <!-- TODO 从后端返回city数据，[切换按钮实现手动输入] -->
@@ -95,10 +108,10 @@ const exitLogin=()=>{
                     <template #overlay>
                         <a-menu>
                             <a-menu-item>
-                                <router-link to="personalPage" >个人中心</router-link>
+                                <router-link to="personalPage">个人中心</router-link>
                             </a-menu-item>
                             <a-menu-item>
-                                <router-link to="chatPage" >聊天页面</router-link>
+                                <router-link to="chatPage">聊天页面</router-link>
                             </a-menu-item>
                             <a-menu-item>
                                 <router-link to="homePage" @click="exitLogin">退出</router-link>
@@ -189,4 +202,5 @@ header {
     &:hover {
         color: #E91E63;
     }
-}</style>
+}
+</style>
