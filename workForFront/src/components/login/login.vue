@@ -14,6 +14,7 @@ async function response(result) {
     if (result.status === 200) {
         if(result.data.code==200){
             localStorage.setItem("token", JSON.stringify(result.data.data))
+            localStorage.setItem("userId",JSON.stringify(account.value))
         }
     }
     setTimeout(() => {

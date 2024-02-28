@@ -4,6 +4,7 @@ import {message} from 'ant-design-vue';
 const routes = [
     {
         path: '/',
+        alias:"/homePage",
         name: 'homePage',
         meta: {
             title: '云聘'
@@ -85,25 +86,61 @@ const routes = [
     }, 
 // MARK鉴权
 {
-    path: '/test',
-    name: 'testPage',
+    path: '/chatPage',
+    name: 'chatPage',
     meta: {
-      title: '测试页面',
+      title: '聊天页面',
       permission: true
     },
-    component: () => import('../page/testPage.vue'),
-    // IM 鉴权方法
-    // beforeEnter: (to, from, next) => {
-    //   console.log(233);
-    //   // 检查用户是否已登录
-    //   if (sessionStorage.getItem("token")) {
-    //     next();
-    //   } else {
-    //     message.warning("请先登录");
-    //     next("/login");
-    //   }
-    // }
-  }
+    component: () => import('../page/chatPage.vue'),
+         beforeEnter: (to, from, next) => {
+        // 检查用户是否已登录
+        if (localStorage.getItem("token")) {
+          next();
+        } else {
+          message.warning("请先登录");
+          next("/login");
+        }
+      }
+},
+{
+    path: '/personalPage',
+    name: 'personalPage',
+    meta: {
+      title: '个人页面',
+      permission: true
+    },
+    component: () => import('../page/personalPage.vue'),
+    beforeEnter: (to, from, next) => {
+        // 检查用户是否已登录
+        if (localStorage.getItem("token")) {
+          next();
+        } else {
+          message.warning("请先登录");
+          next("/login");
+        }
+      }
+  },
+  {
+      path: '/test',
+      name: 'testPage',
+      meta: {
+        title: '测试页面',
+        permission: true
+      },
+      component: () => import('../page/testPage.vue'),
+      // IM 鉴权方法
+      // beforeEnter: (to, from, next) => {
+      //   console.log(233);
+      //   // 检查用户是否已登录
+      //   if (sessionStorage.getItem("token")) {
+      //     next();
+      //   } else {
+      //     message.warning("请先登录");
+      //     next("/login");
+      //   }
+      // }
+    }
    
 ]
 export const router = createRouter({

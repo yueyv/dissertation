@@ -17,6 +17,7 @@ async function response(result) {
         // 在session中存储token
         if((result.data.code)==200){
             localStorage.setItem("token", JSON.stringify(result.data.data))
+            localStorage.setItem("userId",JSON.stringify(account.value))
         }
     }
     setTimeout(() => {

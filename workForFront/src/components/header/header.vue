@@ -1,19 +1,22 @@
 <script setup lang='js'>
-import { ref, reactive,onBeforeMount } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
 import { Alert } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
 import { useIPStore } from '../../store/index.js'
+import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
 // TODO使用pinia
 const ipStore = useIPStore()
 const { city } = storeToRefs(ipStore)
-const { useGetIP,useGetCity,manualUpdateCity } = ipStore
+const { useGetIP, useGetCity, manualUpdateCity } = ipStore
 // UPDATE 修改为只允许运行一次，待更新
-onBeforeMount(()=>{
-    useGetIP()
-    useGetCity()
+onBeforeMount(() => {
+    if (!sessionStorage.getItem("userIP")) {
+        useGetIP()
+        useGetCity()
+    }
 })
-const switchCity=()=>{
+const switchCity = () => {
     manualUpdateCity("dwawdaw")
 }
 
@@ -54,7 +57,15 @@ const navItems = [{
 // fetchCity()
 // console.log(props.activeNav);
 // 存到store中
+const userId = ref(JSON.parse(localStorage.getItem('userId')) ?? "")
+// console.log(userId.value);
+const exitLogin=()=>{
+    localStorage.removeItem("userId")
+    localStorage.removeItem("token")
+}
+
 </script>
+
 
 <template>
     <header>
@@ -74,7 +85,28 @@ const navItems = [{
                     {{ item.title }}
                 </router-link>
             </li>
-            <li><router-link to="login">登录</router-link>/<router-link to="register">注册</router-link></li>
+            <li v-if="!userId"><router-link to="login">登录</router-link>/<router-link to="register">注册</router-link></li>
+            <li v-else class="user-id">
+                <a-dropdown>
+                    <router-link to="chatPage" class="ant-dropdown-link" @click.prevent>
+                        {{ userId }}
+                        <DownOutlined />
+                    </router-link>
+                    <template #overlay>
+                        <a-menu>
+                            <a-menu-item>
+                                <router-link to="personalPage" >个人中心</router-link>
+                            </a-menu-item>
+                            <a-menu-item>
+                                <router-link to="chatPage" >聊天页面</router-link>
+                            </a-menu-item>
+                            <a-menu-item>
+                                <router-link to="homePage" @click="exitLogin">退出</router-link>
+                            </a-menu-item>
+                        </a-menu>
+                    </template>
+                </a-dropdown>
+            </li>
         </ul>
     </header>
 </template>
@@ -87,6 +119,15 @@ header {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 9px 9px 0px 0px;
+}
+
+.user-id {
+    background-color: rgba(127, 255, 212, 0.603);
+    border-radius: 20px;
+
+    &:hover {
+        background-color: rgba(127, 255, 212);
+    }
 }
 
 .top-nav {
