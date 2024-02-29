@@ -83,6 +83,14 @@ const routes = [
             title: '搜索页面'
         },
         component: () => import('../page/huntJobPage.vue')
+    },    
+     {
+        path: '/jobPage/:id',
+        name: 'jobPage',
+        meta: {
+            title: '职业详细页面'
+        },
+        component: () => import('../page/jobPage.vue')
     }, 
 // MARK鉴权
 {
@@ -113,6 +121,7 @@ const routes = [
     component: () => import('../page/personalPage.vue'),
     beforeEnter: (to, from, next) => {
         // 检查用户是否已登录
+        // IM 鉴权
         if (localStorage.getItem("token")) {
           next();
         } else {

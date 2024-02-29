@@ -20,7 +20,11 @@ const commendTags=[
         link:"",
     }
 ]
-
+// TODO 到详情页面
+const moveToJobMainPage=(id)=>{
+    router.push(`/jobPage/${id}`)
+    console.log(id);
+}
 </script>
 
 <template>
@@ -32,11 +36,28 @@ const commendTags=[
             <p style="color: #9E9E9E;">热招岗位:</p>
             <p v-for="item in commendTags" class="smart-tag">{{ item.title }}</p>
         </div>
+        <div class="job-contain">
+        <div class="job-item" v-for="item in 4" @click="moveToJobMainPage(currentPage*8+item)">
+            <a-card :title="currentPage*8+item" :bordered="false" style="width: 20vw;height: 30vh;">
+                <p>Card content</p>
+                <p>Card content</p>
+            </a-card>
+        </div>
+    </div>
     </div>
     
 </template>
 
 <style scoped lang='scss'>
+.job-contain {
+    margin-top: 20px;
+    height: calc(100vh - 300px);
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px 10px;
+
+}
 .advs{
     font-weight: 800;
     color: white;

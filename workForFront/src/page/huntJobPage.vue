@@ -1,4 +1,4 @@
-<script setup>
+ <script setup>
 import { ref,reactive} from 'vue'
 import myHeader from '@/components/header/header.vue';
 </script>

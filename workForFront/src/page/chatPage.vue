@@ -1,6 +1,6 @@
 <script setup>
 import myHeader from '@/components/header/header.vue';
-import { h, ref } from 'vue';
+import { h, ref, onMounted, nextTick } from 'vue';
 import {
     MailOutlined,
     CloseOutlined,
@@ -50,12 +50,27 @@ const items = ref([
 const handleClick = menuInfo => {
     console.log('click ', menuInfo);
 };
-const mychat=ref("")
+const mychat = ref("")
 // MARK 发送信息
-const handleEnter=()=>{
+const handleEnter = () => {
 
 }
-// TODO 获取聊天记录滚动到最底部
+//  获取聊天记录滚动到最底部
+const scrollContainer = ref(null);
+
+const scrollToBottom = () => {
+    setTimeout(() => {
+        if (scrollContainer.value) {
+            scrollContainer.value.scrollTop = scrollContainer.value.scrollHeight;
+        }
+    }, 0);
+};
+
+onMounted(() => {
+    nextTick(scrollToBottom);
+});
+
+
 </script>
 
 <template>
@@ -67,15 +82,20 @@ const handleEnter=()=>{
                     :items="items" @click="handleClick" />
             </div>
             <div class="menu-content">
-                <div class="chat-content">
+                <div class="chat-content" ref="scrollContainer">
+                    <div class="chat-item-left">
+                        22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddasd</div>
+                    <div class="chat-item-right">22</div>
+                    <div class="chat-item-left">
+                        22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddasd</div>
+                    <div class="chat-item-right">22</div>
                     <div class="chat-item-left">
                         22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddasd</div>
                     <div class="chat-item-right">22</div>
                 </div>
+
                 <div class="chat-input">
-                    <a-textarea v-model:value="mychat"
-                    @keyup.enter="handleEnter"
-                        placeholder="在此输入聊天内容。输入回车发送"
+                    <a-textarea v-model:value="mychat" @keyup.enter="handleEnter" placeholder="在此输入聊天内容。输入回车发送"
                         :auto-size="{ minRows: 3, maxRows: 3 }" />
 
                 </div>
@@ -122,19 +142,6 @@ const handleEnter=()=>{
     }
 }
 
-.menu-content {
-
-    overflow-x: hidden;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    // flex-grow: 1;
-    max-width: 70%;
-    min-height: 100%;
-    background-color: rgba(240, 248, 255, 0.788);
-}
 
 .chat-item-left {
     max-width: 60%;
@@ -142,6 +149,7 @@ const handleEnter=()=>{
     padding-top: 5px;
     padding-left: 20px;
     padding-right: 20px;
+    margin-top: 5px;
     margin-left: 10px;
     padding-bottom: 8px;
     background-color: aqua;
@@ -152,6 +160,7 @@ const handleEnter=()=>{
 }
 
 .chat-item-right {
+    margin-bottom: 5px;
     max-width: 60%;
     border-radius: 10px;
     padding-top: 5px;
@@ -165,12 +174,36 @@ const handleEnter=()=>{
     overflow-wrap: break-word;
 }
 
+.menu-content {
+
+
+
+    // flex-grow: 1;
+    max-width: 70%;
+    min-height: 100%;
+    background-color: rgba(240, 248, 255, 0.788);
+}
+
 .chat-content {
-    min-height: 80%;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    height: 80%;
+
 }
 
 .chat-input {
+    display: flex;
+    justify-content: center;
+    /* 水平居中 */
+    align-items: end;
+    /* 垂直居中 */
+    height: 20%;
     margin-top: 3px;
     min-height: 20%;
     border-radius: 20px;
-}</style>
+}
+</style>
