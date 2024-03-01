@@ -37,8 +37,8 @@ const moveToJobMainPage=(id)=>{
             <p v-for="item in commendTags" class="smart-tag">{{ item.title }}</p>
         </div>
         <div class="job-contain">
-        <div class="job-item" v-for="item in 4" @click="moveToJobMainPage(currentPage*8+item)">
-            <a-card :title="currentPage*8+item" :bordered="false" style="width: 20vw;height: 30vh;">
+        <div class="job-item" v-for="item in 4" @click="moveToJobMainPage(item)">
+            <a-card :title="item" :bordered="false" style="width: 20vw;height: 30vh;">
                 <p>Card content</p>
                 <p>Card content</p>
             </a-card>
@@ -50,7 +50,7 @@ const moveToJobMainPage=(id)=>{
 
 <style scoped lang='scss'>
 .job-contain {
-    margin-top: 20px;
+    margin-top: 10vh;
     height: calc(100vh - 300px);
     display: grid;
     justify-items: center;
@@ -82,7 +82,7 @@ const moveToJobMainPage=(id)=>{
     border-radius: 5px;
     &:hover{
         background-color: rgba(255,255,255,.8);
-        color: 06bdbc;
+        color: black;
     }
 }
 </style>
