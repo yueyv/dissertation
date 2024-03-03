@@ -5,7 +5,7 @@ import myHeader from '@/components/header/header.vue';
 
 <template>
     <myHeader :active-nav="5"></myHeader>
-    <div class="advs">编辑招聘</div>
+    <div class="advs">编辑招聘详情</div>
 </template>
 
 <style scoped lang='scss'>
