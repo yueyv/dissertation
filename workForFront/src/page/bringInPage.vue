@@ -6,9 +6,13 @@ import myHeader from '@/components/header/header.vue';
 <template>
     <myHeader :active-nav="5"></myHeader>
     <div class="advs">编辑招聘详情</div>
+    <div class="edit-job-contain"></div>
 </template>
 
 <style scoped lang='scss'>
+.edit-job-contain{
+    
+}
 .advs{
     font-weight: 800;
     color: white;
