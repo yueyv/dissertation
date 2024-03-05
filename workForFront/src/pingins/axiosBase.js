@@ -33,3 +33,4 @@ axiosBase.interceptors.response.use(
 );
 
 export default axiosBase;
+export {axiosBase}

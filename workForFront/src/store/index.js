@@ -54,8 +54,9 @@ const useIPStore=defineStore(Names.IP,{
             this.city=newCity
         },
     },
-    persist: {
-        storage: window.sessionStorage,
-      },
+    // SSR 省略
+    // persist: {
+    //     storage: window.sessionStorage,
+    //   },
 })
 export {useIPStore,useUserStore}

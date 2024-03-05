@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
-import {router} from './router'
+import {router} from '@/router/index.js'
 import 'bootstrap-icons/font/bootstrap-icons.scss'
 import { createPinia } from 'pinia'
 import Antd from 'ant-design-vue';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
-import './reset.css'
-import './mock/index.js'
+import '@/assets/reset.css';
+import '@/mock/index.js'
 import { storeToRefs } from 'pinia'
 
 const pinia=createPinia()

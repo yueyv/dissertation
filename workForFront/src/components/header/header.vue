@@ -1,6 +1,6 @@
 <script setup lang='js'>
 import { ref, reactive, watch, onBeforeMount } from 'vue'
-import { Alert,Input,Space } from 'ant-design-vue';
+import { Alert, Input, Space } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
 import { message } from 'ant-design-vue';
 import { useIPStore } from '../../store/index.js'
@@ -10,12 +10,16 @@ import { storeToRefs } from 'pinia'
 const ipStore = useIPStore()
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
+const userId = ref("")
 // UPDATE 修改为只允许运行一次，待更新
 onBeforeMount(() => {
     if (!sessionStorage.getItem("userIP")) {
         useGetIP()
         useGetCity()
+        // 存到store中
+        
     }
+    userId.value=JSON.parse(localStorage.getItem('userId')) ?? ""
 })
 const newCity = ref('');
 
@@ -55,8 +59,7 @@ const navItems = [{
 // };
 // fetchCity()
 // console.log(props.activeNav);
-// 存到store中
-const userId = ref(JSON.parse(localStorage.getItem('userId')) ?? "")
+
 // console.log(userId.value);
 const exitLogin = () => {
     localStorage.removeItem("userId")

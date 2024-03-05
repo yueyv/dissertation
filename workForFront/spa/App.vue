@@ -2,9 +2,9 @@
 </script>
 
 <template>
-    <box class="main-bg-color">
+    <div class="main-bg-color">
         <router-view></router-view>
-    </box>
+    </div>
 </template>
 
 <style lang="scss">
