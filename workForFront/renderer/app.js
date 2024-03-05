@@ -1,7 +1,8 @@
 import { createSSRApp, defineComponent, h, toRaw } from 'vue'
 import { router } from '@/router/index';
+import Antd from 'ant-design-vue'
 import all from './all.page.vue'
-import { createPinia, PiniaPluginContext } from "pinia"
+import { createPinia} from "pinia"
 export { createApp }
 
 
@@ -62,7 +63,7 @@ function createApp(Page, pageProps, pageContext) {
   const app = createSSRApp(PageWithLayout)
   const pinia=createPinia()
   // Make pageContext available from any Vue component
-
+    app.use(Antd)
     app.use(router)
     app.use(pinia)
   return { app, router }

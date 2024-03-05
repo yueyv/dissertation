@@ -54,8 +54,8 @@ async function startServer() {
     if (res.writeEarlyHints) res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) })
     res.status(statusCode).type(contentType).send(body)
   })
-
-  const port = process.env.PORT || 5173
+// SSR 端口
+  const port = process.env.PORT || 5174
   app.listen(port)
   console.log(`Server running at http://localhost:${port}`)
 }

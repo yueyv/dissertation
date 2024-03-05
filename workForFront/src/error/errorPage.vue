@@ -6,11 +6,11 @@ import { Button as AButton} from 'ant-design-vue' ;
 
 <template>
     <headerError></headerError>
-    <box class="errorMes">你可能遇到了错误,请返回重试
+    <div class="errorMes">你可能遇到了错误,请返回重试
         <br>
         <br>
         <a-button type="primary" danger ghost href="/" size="large">返回首页</a-button>
-    </box>
+    </div>
     
 </template>
 

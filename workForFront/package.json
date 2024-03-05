@@ -4,10 +4,10 @@
   "version": "0.3.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite serve  --config vite.config.spa.js",
+    "ssr-dev": "npm rum server",
     "build": "vite build",
     "preview": "vite preview",
-    "ssr-dev": "npm rum server",
     "ssr-prod": "npm run build && npm run server:prod",
     "ssr-build": "vite build",
     "server": "node ./server/index.js",
