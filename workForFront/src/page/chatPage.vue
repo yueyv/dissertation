@@ -119,7 +119,7 @@ onMounted(() => {
 .chat-box {
     display: flex;
     margin-top: 20px;
-    background-color: aqua;
+    background-color: rgba(27, 107, 107, 0.404);
     width: 100%;
     margin-bottom: 20px;
 }
@@ -152,7 +152,7 @@ onMounted(() => {
     margin-top: 5px;
     margin-left: 10px;
     padding-bottom: 8px;
-    background-color: aqua;
+    background-color: rgba(97, 177, 177, 0.356);
     text-align: left;
     font-size: 1.2rem;
     overflow-wrap: break-word;
@@ -168,7 +168,7 @@ onMounted(() => {
     padding-right: 20px;
     margin-left: 30%;
     padding-bottom: 8px;
-    background-color: white;
+    background-color: rgba(216, 208, 208, 0.589);
     text-align: left;
     font-size: 1.2rem;
     overflow-wrap: break-word;
@@ -181,7 +181,7 @@ onMounted(() => {
     // flex-grow: 1;
     max-width: 70%;
     min-height: 100%;
-    background-color: rgba(240, 248, 255, 0.788);
+    background-color: rgba(240, 248, 255, 0.514);
 }
 
 .chat-content {

@@ -1,39 +1,30 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import myHeader from '@/components/header/header.vue';
-import {
-    EditOutlined
-} from '@ant-design/icons-vue';
 </script>
 
 <template>
     <myHeader></myHeader>
-    <<router-link to="editPersonMesPage">
-        <div class="edit">
-        <EditOutlined />
-    </div>
-    </router-link>
-
     <div class="appointment-w3">
         <form action="#" method="post">
             <div class="personal">
                 <h2>个人信息</h2>
                 <div class="form-left-w3l">
                     <p>姓名</p>
-                    <input type="text" name="name" placeholder="姓名" required="" disabled>
+                    <input type="text" name="name" placeholder="姓名" required="">
                 </div>
                 <div class="form-right-w3ls ">
                     <p>毕业院校</p>
-                    <input type="text" name="collage" placeholder="XXXX" required="" disabled>
+                    <input type="text" name="collage" placeholder="XXXX" required="">
                     <div class="clear"></div>
                 </div>
                 <div class="form-left-w3l">
                     <p>邮箱</p>
-                    <input type="email" name="email" placeholder="Mail@example.com" required="" disabled>
+                    <input type="email" name="email" placeholder="Mail@example.com" required="">
                 </div>
                 <div class="form-right-w3ls ">
                     <p>电话</p>
-                    <input class="buttom" type="text" name="phone number" placeholder="XXXX" required="" disabled>
+                    <input class="buttom" type="text" name="phone number" placeholder="XXXX" required="">
                 </div>
                 <div class="clear"></div>
             </div>
@@ -41,15 +32,15 @@ import {
                 <h3>求职信息</h3>
                 <div class="form-add-w3ls">
                     <p>现住地</p>
-                    <input type="text" name="address" placeholder="XXX" required="" disabled>
+                    <input type="text" name="address" placeholder="XXX" required="">
                 </div>
                 <div class="form-left-w3l">
                     <p>期望城市</p>
-                    <input type="text" name="city" placeholder="XX" required="" disabled>
+                    <input type="text" name="city" placeholder="XX" required="">
                 </div>
                 <div class="form-right-w3ls">
                     <p>期望薪资</p>
-                    <select class="form-control" disabled>
+                    <select class="form-control">
                         <option value="">5k以下</option>
                         <option value="1">5-8k</option>
                         <option value="2">8-15k</option>
@@ -64,29 +55,23 @@ import {
                 <h3>其他</h3>
                 <div class="clear"></div>
                 <div class="form-control-w3l">
-                    <textarea name="text" placeholder="补充信息" disabled></textarea>
+                    <textarea name="text" placeholder="补充信息"></textarea>
                 </div>
             </div>
+            <input type="submit" value="提交修改">
         </form>
     </div>
 </template>
 
 <style scoped lang='scss'>
-
-.edit{
-    color: black;
-    position: fixed;
-    border-radius: 50%;
-    font-size: 80px;
-    left: 80vw;
-    overflow: hidden;
-    top: 40vh;
-    background-color: #ffffff5e;
-    :hover{
-        color: rgba(0, 0, 0, 0.521);
-        background-color: #ffffffb9;
-        border-radius: 50%;
-    }
+body {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    min-height: 100vh;
 }
 
 .appointment-w3 {

@@ -94,6 +94,24 @@ const routes = [
     }, 
 // MARK鉴权
 {
+    path: '/editPersonMesPage',
+    name: 'editPersonMesPage',
+    meta: {
+      title: '修改信息',
+      permission: true
+    },
+    component: () => import('../page/editPersonMesPage.vue'),
+         beforeEnter: (to, from, next) => {
+        // 检查用户是否已登录
+        if (localStorage.getItem("token")) {
+          next();
+        } else {
+          message.warning("请先登录");
+          next("/login");
+        }
+      }
+},
+{
     path: '/chatPage',
     name: 'chatPage',
     meta: {
