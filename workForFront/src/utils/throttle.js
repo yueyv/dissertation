@@ -1,8 +1,8 @@
-export function throttle(func: Function, wait: number): Function {
+export function throttle(func, wait) {
     let lastTime = 0;
-    let timer: ReturnType<typeof setTimeout> | undefined;
+    let timer;
     
-    return function(this: unknown, ...args: any[]) {
+    return function(this, ...args) {
       const now = performance.now();
       const elapsed = now - lastTime;
       const context = this;

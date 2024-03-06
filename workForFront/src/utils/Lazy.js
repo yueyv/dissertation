@@ -1,7 +1,7 @@
 // 获取所有带有 "lazy" 类的图片元素
 const lazyImages = document.querySelectorAll('.lazy');
 // 当图片加载完成
-const imgOnLoad=(img:any)=>{
+const imgOnLoad=(img)=>{
     img.style="opacity:1";
     img.parentNode.classList.remove("double-ringed");
     console.log(img.parentNode);
@@ -10,7 +10,7 @@ const imgOnLoad=(img:any)=>{
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      const img:any = entry.target;
+      const img = entry.target;
       img.src = img.dataset.src;
     //   console.log(img.dataset.src);
       img.classList.remove('lazy');

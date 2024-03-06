@@ -1,8 +1,8 @@
-export function debounce(func: Function, delay: number): Function {
+export function debounce(func, delay) {
   // 计时器
-  let time: ReturnType<typeof setTimeout> | undefined;
+  let time;
 
-  return function(this:unknown) {
+  return function(this) {
     const context = this;
     const args = arguments;
     // 如果存在就清除计时器
