@@ -1,10 +1,18 @@
 <script setup>
-import { ref,reactive} from 'vue'
+import { ref,reactive, onBeforeMount} from 'vue'
 import myHeader from '@/components/header/header.vue';
+import { useRouter } from 'vue-router'
+const router = useRouter()
+onBeforeMount(()=>{
+    const permission=JSON.parse(sessionStorage.getItem("permission"))
+    console.log(permission);
+})
+
 </script>
 
 <template>
     <myHeader :active-nav="5"></myHeader>
+
     <div class="advs">编辑招聘详情</div>
     <div class="edit-job-contain"></div>
 </template>

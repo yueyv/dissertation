@@ -1,7 +1,7 @@
 <script setup>
 import { ref,reactive} from 'vue'
 import {Button as AButton,message} from "ant-design-vue"
-import {axiosBase} from '../pingins/axiosBase'
+import {axiosBase} from '../plugins/axiosBase'
 import md5 from 'js-md5'   
 
 console.log(md5("233"));

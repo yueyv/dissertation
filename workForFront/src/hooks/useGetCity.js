@@ -2,7 +2,7 @@
  * @return {string} 
  */
 import {keyData} from '../../key/key.js' ;
-import axios from '../pingins/axiosBase.js';
+import axios from '../plugins/axiosBase.js';
 
 
 

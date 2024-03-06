@@ -9,7 +9,7 @@ const axiosBase = axios.create({
 axiosBase.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
-        config.headers.Authorization = token;
+        config.headers.Authorization = JSON.parse(token);
     }
     console.log('配置请求拦截器....');
     return config;

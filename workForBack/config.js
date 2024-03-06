@@ -2,9 +2,9 @@
 const configs = {
     // IM 链接mysql
     mysql: {
-        host: 'localhost',
+        host: '20.213.10.238',
         user: 'root',
-        password: 'yueyv',
+        password: '129218219',
         port: '3306',
         database: 'schoolWork'
     },

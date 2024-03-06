@@ -9,6 +9,10 @@ class Base {
     inquire(id){
         return knex(this.table).where('username','=',id)
     }
+    safeInquire(id){
+        return     knex(this.table).select('user_id', 'username', 'permission', 'email', 'phone', 'college', 'address', 'name', 'city', 'salary', 'other').where('username', '=', id)
+        .first();
+    }
     insert(params){
         return knex(this.table).insert(params)
     }

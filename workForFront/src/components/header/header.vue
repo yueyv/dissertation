@@ -3,6 +3,7 @@ import { ref, reactive, watch, onBeforeMount } from 'vue'
 import { Alert, Input, Space } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
 import { message } from 'ant-design-vue';
+import axios from '@/plugins/axiosBase.js';
 import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
@@ -17,9 +18,16 @@ onBeforeMount(() => {
         useGetIP()
         useGetCity()
         // 存到store中
-        
     }
-    userId.value=JSON.parse(localStorage.getItem('userId')) ?? ""
+    if (!sessionStorage.getItem("userInformation")) {
+        axios.post('get_user').then((res) => {
+            if(res.code==200){
+                sessionStorage.setItem("userInformation",JSON.stringify(res.data))
+                sessionStorage.setItem("permission",JSON.stringify(res.data.permission))
+            }
+        })
+    }
+    userId.value = JSON.parse(localStorage.getItem('userId')) ?? ""
 })
 const newCity = ref('');
 
