@@ -22,5 +22,8 @@ class Base {
     delete(id){
         return knex(this.table).where('id','=',id).del();
     }
+    searchId(id){
+        return knex(this.table).select('user_id').where('username', '=', id).first()
+    }
 }
 module.exports=Base

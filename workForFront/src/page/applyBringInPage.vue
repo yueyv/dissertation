@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import { InboxOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
@@ -16,12 +16,19 @@ const status = ref(false)
 function handleDrop(e) {
     console.log(e);
 }
+onBeforeMount(() => {
+    axios.get("get_isExistUpload").then((res) => {
+        if (res.isExistUpload == true) {
+            existUpload.value = true
+        }
+    })
+})
 const headleUpload = (info) => {
     const formData = new FormData()
     // console.log(fileList.value);
     fileList.value.forEach((file) => {
-        console.log(file.originFileObj);
-        
+        // console.log(file.originFileObj);
+
         formData.append("file", file.originFileObj)
     })
     // test
@@ -34,8 +41,14 @@ const headleUpload = (info) => {
     }).then(response => {
         fileList.value = []
         status.value = false
-        message.success(`${info.file.name} 上传成功.`);
-        console.log('上传成功', response.data);
+        if (response.code == 200) {
+            message.success(`${info.file.name} 上传成功.`);
+            console.log('上传成功', response.data);
+            existUpload.value = true
+        } else {
+            message.error(`服务器维修`);
+        }
+
     }).catch(error => {
         status.value = false
         console.error('上传失败', error);

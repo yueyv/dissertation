@@ -1,7 +1,7 @@
 const { log } = require('../config')
 const { update } = require('../models/jobs')
 const User = require('../models/user')
-
+const fs = require('fs');
 const jwt = require('../utils/jwt')
 
 const useController = {
@@ -14,6 +14,19 @@ const useController = {
                 await User.update(username,{
                     apply_filename:req.file.originalname
                 })
+                const returnData=await User.searchId(username)
+                // console.log(returnData.user_id);
+                // console.log(req.file);
+                // const bufferData = Buffer.from(req.file.butter, 'binary');
+                // console.log(bufferData);
+                // const convertedString = bufferData.toString('utf-8');
+                // console.log(convertedString);
+                try {
+                    fs.writeFileSync(`./file/${returnData.user_id}_${req.file.originalname}`, req.file.buffer);
+                    // console.log(233);
+                  } catch (err) {
+                    console.error('Error saving file:', err);
+                  }
                 // console.log(req.file);
                 res.json({
                     code: 200,
