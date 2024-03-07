@@ -1,9 +1,8 @@
 var express = require('express');
 // const useControllerUser = require('../controllers/user');
-const useControllerNote = require('../controllers/note');
 const useControllerUser = require('../controllers/user');
-const useControllerStyle = require('../controllers/style');
-const useController_first_card = require('../controllers/first_card');
+const multer = require('multer');
+const upload = multer();
 const { log } = require('../config');
 const useGetCity=require("../utils/getCity")
 var router = express.Router();
@@ -19,13 +18,16 @@ router.post('/api/update_user', useControllerUser.updateUser)
 // 登录
 router.post('/api/login',useControllerUser.login)
 router.post('/api/register',useControllerUser.register)
+// 上传材料
+router.post('/api/upload_apply',upload.single('file'),useControllerUser.upload_apply)
+
 
 
 module.exports = router;
 
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{
-  const token = req.headers.authorization;
+  // const token = req.headers.authorization;
   const ip=req
   // console.log(req.query);
   // console.log(ip);

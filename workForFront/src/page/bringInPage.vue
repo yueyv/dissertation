@@ -3,22 +3,22 @@ import { ref, reactive, onBeforeMount } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import { useRouter } from 'vue-router'
 const router = useRouter()
-const permission=ref(1);
+const permission = ref(1);
 onBeforeMount(() => {
     permission.value = JSON.parse(sessionStorage.getItem("permission"))
     console.log(permission.value);
 })
-const back=()=>{
+const back = () => {
     router.back()
 }
-const moveToApply=()=>{
-    router.push()
+const moveToApply = () => {
+    router.push('/bringInPage/apply')
 }
 </script>
 
 <template>
     <myHeader :active-nav="5"></myHeader>
-    <div class="auth" v-show="permission==0">
+    <div class="auth" v-show="permission == 0">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">权限不足</h1>
             <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button>
@@ -30,12 +30,13 @@ const moveToApply=()=>{
 </template>
 
 <style scoped lang='scss'>
-.auth{
+.auth {
     position: fixed;
     width: 100%;
     height: 100%;
     background-color: #00000057;
-    .auth-box{
+
+    .auth-box {
         font-size: 30px;
         background-color: rgba(240, 248, 255, 0.76);
         width: 20vw;
@@ -48,10 +49,12 @@ const moveToApply=()=>{
         position: fixed;
         left: 50%;
         top: 40%;
-        transform: translate(-50%,-50%);;
+        transform: translate(-50%, -50%);
+        ;
     }
 }
-.edit-job-contain {}
+
+// .edit-job-contain {}
 
 .advs {
     font-weight: 800;

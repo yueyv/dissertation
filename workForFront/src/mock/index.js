@@ -9,8 +9,8 @@ import Mock from 'mockjs'  //导入mockjs
 // })
 
 //导出
-const  CityData=Mock.mock('http://localhost:3000/api/ask_city','get',{
-    status:200,
-    city:"马鞍山市"
-})
-export default CityData
+// const  CityData=Mock.mock('http://localhost:3000/api/ask_city','get',{
+//     status:200,
+//     city:"马鞍山市"
+// })
+// export default CityData

@@ -1,10 +1,33 @@
 const { log } = require('../config')
 const { update } = require('../models/jobs')
 const User = require('../models/user')
+
 const jwt = require('../utils/jwt')
+
 const useController = {
-
-
+// IM 使用文件系统
+    upload_apply:async function (req, res, next) {
+        // console.log(req.headers.authorization);
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            try {
+                await User.update(username,{
+                    apply_filename:req.file.originalname
+                })
+                // console.log(req.file);
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data:null
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            console.log(e);
+            res.json({ code: 100, message: "超时", data: e })
+        })
+    },
     showUser:async function (req, res, next) {
         // console.log(req.headers.authorization);
         jwt.verify(req.headers.authorization).then(async username => {

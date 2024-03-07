@@ -112,20 +112,20 @@ const handleOk = (e) => {
             <li v-if="!userId"><router-link to="login">登录</router-link>/<router-link to="register">注册</router-link></li>
             <li v-else class="user-id">
                 <a-dropdown>
-                    <router-link to="chatPage" class="ant-dropdown-link" @click.prevent>
+                    <router-link to="/chatPage" class="ant-dropdown-link" @click.prevent>
                         {{ userId }}
                         <DownOutlined />
                     </router-link>
                     <template #overlay>
                         <a-menu>
                             <a-menu-item>
-                                <router-link to="personalPage">个人中心</router-link>
+                                <router-link to="/personalPage">个人中心</router-link>
                             </a-menu-item>
                             <a-menu-item>
-                                <router-link to="chatPage">聊天页面</router-link>
+                                <router-link to="/chatPage">聊天页面</router-link>
                             </a-menu-item>
                             <a-menu-item>
-                                <router-link to="homePage" @click="exitLogin">退出</router-link>
+                                <router-link to="/homePage" @click="exitLogin">退出</router-link>
                             </a-menu-item>
                         </a-menu>
                     </template>
