@@ -75,7 +75,6 @@ const useController = {
         }
     },
     getHomeJob: async function (req, res, next) {
-
         try {
             let jobData = await Job.homeJobSelect("vaild","1")
                 res.json({
