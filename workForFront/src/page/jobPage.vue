@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import myHeader from '@/components/header/header.vue';
 const route = useRoute()
 console.log(route.params.id);
+// TODO跳转聊天
 const clickButton=()=>{
 
 }

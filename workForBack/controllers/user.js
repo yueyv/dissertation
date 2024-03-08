@@ -2,9 +2,54 @@ const { log } = require('../config')
 const { update } = require('../models/jobs')
 const User = require('../models/user')
 const fs = require('fs');
-const jwt = require('../utils/jwt')
+const jwt = require('../utils/jwt');
 
 const useController = {
+    getPermission:async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                let data = await User.isPermission(username)
+                // if(data.Permission==1)
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data:data
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
+    isExistUpload:async function (req, res, next) {
+        // console.log(req.headers.authorization);
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                let userData = await User.searchIsUpload(username)
+                let isExistUpload
+                if(userData.apply_filename!=null){
+                    isExistUpload=true
+                }else{
+                    isExistUpload=false
+                }
+                res.json({
+                    code: 200,
+                    message: "success",
+                    isExistUpload:isExistUpload
+                    // ss,sanitizedUserData
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "超时", data: e })
+        })
+    },
 // IM 使用文件系统
     upload_apply:async function (req, res, next) {
         // console.log(req.headers.authorization);
@@ -88,7 +133,7 @@ const useController = {
             let userData = await User.inquire(username)
             let data = JSON.parse(JSON.stringify(userData))
             const newData = { ...data }['0']
-            console.log(newData);
+            // console.log(newData);
             if (newData.password == pwd) {
                 const params = {
                     username: `${username}`,
@@ -110,7 +155,7 @@ const useController = {
             }
 
         } catch (e) {
-            res.json({ code: 202, message: "iderror", data: e })
+            res.json({ code: 300, message: "iderror,重试", data: e })
         }
     },
     register: async function (req, res, next) {

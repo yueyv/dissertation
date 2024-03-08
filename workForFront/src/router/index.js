@@ -100,6 +100,15 @@ const routes = [
     },
     component: () => import('../page/applyBringInPage.vue')
   },
+  {
+    path: '/bringInPage/myEdit',
+    name: 'myEditPage',
+    meta: {
+      title: '管理招聘页面'
+    },
+    component: () => import('../page/myEditPage.vue')
+  },
+  
   // MARK鉴权
   {
     path: '/editPersonMesPage',

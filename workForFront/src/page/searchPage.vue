@@ -1,22 +1,39 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive,onMounted } from 'vue'
 import myHeader from '../components/header/header.vue';
-import search from '../components/search/index.vue'
-import { router } from "../router/index";
-const currentPage = ref(1);
-const totalPage = 90
-// TODO 发送请求
+import search from '@/components/search/index.vue';
+import axios from '@/plugins/axiosBase';
+import { message } from 'ant-design-vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
+const currentPage=ref(1)
+const jobItem=ref([])
+const totalPage = ref(2)
+const isShow=ref(false)
 const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
 // TODO 从后端返回
-const jobItem = [
-    {
-        id: 1
-    }
-]
+onMounted(() => {
+    axios.post('getAllJob').then((res)=>{
+        // console.log(res);
+        if(res.code==200){
+            console.log(res.data);
+            jobItem.value=res.data
+            // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
+            totalPage.value=res.data.length
+            isShow.value=true
+            // console.log(jobItem.value[0].title);
+        }else{
+            message.error("服务器返回错误")
+        }
+    }).catch((e)=>{
+        console.log(e);
+        message.error("加载错误")
+    })
+})
 // TODO 到详情页面
-const moveToJobMainPage = (id) => {
+const moveToJobMainPage=(id)=>{
     router.push(`/jobPage/${id}`)
     console.log(id);
 }
@@ -81,16 +98,18 @@ const handleChange = (value) => {
             <a-select v-model:value="character" style="width: 15vw;font-size: 20px;"  :options="characterOptions" @change="handleChange"></a-select>
         </div>
     </div>
-    <div class="job-contain">
-        <div class="job-item" v-for="item in 4" @click="moveToJobMainPage(currentPage * 8 + item)">
-            <a-card :title="currentPage * 8 + item" :bordered="false" style="width: 20vw;height: 30vh;">
-                <p>Card content</p>
-                <p>Card content</p>
+    <div class="job-contain" v-if="isShow">
+        <div class="job-item" v-for="item in Math.min(4, jobItem.length - (currentPage-1) * 4)" @click="moveToJobMainPage(jobItem[(currentPage-1) * 4 + item-1].job_id)">
+            <a-card :title="jobItem[(currentPage-1) * 4 + item-1].title" :bordered="false" style="width: 20vw;height: 30vh;">
+                <p v-if="jobItem[(currentPage-1) * 4 + item-1].vaild=='0'" style="color: red;font-size: 20px;">未通过审核</p>
+                <p>{{jobItem[(currentPage-1) * 4 + item-1].company_name}}</p>
+                <p>{{jobItem[(currentPage-1) * 4 + item-1].walfare}}</p>
+                <p>{{jobItem[(currentPage-1) * 4 + item-1].description}}</p>
             </a-card>
         </div>
     </div>
     <div class="pagination-box">
-        <a-pagination v-model:current="currentPage" :defaultPageSize="8" :showSizeChanger="false" :total="totalPage"
+        <a-pagination v-model:current="currentPage" :hideOnSinglePage="true" :defaultPageSize="4" :showSizeChanger="false" :total="totalPage"
             @change="onChange" />
         <br />
     </div>

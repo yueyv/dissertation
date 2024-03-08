@@ -1,6 +1,6 @@
 var express = require('express');
-// const useControllerUser = require('../controllers/user');
 const useControllerUser = require('../controllers/user');
+const useControllerJob = require('../controllers/job');
 const multer = require('multer');
 const upload = multer();
 const { log } = require('../config');
@@ -20,10 +20,19 @@ router.post('/api/login',useControllerUser.login)
 router.post('/api/register',useControllerUser.register)
 // 上传材料
 router.post('/api/upload_apply',upload.single('file'),useControllerUser.upload_apply)
+// 判定上传
+router.get('/api/get_isExistUpload',useControllerUser.isExistUpload)
+router.get('/api/getPermission',useControllerUser.getPermission)
+
+// IM JOB
+router.post('/api/addJob',useControllerJob.addJob)
+router.post("/api/getMyEditJob",useControllerJob.getMyEditJob)
+router.post("/api/getAllJob",useControllerJob.getAllJob)
+router.post("/api/getHomeJob",useControllerJob.getHomeJob)
 
 
 
-module.exports = router;
+
 
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{
@@ -43,3 +52,4 @@ router.get('/api/get_city',(req,res,next)=>{
   })
   
 })
+module.exports = router;
