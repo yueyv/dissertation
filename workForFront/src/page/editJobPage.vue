@@ -4,7 +4,7 @@ import myHeader from '@/components/header/header.vue';
 import axios from '../plugins/axiosBase.js';
 import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
-import { flexProps } from 'ant-design-vue/es/flex/interface.js';
+
 const router = useRouter()
 const route = useRoute()
 const isShow = ref(false)
@@ -40,13 +40,12 @@ const deleteJob = () => {
     open.value = true
 }
 const handleOk = () => {
-    axios.post("deleteJob", { job_id: formState.value[0].job_id }).then((res) => {
+    axios.post("deleteJob", { job_id: formState.value[0].job_id,user_id: formState.value[0].user_id }).then((res) => {
         if (res.code == 200) {
             message.success("删除成功")
             router.push("/bringInPage/myEdit")
         }else{
             message.error("服务器错误")
-            console.log(e);
         }
 
     }).catch((e)=>{
@@ -62,10 +61,17 @@ const openApplicants = () => {
 const handleApplicants = () => {
     applicants.value = false
 }
+const moveToApplicatPage = (id) => {
+    router.push(`/applicantPage/${id}`)
+}
+// TODO
+const moveTochatPage=()=>{
+    
+}
 </script>
 
 <template>
-    <myHeader :active-nav="6"></myHeader>
+    <myHeader :active-nav="5"></myHeader>
     <div class="advs">
         <p style="padding-top: 40px;" v-if="!isShow">加载中</p>
         <!-- 传参 -->
@@ -76,15 +82,16 @@ const handleApplicants = () => {
         <a-space style="">
             <a-button type="primary" ghost @click="openApplicants()">查看申请者</a-button>
             <a-modal cancelText="取消" okText="确认" v-model:open="applicants" title="申请者" @ok="handleApplicants()">
-                <a-space direction="vertical">
+                <a-space direction="vertical" style="display: flex;justify-content: center;align-items: center;">
                     <div v-if="!formState.value[0].applicant_id">
                         不存在
                     </div>
                     <div v-else-if="formState.value[0].applicant_id">
                         <!-- todo -->
-                        {{ formState.value[0].applicant_id }}
+                        <div v-for="(item,key) in formState.value[0].applicant_id.split(',')" >
+                            <a-button style=" margin-right: 40px;padding-bottom: 10px;" @click="moveToApplicatPage(item)">{{ key+1 }}号申请人</a-button>
+                        </div>     
                     </div>
-
                 </a-space>
             </a-modal>
             <a-button type="primary" danger @click="deleteJob()">删除这个招聘</a-button>

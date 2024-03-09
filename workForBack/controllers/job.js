@@ -100,6 +100,37 @@ const useController = {
         } catch (e) {
             res.json({ code: 0, message: "default", data: e })
         }
-    }
+    },
+    deleteJob:async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                let data = await User.isPermission(username)
+                if (data.permission == 1) {
+                    let userIdData = await User.searchId(username)
+                    // console.log(userIdData.user_id);
+                    if(userIdData.user_id==req.body.user_id){
+                        console.log(req.body);
+                        await Job.delete("job_id",req.body.job_id)
+                        res.json({
+                            code: 200,
+                            message: "success",
+                        })
+                    }else{
+                        res.json({ code: -1, message: "权限不足" })
+                    }
+
+                } else {
+                    res.json({ code: -1, message: "权限不足" })
+                }
+
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
 }
 module.exports = useController

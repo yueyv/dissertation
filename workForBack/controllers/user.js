@@ -107,6 +107,28 @@ const useController = {
             res.json({ code: 100, message: "超时", data: e })
         })
     },
+    showUserFromId:async function (req, res, next) {
+        // console.log(req.headers.authorization);
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                console.log(req.body.user_id);
+                let userData = await User.select("user_id",req.body.user_id)
+
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data:userData
+                    // ss,sanitizedUserData
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "超时", data: e })
+        })
+    },
     updateUser:async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             try {

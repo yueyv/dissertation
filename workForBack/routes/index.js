@@ -14,6 +14,7 @@ router.get('/', function (req, res, next) {
 
 // 个人信息
 router.post('/api/get_user', useControllerUser.showUser)
+router.post('/api/get_user_other', useControllerUser.showUserFromId)
 router.post('/api/update_user', useControllerUser.updateUser)
 // 登录
 router.post('/api/login',useControllerUser.login)
@@ -30,7 +31,7 @@ router.post("/api/getMyEditJob",useControllerJob.getMyEditJob)
 router.post("/api/getAllJob",useControllerJob.getAllJob)
 router.post("/api/getHomeJob",useControllerJob.getHomeJob)
 router.post("/api/getJobInfo",useControllerJob.getJobInfo)
-
+router.post("/api/deleteJob",useControllerJob.deleteJob)
 
 
 

@@ -51,11 +51,11 @@ const moveToBringIn = () => {
 }
 
 
-// TODO 发送请求
+// DONE 发送请求
 const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
-// TODO 到详情页面
+// done 到详情页面
 const moveToJobMainPage = (id) => {
     router.push(`/editJobPage/${id}`)
     console.log(id);
