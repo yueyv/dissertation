@@ -2,20 +2,24 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import axios from '../plugins/axiosBase.js';
+import { useRouter } from 'vue-router';
+const router = useRouter()
 import {
     EditOutlined
 } from '@ant-design/icons-vue';
 const userData = ref({
-        email: null,
-        phone: null,
-        college: null,
-        address: null,
-        name: null,
-        city: null,
-        salary: null,
-        other: null
+    email: null,
+    phone: null,
+    college: null,
+    address: null,
+    name: null,
+    city: null,
+    salary: null,
+    other: null
 });
 
+const permission = ref(0);
+const isShow=ref(false)
 onBeforeMount(() => {
     axios.post('get_user').then((res) => {
         userData.value = res.data
@@ -24,8 +28,19 @@ onBeforeMount(() => {
         console.log("查询失败");
         console.log(e);
     })
+    axios.get("getPermission").then((res) => {
+        if (res.code == 200) {
+            permission.value = res.data.permission
+            isShow.value=true
+            console.log(permission.value);
+            sessionStorage.setItem("permission", JSON.stringify(res.data.permission))
+        }
+    }
+    )
 })
-
+const back=()=>{
+    router.push("/bringInPage/myEdit")
+}
 </script>
 
 <template>
@@ -34,66 +49,96 @@ onBeforeMount(() => {
         <div class="edit">
             <EditOutlined />
         </div>
-        </router-link>
-
-        <div class="appointment-w3">
-            <form action="#" method="post">
-                <div class="personal">
-                    <h2>个人信息</h2>
-                    <div class="form-left-w3l">
-                        <p>姓名</p>
-                        <input type="text" name="name" :placeholder="userData.name" required="" disabled>
-                    </div>
-                    <div class="form-right-w3ls ">
-                        <p>毕业院校</p>
-                        <input type="text" name="collage" :placeholder="userData.college" required="" disabled>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="form-left-w3l">
-                        <p>邮箱</p>
-                        <input type="email" name="email" :placeholder="userData.email" required="" disabled>
-                    </div>
-                    <div class="form-right-w3ls ">
-                        <p>电话</p>
-                        <input class="buttom" type="text" name="phone number" :placeholder="userData.phone" required="" disabled>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="information">
-                    <h3>求职信息</h3>
-                    <div class="form-add-w3ls">
-                        <p>现住地</p>
-                        <input type="text" name="address" :placeholder="userData.address" required="" disabled>
-                    </div>
-                    <div class="form-left-w3l">
-                        <p>期望城市</p>
-                        <input type="text" name="city" :placeholder="userData.city" required="" disabled>
-                    </div>
-                    <div class="form-right-w3ls">
-                        <p>期望薪资</p>
-                        <select class="form-control" v-model="userData.salary" disabled>
-                            <option value="">5k以下</option>
-                            <option value="1">5-8k</option>
-                            <option value="2">8-15k</option>
-                            <option value="2">15k以上</option>
-                            <option value="2">面谈</option>
-                        </select>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-
-                <div class="other">
-                    <h3>其他</h3>
-                    <div class="clear"></div>
-                    <div class="form-control-w3l">
-                        <textarea name="text" :placeholder="userData.other" disabled></textarea>
-                    </div>
-                </div>
-            </form>
+    </router-link>
+    <div class="auth" v-if="permission == 1">
+        <div class="auth-box">
+            <h1 style="margin-top: 3vw;">您是招聘人员</h1>
+            <!-- <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button> -->
+            <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">前往招聘页面</a-button>
         </div>
+    </div>
+    <div class="appointment-w3" v-if="isShow">
+        <form action="#" method="post">
+            <div class="personal">
+                <h2>个人信息</h2>
+                <div class="form-left-w3l">
+                    <p>姓名</p>
+                    <input type="text" name="name" :placeholder="userData.name" required="" disabled>
+                </div>
+                <div class="form-right-w3ls ">
+                    <p>毕业院校</p>
+                    <input type="text" name="collage" :placeholder="userData.college" required="" disabled>
+                    <div class="clear"></div>
+                </div>
+                <div class="form-left-w3l">
+                    <p>邮箱</p>
+                    <input type="email" name="email" :placeholder="userData.email" required="" disabled>
+                </div>
+                <div class="form-right-w3ls ">
+                    <p>电话</p>
+                    <input class="buttom" type="text" name="phone number" :placeholder="userData.phone" required=""
+                        disabled>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="information">
+                <h3>求职信息</h3>
+                <div class="form-add-w3ls">
+                    <p>现住地</p>
+                    <input type="text" name="address" :placeholder="userData.address" required="" disabled>
+                </div>
+                <div class="form-left-w3l">
+                    <p>期望城市</p>
+                    <input type="text" name="city" :placeholder="userData.city" required="" disabled>
+                </div>
+                <div class="form-right-w3ls">
+                    <p>期望薪资</p>
+                    <select class="form-control" v-model="userData.salary" disabled>
+                        <option value="">5k以下</option>
+                        <option value="1">5-8k</option>
+                        <option value="2">8-15k</option>
+                        <option value="2">15k以上</option>
+                        <option value="2">面谈</option>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="other">
+                <h3>其他</h3>
+                <div class="clear"></div>
+                <div class="form-control-w3l">
+                    <textarea name="text" :placeholder="userData.other" disabled></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
 </template>
 
 <style scoped lang='scss'>
+.auth {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #00000057;
+
+    .auth-box {
+        font-size: 30px;
+        background-color: rgba(240, 248, 255, 0.76);
+        width: 20vw;
+        height: 20vw;
+        display: flex;
+        justify-items: center;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 30px;
+        position: fixed;
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        ;
+    }
+}
 .edit {
     color: black;
     position: fixed;

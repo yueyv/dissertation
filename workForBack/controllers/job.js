@@ -86,6 +86,20 @@ const useController = {
         } catch (e) {
             res.json({ code: 0, message: "default", data: e })
         }
+    },
+    getJobInfo:async function (req, res, next) {
+        try {
+            // console.log(req.body);
+            let jobData = await Job.select("job_id",req.body.job_id)
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data: jobData
+                })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
     }
 }
 module.exports = useController

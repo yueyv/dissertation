@@ -29,7 +29,7 @@ router.post('/api/addJob',useControllerJob.addJob)
 router.post("/api/getMyEditJob",useControllerJob.getMyEditJob)
 router.post("/api/getAllJob",useControllerJob.getAllJob)
 router.post("/api/getHomeJob",useControllerJob.getHomeJob)
-
+router.post("/api/getJobInfo",useControllerJob.getJobInfo)
 
 
 

@@ -43,7 +43,7 @@ const back=()=>{
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">您是招聘人员</h1>
             <!-- <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button> -->
-            <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">返回</a-button>
+            <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">前往招聘页面</a-button>
         </div>
     </div>
     <myHeader :active-nav="6"></myHeader>

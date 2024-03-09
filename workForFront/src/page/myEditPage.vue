@@ -57,7 +57,7 @@ const onChange = (pageNumber) => {
 };
 // TODO 到详情页面
 const moveToJobMainPage = (id) => {
-    router.push(`/jobPage/${id}`)
+    router.push(`/editJobPage/${id}`)
     console.log(id);
 }
 

@@ -93,6 +93,23 @@ const routes = [
     component: () => import('../page/jobPage.vue')
   },
   {
+    path: '/editJobPage/:id',
+    name: 'editJobPage',
+    meta: {
+      title: '编辑职业详细页面'
+    },
+    component: () => import('../page/editJobPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否有权限
+      if (localStorage.getItem("token")) {
+        next();
+      } else {
+        message.warning("请先登录");
+        next("/login");
+      }
+    }
+  },
+  {
     path: '/bringInPage/apply',
     name: 'applyBringInPage',
     meta: {
@@ -108,7 +125,7 @@ const routes = [
     },
     component: () => import('../page/myEditPage.vue')
   },
-  
+
   // MARK鉴权
   {
     path: '/editPersonMesPage',

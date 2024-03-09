@@ -32,7 +32,6 @@ const formRef = ref();
 const labelCol = { span: 8 };
 const wrapperCol = { span: 8 };
 const formState = reactive({
-
     title: '',
     company_name: '',
     city: undefined,
