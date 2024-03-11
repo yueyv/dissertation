@@ -132,5 +132,20 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
+    searchJob: async function (req, res, next) {
+        try {
+            console.log(req.body);
+            let jobData = await Job.selectTitle(req.body.title)
+            console.log(jobData);
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data: jobData
+                })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
+    },
 }
 module.exports = useController

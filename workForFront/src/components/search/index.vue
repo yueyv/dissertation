@@ -1,23 +1,36 @@
 <script setup >
 import { message } from 'ant-design-vue'
 import { ref, reactive } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
 import { DownOutlined } from '@ant-design/icons-vue';
 const search_content = ref()
+const router = useRouter()
+const route = useRoute()
 //TODO 搜索页面
 const search_start = () => {
-        const searchUrl = `https://www.bing.com/?q=${search_content.value}`
-        window.open(searchUrl, '_blank')
+       if(search_content.value){
+        router.push({ path:'/searchPage',  query:{ title:search_content.value  } }).then((e)=>{
+            router.go(0)
+        }
+        
+        )
+       
+       }else{
+        message.info("请输入值")
+       }
+
+        // window.open(searchUrl, '_blank')
 
 }   
 // const auto_fit=()=>{
 //     message.info(window.innerWidth)
 // }
 const searchHead = [
-    1, 2, 3, 4, 5
+    "软件工程师","销售", "财务"
 ]
 const searchHeadValue = ref("类型")
 const clickSearchHeadItem=(item)=>{
-    searchHeadValue.value=item
+    search_content.value=item
 }
 </script>
 
@@ -102,6 +115,9 @@ const clickSearchHeadItem=(item)=>{
     width: 15vw;
     font-size: 20px;
     background-color: #00BCD4;
+    &:hover{
+        color: antiquewhite;
+    }
 }
 
 // @media(min-width: 700px){

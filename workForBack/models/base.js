@@ -28,6 +28,9 @@ class Base {
     searchId(id) {
         return knex(this.table).select('user_id').where('username', '=', id).first()
     }
+    selectTitle(title) {
+        return knex(this.table).where('title', 'like', `%${title}%`).where('vaild','=','1')
+    }
     searchIsUpload(id) {
         return knex(this.table).select('apply_filename').where('username', '=', id).first()
     }

@@ -1,9 +1,11 @@
 var express = require('express');
 const useControllerUser = require('../controllers/user');
 const useControllerJob = require('../controllers/job');
+// mark 过滤文件
 const multer = require('multer');
 const upload = multer();
-const { log } = require('../config');
+const {Server}=require("socket.io")
+// const { log } = require('../config');
 const useGetCity=require("../utils/getCity")
 var router = express.Router();
 router.get('/', function (req, res, next) {
@@ -32,8 +34,9 @@ router.post("/api/getAllJob",useControllerJob.getAllJob)
 router.post("/api/getHomeJob",useControllerJob.getHomeJob)
 router.post("/api/getJobInfo",useControllerJob.getJobInfo)
 router.post("/api/deleteJob",useControllerJob.deleteJob)
+router.post("/api/searchJob",useControllerJob.searchJob)
 
-
+// IM聊天系统
 
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{
