@@ -2,23 +2,28 @@
 // 
 
 // const { Logform } = require("winston")
-// 记录在线
+// MARK记录在线
 const users = {};
 const USER_STATUS = ['ONLINE', 'OFFLINE'];
+const User = require('../models/user')
+const Mes = require('../models/message')
 const {verify} =require('../utils/jwt')
 module.exports = (socket) => {
 
     // console.log(socket.handshake.auth.token);
     socket.on('online', status => {
         // console.log(status);
-        verify(socket.handshake.auth.token).then((username)=>{
+        verify(socket.handshake.auth.token).then(async(username)=>{
             // console.log(username);
             socket.username=username
-            users[username] = {
+            let userIdData = await User.searchId(username)
+            socket.user_id=userIdData.user_id
+            users[userIdData.user_id] = {
+                user_id:userIdData.user_id,
                 socketId: socket.id,
                 status: USER_STATUS[0],
             };
-            // console.log(users);
+            console.log(users);
         }).catch(
             // socket.emit('disConnect',"验证错误")
         )
@@ -26,25 +31,32 @@ module.exports = (socket) => {
 
     })
 
-    socket.on('private_chat', (params, fn) => {
-        // console.log('Receive message: ', JSON.stringify(params));
-        // const receiver = users[params.receiver];
-        // params.createTime = moment().format('YYYY-MM-DD HH:mm:ss');
-        // const senderData = _.findWhere(userData, { username: params.sender });
-        // params.senderPhoto = (senderData || {}).photo;
+    socket.on('private_chat', async(params) => {
+        // console.log({
+        //         user_id:socket.user_id,
+        //         to_id:params.to_id,
+        //         content:params.text
+        //     });
+        try {
+            await Mes.insert({
+                user_id:socket.user_id,
+                to_id:params.to_id,
+                content:params.text
+            })
+        } catch (error) {
+            console.log(error);
+        }
 
-        // if (!params.senderPhoto) {
-        //     const senderLen = params.sender.length;
-        //     params.senderPhotoNickname = params.sender.substr(senderLen - 2)
-        // }
+        // TODO 过滤敏感词
+        const receiver = users[params.to_id];
+ 
 
-        // fn(params);
-
-        // if (receiver && receiver.status === USER_STATUS[0]) {
-        //     socket.to(users[params.receiver].socketId).emit('reply_private_chat', params);
-        // } else {
-        //     console.log(`${params.receiver} 不在线`);
-        // }
+        if (receiver && receiver.status === USER_STATUS[0]) {
+            console.log(receiver);
+            socket.to(receiver.socketId).emit('reply_private_chat', params.text);
+        } else {
+            console.log(`${params.to_id} 不在线`);
+        }
     });
 
     socket.on('disconnect', reason => {
