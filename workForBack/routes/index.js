@@ -1,6 +1,7 @@
 var express = require('express');
 const useControllerUser = require('../controllers/user');
 const useControllerJob = require('../controllers/job');
+const useControllerMes = require('../controllers/message');
 // mark 过滤文件
 const multer = require('multer');
 const upload = multer();
@@ -37,6 +38,7 @@ router.post("/api/deleteJob",useControllerJob.deleteJob)
 router.post("/api/searchJob",useControllerJob.searchJob)
 
 // IM聊天系统
+router.post("/api/get_chat",useControllerMes.getChat)
 
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{

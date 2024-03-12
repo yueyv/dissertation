@@ -51,7 +51,7 @@ const clickSearchHeadItem=(item)=>{
                 </template>
             </a-dropdown>
         </div>
-        <input v-model="search_content" type="text" placeholder="搜索职位" class="search-input" @keypress="search_start">
+        <input v-model="search_content" type="text" placeholder="搜索职位" class="search-input" @keyup.enter="search_start">
         <div class="search-enter" @click="search_start()">搜索</div>
     </div>
 </template>

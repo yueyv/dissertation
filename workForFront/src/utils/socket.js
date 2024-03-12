@@ -1,8 +1,4 @@
-<script setup>
-import { ref, reactive, onUnmounted,watch } from 'vue'
 import { message } from "ant-design-vue"
-import { axiosBase } from '../plugins/axiosBase'
-import md5 from 'js-md5'
 import { io } from "socket.io-client";
 // SSR tip
 const token = JSON.parse(localStorage.getItem('token'))
@@ -20,7 +16,7 @@ socket.on('connect', () => {
     socket.emit('online');
 });
 socket.on('chat_success', (req) => {
-    if(req==true){
+    if (req == true) {
         message.info("已发送消息")
     }
 });
@@ -40,17 +36,17 @@ const sendMsg = () => {
     };
 
     socket.emit('private_chat', msg);
-    
+
     inputText.value = '';
 
 }
 
 
-    function sendMsgByEnter(event) {
-        if (event.keyCode === 13) {
-            sendMsg();
-        }
+function sendMsgByEnter(event) {
+    if (event.keyCode === 13) {
+        sendMsg();
     }
+}
 socket.on("disconnect", () => {
     socket.connect();
 });
@@ -58,21 +54,4 @@ onUnmounted(() => {
     socket.disconnect()
 })
 
-</script>
 
-<template>
-    <a-input v-model:value="to_id"></a-input>
-    <a-input v-model:value="inputText"></a-input>
-    <!-- <a-button @click="" type="primary">Primary Button</a-button> -->
-    <a-button @click="sendMsg">SEND </a-button>
-</template>
-
-<style scoped lang='scss'></style>
-
-<!-- socket.emit("hello","this is a try")
-socket.on("???",(val)=>{
-        console.log(val);
-    })
-// console.log(socket);
-// console.log(md5("233"));
-// message.info(md5("323")) -->

@@ -1,42 +1,99 @@
 <script setup>
 import myHeader from '@/components/header/header.vue';
-import { h, ref, onMounted, nextTick } from 'vue';
+import { h, ref, onMounted, nextTick, onUpdated, watch, onBeforeMount, onUnmounted } from 'vue';
+import axios from '../plugins/axiosBase'
+import { message } from "ant-design-vue"
+import { io } from "socket.io-client";
 import {
+    CommentOutlined,
     MailOutlined,
     CloseOutlined,
     AlignLeftOutlined
 } from '@ant-design/icons-vue';
+// 上一个
 const selectedKeys = ref([]);
-const openKeys = ref([]);
+const inputText = ref("")
+const openKeys = ref();
+const user_id = ref()
+const chatLog = ref()
+
+// 读取key，获取交流
 const items = ref([
     {
-        key: '1',
+        key: '30',
         icon: () => h(MailOutlined),
-        label: '交流1',
-        title: '交流1',
+        label: '交流30',
+        title: '交流30',
         children: [
             {
-                key: 'find1',
+                key: 'chat30',
+                label: '查看聊天',
+                title: '查看聊天',
+                icon: () => h(CommentOutlined),
+            },
+            {
+                key: 'find30',
                 label: '查看资料',
                 title: '查看资料',
                 icon: () => h(AlignLeftOutlined),
             },
             {
-                key: 'delete1',
+                key: 'delete30',
+                label: '删除',
+                title: '删除',
+                icon: () => h(CloseOutlined),
+            },]
+    }, {
+        key: '35',
+        icon: () => h(MailOutlined),
+        label: '交流35',
+        title: '交流35',
+        children: [
+            {
+                key: 'chat35',
+                label: '查看聊天',
+                title: '查看聊天',
+                icon: () => h(CommentOutlined),
+
+            },
+            {
+
+                key: 'find35',
+                label: '查看资料',
+                title: '查看资料',
+                icon: () => h(AlignLeftOutlined),
+            },
+            {
+                key: 'delete35',
                 label: '删除',
                 title: '删除',
                 icon: () => h(CloseOutlined),
             },]
     }
 ]);
+const to_id = ref(items.value[0].key)
+let socket = undefined
 const handleClick = menuInfo => {
-    console.log('click ', menuInfo);
+    if (menuInfo.key.includes("chat")) {
+        to_id.value=openKeys.value[0]
+        // 获取历史记录
+        // TODO从存储中获取
+        getChatLog(openKeys.value[0])
+    }
+    // console.log(openKeys.value);
 };
-const mychat = ref("")
-// MARK 发送信息
-const handleEnter = () => {
+const getChatLog = (chatToId) => {
+    axios.post('get_chat', { chatWith: chatToId }).then((res) => {
+        if (res.code == 200) {
+            chatLog.value = res.data
 
+        } else {
+            console.log("服务器错误");
+        }
+    })
 }
+
+
 //  获取聊天记录滚动到最底部
 const scrollContainer = ref(null);
 
@@ -47,12 +104,68 @@ const scrollToBottom = () => {
         }
     }, 0);
 };
+const sendMsg = () => {
+    // console.log(inputText.value);
+    if (inputText?.value == "") {
+        message.info('Message is required!');
+        return
+    }
+    const msg = {
+        text: inputText.value,
+        to_id: to_id.value
+    };
 
+    socket.emit('private_chat', msg);
+
+
+
+}
 onMounted(() => {
-    nextTick(scrollToBottom);
+    selectedKeys.value = [items.value[0].children[0].key];
+    const userInformation = JSON.parse(sessionStorage.getItem("userInformation"))
+    user_id.value = userInformation.user_id
+    // console.log(items.value[0].key);
+    getChatLog(items.value[0].key)
+    // console.log(userInformation);
 });
+onUpdated(() => {
+    nextTick(scrollToBottom);
+})
+onBeforeMount(() => {
+    const token = JSON.parse(localStorage.getItem('token'))
+    socket = io('http://localhost:3000', {
+        reconnectionDelayMax: 10000,
+        auth: { token: token }
+    })
+    socket.on('connect', () => {
+        socket.emit('online');
+    });
+    socket.on('chat_success', (req) => {
+        if (req == true) {
+            message.info("已发送消息")
+            console.log( chatLog.value);
+            chatLog.value.push({to_id: to_id.value, content: inputText.value})
+            inputText.value = '';
+        }
+    });
+    socket.on('reply_private_chat', (req) => {
+        message.info(`${req}收到了信息`)
+        console.log(req);
+    });
 
+    socket.on("disconnect", () => {
+        socket.connect();
+    });
 
+})
+onUnmounted(() => {
+    socket.disconnect()
+})
+// MARK 测试
+watch(selectedKeys,()=>{
+    console.log(selectedKeys.value);
+    ref
+})
 </script>
 
 <template>
@@ -60,24 +173,24 @@ onMounted(() => {
     <div class="chat-contain">
         <div class="chat-box">
             <div class="menu-nav">
-                <a-menu class="menu-item" v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="vertical"
-                    :items="items" @click="handleClick" />
+                <!-- :defaultOpenKeys="items[0].children[0].key" -->
+                <a-menu class="menu-item" :selectable="true" v-model:openKeys="openKeys"
+                    v-model:selectedKeys="selectedKeys" mode="vertical" :items="items" @click="handleClick" />
             </div>
-            <div class="menu-content">
+            <div class="menu-content" style="width: 100%;">
                 <div class="chat-content" ref="scrollContainer">
-                    <div class="chat-item-left">
-                        22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddasd</div>
-                    <div class="chat-item-right">22</div>
-                    <div class="chat-item-left">
-                        22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddasd</div>
-                    <div class="chat-item-right">22</div>
-                    <div class="chat-item-left">
-                        22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddas22adwawddasd</div>
-                    <div class="chat-item-right">22</div>
+                    <div v-for="item in chatLog" :key="item.message_id">
+                        <div v-if="item.to_id == user_id" class="chat-item-left">
+                            {{ item.content }}
+                        </div>
+                        <div v-if="item.to_id != user_id" class="chat-item-right">
+                            {{ item.content }}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="chat-input">
-                    <a-textarea v-model:value="mychat" @keyup.enter="handleEnter" placeholder="在此输入聊天内容。输入回车发送"
+                    <a-textarea v-model:value="inputText" @keyup.enter="sendMsg()" placeholder="在此输入聊天内容。输入回车发送"
                         :auto-size="{ minRows: 3, maxRows: 3 }" />
 
                 </div>
@@ -127,6 +240,8 @@ onMounted(() => {
 
 .chat-item-left {
     max-width: 60%;
+    margin-right: 40%;
+    display: inline-block;
     border-radius: 10px;
     padding-top: 5px;
     padding-left: 20px;
@@ -142,18 +257,21 @@ onMounted(() => {
 }
 
 .chat-item-right {
+    margin-right: 10px;
+    margin-left: 40%;
+    display: inline-block;
     margin-bottom: 5px;
     max-width: 60%;
     border-radius: 10px;
     padding-top: 5px;
     padding-left: 20px;
     padding-right: 20px;
-    margin-left: 30%;
     padding-bottom: 8px;
     background-color: rgba(216, 208, 208, 0.589);
     text-align: left;
     font-size: 1.2rem;
     overflow-wrap: break-word;
+    float: right;
 }
 
 .menu-content {
@@ -173,7 +291,7 @@ onMounted(() => {
         display: none;
     }
 
-    height: 80%;
+    height: calc(100% - 78px);
 
 }
 
@@ -183,9 +301,9 @@ onMounted(() => {
     /* 水平居中 */
     align-items: end;
     /* 垂直居中 */
-    height: 20%;
+    // height: 20%;
     margin-top: 3px;
-    min-height: 20%;
+    // min-height: 20%;
     border-radius: 20px;
 }
 </style>
