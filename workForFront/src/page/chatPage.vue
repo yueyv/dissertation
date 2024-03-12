@@ -27,25 +27,7 @@ const items = ref([
                 title: '删除',
                 icon: () => h(CloseOutlined),
             },]
-    }, {
-        key: '2',
-        icon: () => h(MailOutlined),
-        label: '交流2',
-        title: '交流2',
-        popupClassName: "popup-box",
-        children: [
-            {
-                key: 'find2',
-                label: '查看资料',
-                title: '查看资料',
-            },
-            {
-                key: 'delete2',
-                label: '删除',
-                title: '删除',
-            },]
-    },
-
+    }
 ]);
 const handleClick = menuInfo => {
     console.log('click ', menuInfo);

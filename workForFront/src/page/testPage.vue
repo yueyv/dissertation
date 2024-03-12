@@ -22,8 +22,13 @@ const socket = io('http://localhost:3000', {
 socket.on('connect', () => {
     socket.emit('online', query.sender);
 });
+socket.on('chat_success', (req) => {
+    if(req==true){
+        message.info("已发送消息")
+    }
+});
 socket.on('reply_private_chat', (req) => {
-    message.info("收到了信息")
+    message.info(`${req}收到了信息`)
     console.log(req);
 });
 const sendMsg = () => {
@@ -38,7 +43,7 @@ const sendMsg = () => {
     };
 
     socket.emit('private_chat', msg);
-    message.info("已发送消息")
+    
     inputText.value = '';
 
 }

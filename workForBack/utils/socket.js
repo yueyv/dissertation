@@ -43,6 +43,7 @@ module.exports = (socket) => {
                 to_id:params.to_id,
                 content:params.text
             })
+            socket.emit('chat_success',true)
         } catch (error) {
             console.log(error);
         }
