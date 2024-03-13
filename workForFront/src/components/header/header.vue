@@ -202,6 +202,7 @@ header {
     }
 
     li:last-child {
+        line-height: 4vh;
         color: white;
     }
 }

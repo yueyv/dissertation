@@ -81,6 +81,10 @@ const cityOptions = ref([
         value: '北京',
         label: '北京',
     },
+    {
+        value: '所有城市',
+        label: '所有城市',
+    }
 ]);
 const jobKindOptions = ref([
     {
@@ -94,6 +98,10 @@ const jobKindOptions = ref([
     {
         value: '财务',
         label: '财务',
+    },
+    {
+        value: '所有职位',
+        label: '所有职位',
     }
 ]);
 const salaryOptions = ref([
@@ -116,7 +124,10 @@ const salaryOptions = ref([
     {
         value: '4',
         label: '面谈',
-    },
+    },{
+        value: '薪资范围不限',
+        label: '薪资范围不限',
+    }
 ]);
 const characterOptions = ref([
     {
@@ -130,6 +141,10 @@ const characterOptions = ref([
     {
         value: '2',
         label: '兼职',
+    },
+    {
+        value: '工作性质不限',
+        label: '工作性质不限',
     }
 ]);
 // IM更改条件
