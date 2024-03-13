@@ -2,7 +2,7 @@
 // 
 
 // const { Logform } = require("winston")
-// MARK记录在线
+// MARK记录在线 连接池
 const users = {};
 // 连接池
 const USER_STATUS = ['ONLINE', 'OFFLINE'];
@@ -25,7 +25,7 @@ module.exports = (socket) => {
                     socketId: socket.id,
                     status: USER_STATUS[0],
                 };
-                console.log(users);
+                // console.log(users);
             }).catch((e)=>{
                 console.log(e);
             })
@@ -54,13 +54,13 @@ module.exports = (socket) => {
             console.log(error);
         }
 
-        // TODO 过滤敏感词
+        // TODO 过滤敏感词 以后再说
         const receiver = users[params.to_id];
  
 // 放弃状态管理
         if (receiver && receiver.status === USER_STATUS[0]) {
             console.log(receiver);
-            socket.to(receiver.socketId).emit('reply_private_chat', {from_id:socket.user_id,content:params.text});
+            socket.to(receiver.socketId).emit('reply_private_chat', {from_id:socket.user_id,content:params.text,from_username:socket.username});
         } else {
             console.log(`${params.to_id} 不在线`);
         }

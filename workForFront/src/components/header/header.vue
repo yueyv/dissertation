@@ -7,7 +7,7 @@ import axios from '@/plugins/axiosBase.js';
 import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
-// TODO使用pinia
+// done使用pinia
 const ipStore = useIPStore()
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
@@ -59,7 +59,7 @@ const navItems = [{
     linkTo: "/huntJobPage",
     title: "求职"
 },]
-// TODO 受同源策略,后端更改
+// done 受同源策略,后端更改
 // const fetchCity = async () => {
 // //   const data = await getCity();
 // const data = await getIP();
@@ -102,7 +102,7 @@ const handleOk = (e) => {
                     </a-modal>
                 </div>
             </li>
-            <!-- TODO 从后端返回city数据，[切换按钮实现手动输入] -->
+            <!-- done 从后端返回city数据，[切换按钮实现手动输入] -->
             <!-- 通过ip和腾讯服务实现 -->
             <li v-for="(item, index) in navItems" :key="index" :class="index == activeNav ? `active` : ``">
                 <router-link :to="item.linkTo">

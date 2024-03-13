@@ -13,4 +13,4 @@ const pinia=createPinia()
 pinia.use(piniaPluginPersistedstate)
 createApp(App).use(router).use(Antd).use(pinia).mount('#app')
 // IM 初始化数据
-// TODO使用pinia
+// done使用pinia

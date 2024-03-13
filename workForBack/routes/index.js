@@ -41,6 +41,7 @@ router.post("/api/searchJob",useControllerJob.searchJob)
 
 // IM聊天系统
 router.post("/api/get_chat",useControllerMes.getChat)
+router.post("/api/chatDelete",useControllerMes.chatDelete)
 
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{

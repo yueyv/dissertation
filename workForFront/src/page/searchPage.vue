@@ -16,7 +16,7 @@ const isShow = ref(false)
 const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
-// TODO 从后端返回
+// done 从后端返回
 onMounted(() => {
     if (JSON.stringify(route.query) === '{}') {
         axios.post('getAllJob').then((res) => {
@@ -58,12 +58,12 @@ onMounted(() => {
     }
 
 })
-// TODO 到详情页面
+// done到详情页面
 const moveToJobMainPage = (id) => {
     router.push(`/jobPage/${id}`)
     console.log(id);
 }
-// todo 筛选
+// done 筛选
 const city = ref("所有城市");
 const jobKind = ref('所有职位');
 const salary = ref('薪资范围不限');

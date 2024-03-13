@@ -4,6 +4,7 @@ import { h, ref,reactive, onMounted, nextTick, onUpdated, watch, onBeforeMount, 
 import axios from '../plugins/axiosBase'
 import { message } from "ant-design-vue"
 import { io } from "socket.io-client";
+import { useRoute, useRouter } from 'vue-router';
 import {
     CommentOutlined,
     MailOutlined,
@@ -11,11 +12,14 @@ import {
     AlignLeftOutlined
 } from '@ant-design/icons-vue';
 // 上一个
+// MARK 根据permission 进行不同页面的跳转
+const router = useRouter()
+const permission=ref(-1)
 const selectedKeys = ref([]);
 const inputText = ref("")
 const openKeys = ref();
 const user_id = ref()
-// todo 存储在storage中
+// todo 存储在indexedDB中
 const chatLog =reactive({})
 const isShow=ref(false)
 // 读取key，获取交流
@@ -39,7 +43,7 @@ const items = ref([
                 icon: () => h(AlignLeftOutlined),
             },
             {
-                key: 'delete30',
+                key: 'delete0',
                 label: '删除',
                 title: '删除',
                 icon: () => h(CloseOutlined),
@@ -52,12 +56,33 @@ const handleClick = menuInfo => {
     if (menuInfo.key.includes("chat")) {
         to_id.value = openKeys.value[0]
         // 获取历史记录
-        // TODO从存储中获取
+        // done从存储中获取
         getChatLog(openKeys.value[0])
+    }
+    if(menuInfo.key.includes("find")){
+        // done 分类操作
+        if(permission.value==1){
+            router.push(`/applicantPage/${openKeys.value[0]}`)
+        }
+        if(permission.value==0){
+            router.push(`/chatFindPage/${openKeys.value[0]}`)
+        }
+        
+    }
+    if(menuInfo.key.includes("delete")){  
+        axios.post('chatDelete',{delete_id:openKeys.value[0]}).then((res)=>{
+            if(res.code==200){
+                message.success("删除成功")
+                router.go(0)
+            }
+        }  
+        )
+        
     }
     // console.log(openKeys.value);
 };
 const getChatLog = (chatToId) => {
+    
     axios.post('get_chat', { chatWith: chatToId }).then((res) => {
         if (res.code == 200) {
             chatLog[chatToId] = res.data
@@ -67,12 +92,12 @@ const getChatLog = (chatToId) => {
         }
     })
 }
-const buildChatItem = (item) => {
+const buildChatItem = (item,label) => {
     return {
         key: item,
         icon: () => h(MailOutlined),
-        label: `交流${item}`,
-        title: `交流${item}`,
+        label: `${label}`,
+        title: `${label}`,
         children: [
             {
                 key: `chat${item}`,
@@ -123,24 +148,34 @@ const sendMsg = () => {
 
 }
 onBeforeMount(() => {
+    permission.value=JSON.parse(sessionStorage.getItem("permission"))
     const userInformation = JSON.parse(sessionStorage.getItem("userInformation"))
+    if(userInformation==null){
+        router.push("/")
+    }
     user_id.value = userInformation.user_id
     axios.get('getChatId').then((res) => {
         if (res.code == 200) {
-            const chatId = res.data.chat_id.split(',')
+            const chatId = res.data
+            console.log(res.data);
             const result = chatId.map(item=>{
                 // 给定初始化
-                chatLog[item]=Array(0)
+                chatLog[item[0]]=Array(0)
                 console.log(chatLog);
-                return buildChatItem(item)});
+                return buildChatItem(item[0],item[1])});
             items.value=result
             isShow.value=true
             selectedKeys.value = [items.value[0].children[0].key];
             getChatLog(items.value[0].key)
             to_id.value = items.value[0].key
     console.log(result);
-} else {
-    message.info("返回数据错误")
+} else{
+    if(res.code==202){
+        message.info("尚未开始聊天")
+    }else{
+        message.info("返回数据错误")
+    }
+    
 }
     }).catch((e) => {
     message.error("请求错误")
@@ -166,7 +201,7 @@ socket.on('chat_success', (req) => {
 });
 socket.on('reply_private_chat', (req) => {
     console.log(req);
-    message.info(`收到了信息`)
+    message.info(`收到了${req.from_username}的信息`)
     chatLog[req.from_id].push({ to_id: user_id.value, content: req.content })
     console.log(chatLog);
 

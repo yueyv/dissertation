@@ -5,15 +5,15 @@ const fs = require('fs');
 const jwt = require('../utils/jwt');
 const Job = require('../models/jobs')
 const useController = {
-    getApplyJob:async function (req, res, next) {
+    getApplyJob: async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
             //IM 访问别人的需要重新
             try {
                 let data = await User.getApplyJob(username)
-                let resData=[]
+                let resData = []
                 if (data?.job_id !== undefined && data?.job_id !== "") {
-                    const job_id=data?.job_id.split(",")
+                    const job_id = data?.job_id.split(",")
                     await Promise.all(job_id.map(async (item) => {
                         // console.log(item);
                         let jobData = await Job.select("job_id", item);
@@ -34,9 +34,9 @@ const useController = {
                         data: resData
                     });
                 }
-                
+
                 // if(data.Permission==1)
-                
+
             } catch (e) {
                 console.log(e);
                 res.json({ code: 0, message: "default", data: e })
@@ -45,18 +45,35 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
-    getChatId:async function (req, res, next) {
+    getChatId: async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
             //IM 访问别人的需要重新
             try {
-                let data = await User.getChatId(username)
+                let IdData = await User.getChatId(username)
+                // console.log(IdData.chat_id);
+                let data = []
+                if (IdData.chat_id != null) {
+                    let chat_id = IdData.chat_id.split(",")
+                    // console.log(chat_id);
+                    await Promise.all(chat_id.map(async (item) => {
+                        let chatUsername = await User.getUserName(item)
+                        data.push([item, chatUsername.username])
+                    }))
+                    res.json({
+                        code: 200,
+                        message: "success",
+                        data: data
+                    })
+                } else {
+                    res.json({
+                        code: 202,
+                        message: "noChat",
+                        data: data
+                    })
+                }
                 // if(data.Permission==1)
-                res.json({
-                    code: 200,
-                    message: "success",
-                    data:data
-                })
+
             } catch (e) {
                 res.json({ code: 0, message: "default", data: e })
             }
@@ -64,7 +81,7 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
-    getPermission:async function (req, res, next) {
+    getPermission: async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
             //IM 访问别人的需要重新
@@ -74,7 +91,7 @@ const useController = {
                 res.json({
                     code: 200,
                     message: "success",
-                    data:data
+                    data: data
                 })
             } catch (e) {
                 res.json({ code: 0, message: "default", data: e })
@@ -83,7 +100,7 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
-    isExistUpload:async function (req, res, next) {
+    isExistUpload: async function (req, res, next) {
         // console.log(req.headers.authorization);
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
@@ -91,15 +108,15 @@ const useController = {
             try {
                 let userData = await User.searchIsUpload(username)
                 let isExistUpload
-                if(userData.apply_filename!=null){
-                    isExistUpload=true
-                }else{
-                    isExistUpload=false
+                if (userData.apply_filename != null) {
+                    isExistUpload = true
+                } else {
+                    isExistUpload = false
                 }
                 res.json({
                     code: 200,
                     message: "success",
-                    isExistUpload:isExistUpload
+                    isExistUpload: isExistUpload
                     // ss,sanitizedUserData
                 })
             } catch (e) {
@@ -109,16 +126,16 @@ const useController = {
             res.json({ code: 100, message: "超时", data: e })
         })
     },
-// IM 使用文件系统
-    upload_apply:async function (req, res, next) {
+    // IM 使用文件系统
+    upload_apply: async function (req, res, next) {
         // console.log(req.headers.authorization);
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
             try {
-                await User.update(username,{
-                    apply_filename:req.file.originalname
+                await User.update(username, {
+                    apply_filename: req.file.originalname
                 })
-                const returnData=await User.searchId(username)
+                const returnData = await User.searchId(username)
                 // console.log(returnData.user_id);
                 // console.log(req.file);
                 // const bufferData = Buffer.from(req.file.butter, 'binary');
@@ -128,14 +145,14 @@ const useController = {
                 try {
                     fs.writeFileSync(`./file/${returnData.user_id}_${req.file.originalname}`, req.file.buffer);
                     // console.log(233);
-                  } catch (err) {
+                } catch (err) {
                     console.error('Error saving file:', err);
-                  }
+                }
                 // console.log(req.file);
                 res.json({
                     code: 200,
                     message: "success",
-                    data:null
+                    data: null
                 })
             } catch (e) {
                 res.json({ code: 0, message: "default", data: e })
@@ -145,7 +162,7 @@ const useController = {
             res.json({ code: 100, message: "超时", data: e })
         })
     },
-    showUser:async function (req, res, next) {
+    showUser: async function (req, res, next) {
         // console.log(req.headers.authorization);
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
@@ -156,7 +173,7 @@ const useController = {
                 res.json({
                     code: 200,
                     message: "success",
-                    data:userData
+                    data: userData
                     // ss,sanitizedUserData
                 })
             } catch (e) {
@@ -166,19 +183,19 @@ const useController = {
             res.json({ code: 100, message: "超时", data: e })
         })
     },
-    showUserFromId:async function (req, res, next) {
+    showUserFromId: async function (req, res, next) {
         // console.log(req.headers.authorization);
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
             //IM 访问别人的需要重新
             try {
                 console.log(req.body.user_id);
-                let userData = await User.select("user_id",req.body.user_id)
+                let userData = await User.select("user_id", req.body.user_id)
 
                 res.json({
                     code: 200,
                     message: "success",
-                    data:userData
+                    data: userData
                     // ss,sanitizedUserData
                 })
             } catch (e) {
@@ -188,12 +205,12 @@ const useController = {
             res.json({ code: 100, message: "超时", data: e })
         })
     },
-    updateUser:async function (req, res, next) {
+    updateUser: async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             try {
-                let updateDate=req.body
+                let updateDate = req.body
                 // console.log(updateDate);
-                await User.update(username,updateDate)
+                await User.update(username, updateDate)
                 res.json({
                     code: 200,
                     message: "success",
@@ -248,7 +265,7 @@ const useController = {
             const params = {
                 username: `${username}`,
                 password: `${pwd}`,
-                Permission:'0'
+                Permission: '0'
             }
             await User.insert(params)
             let jwtToken = jwt.sign(params)

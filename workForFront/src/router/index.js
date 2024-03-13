@@ -149,9 +149,26 @@ const routes = [
     path: '/applicantPage/:id',
     name: 'applicantPage',
     meta: {
-      title: '编辑职业详细页面'
+      title: '应聘人员详细页面'
     },
     component: () => import('../page/applicantPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否有权限
+      if (localStorage.getItem("token")) {
+        next();
+      } else {
+        message.warning("请先登录");
+        next("/login");
+      }
+    }
+  },
+  {
+    path: '/chatFindPage/:id',
+    name: 'chatFindPage',
+    meta: {
+      title: '招聘人员详细页面'
+    },
+    component: () => import('../page/chatFindPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否有权限
       if (localStorage.getItem("token")) {

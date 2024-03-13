@@ -40,8 +40,8 @@ const moveToJobMainPage=(id)=>{
 </script>
 <!--  -->
 <template>
-    <myHeader :active-nav="1"></myHeader>
-    <div class="advs">热招岗位</div>
+    <myHeader></myHeader>
+    <div class="advs">现招岗位</div>
     <div class="job-contain" v-if="isShow">
         <div class="job-item" v-for="item in Math.min(8, jobItem.length - (currentPage-1) * 8)" @click="moveToJobMainPage(jobItem[(currentPage-1) * 8 + item-1].job_id)">
             <a-card :title="jobItem[(currentPage-1) * 8 + item-1].title" :bordered="false" style="width: 20vw;height: 30vh;">

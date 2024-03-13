@@ -30,7 +30,7 @@ onMounted(() => {
         console.log(e);
     })
 })
-// TODO跳转聊天
+// Todo跳转聊天 明天做
 const clickButton = () => {
     const permission=JSON.parse(sessionStorage.getItem("permission"))
     if(permission==1){

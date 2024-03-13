@@ -8,6 +8,7 @@ import { message } from 'ant-design-vue';
 const router = useRouter()
 const route = useRoute()
 const isShow = ref(false)
+const applicant=ref()
 const formState = reactive({
     title: '',
     company_name: '',
@@ -20,10 +21,12 @@ const formState = reactive({
 console.log(route.params.id);
 onMounted(() => {
     axios.post("getJobInfo", { job_id: route.params.id }).then((res) => {
+        // console.log(res);
         if (res.code == 200) {
             isShow.value = true
             formState.value = [...res.data]
-            console.log(formState.value[0]);
+            applicant.value=res.applicant
+            console.log(applicant.value);
         }
 
     }).catch((e) => {
@@ -87,9 +90,9 @@ const moveTochatPage=()=>{
                         不存在
                     </div>
                     <div v-else-if="formState.value[0].applicant_id">
-                        <!-- todo -->
-                        <div v-for="(item,key) in formState.value[0].applicant_id.split(',')" >
-                            <a-button style=" margin-right: 40px;padding-bottom: 10px;" @click="moveToApplicatPage(item)">{{ key+1 }}号申请人</a-button>
+                        <!-- done -->
+                        <div v-for="(item,key) in applicant" >
+                            <a-button style=" margin-right: 40px;padding-bottom: 10px;" @click="moveToApplicatPage(item.user_id)">{{item.username }}</a-button>
                         </div>     
                     </div>
                 </a-space>

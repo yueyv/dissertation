@@ -91,12 +91,33 @@ const useController = {
         try {
             // console.log(req.body);
             let jobData = await Job.select("job_id",req.body.job_id)
+            console.log(jobData[0].applicant_id);
+            let applicant=[]
+            if (jobData[0].applicant_id != null) {
+
+                let applicant_id = jobData[0].applicant_id.split(",")
+                // console.log(applicant_id);
+                await Promise.all(applicant_id.map(async (item) => {
+                    // console.log(item);
+                    let applicantData = await User.select("user_id", item);
+                    applicant.push(...applicantData);
+                    // console.log(jobData);
+                    // console.log(resData);
+                }));
                 res.json({
                     code: 200,
                     message: "success",
-                    data: jobData
+                    data:jobData,
+                    applicant:applicant
                 })
-
+            } else {
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data:jobData,
+                    applicant:applicant
+                })
+            }
         } catch (e) {
             res.json({ code: 0, message: "default", data: e })
         }

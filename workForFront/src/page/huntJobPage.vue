@@ -36,11 +36,11 @@ onBeforeMount(() => {
 }
 )
 
-// TODO 发送请求
+// done发送请求
 const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
-// TODO 从后端返回
+// done 从后端返回
 
 // TODO 到详情页面
 const moveToJobMainPage = (id) => {

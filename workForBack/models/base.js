@@ -43,6 +43,9 @@ class Base {
     getChatId(id) {
         return knex(this.table).select('chat_id').where('username', '=', id).first();
     }
+    getUserName(id) {
+        return knex(this.table).select('username').where('user_id', '=', id).first();
+    }
     homeJobSelect(param1, param2) {
         return knex(this.table).select().where(param1, '=', param2).orderBy('job_id', 'desc').limit(4)
     }

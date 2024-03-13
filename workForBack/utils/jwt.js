@@ -7,7 +7,7 @@ function sign(option) {
     expiresIn: 60000000 // 设定过期时间
   })
 }
-// TODO 后端鉴权
+// done 后端鉴权
 // isAdmin参数用于权限控制
 let verify = (jwtToken) => {
   return new Promise((resolve, reject) => {
