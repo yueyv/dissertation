@@ -57,10 +57,10 @@ module.exports = (socket) => {
         // TODO 过滤敏感词
         const receiver = users[params.to_id];
  
-
+// 放弃状态管理
         if (receiver && receiver.status === USER_STATUS[0]) {
             console.log(receiver);
-            socket.to(receiver.socketId).emit('reply_private_chat', params.text);
+            socket.to(receiver.socketId).emit('reply_private_chat', {from_id:socket.user_id,content:params.text});
         } else {
             console.log(`${params.to_id} 不在线`);
         }

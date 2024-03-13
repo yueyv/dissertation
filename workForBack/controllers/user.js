@@ -3,8 +3,48 @@ const { update } = require('../models/jobs')
 const User = require('../models/user')
 const fs = require('fs');
 const jwt = require('../utils/jwt');
-
+const Job = require('../models/jobs')
 const useController = {
+    getApplyJob:async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                let data = await User.getApplyJob(username)
+                let resData=[]
+                if (data?.job_id !== undefined && data?.job_id !== "") {
+                    const job_id=data?.job_id.split(",")
+                    await Promise.all(job_id.map(async (item) => {
+                        // console.log(item);
+                        let jobData = await Job.select("job_id", item);
+                        resData.push(...jobData);
+                        // console.log(jobData);
+                        // console.log(resData);
+                    }));
+                    // console.log(resData);
+                    res.json({
+                        code: 200,
+                        message: "success",
+                        data: resData
+                    });
+                } else {
+                    res.json({
+                        code: 200,
+                        message: "success",
+                        data: resData
+                    });
+                }
+                
+                // if(data.Permission==1)
+                
+            } catch (e) {
+                console.log(e);
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
     getChatId:async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);

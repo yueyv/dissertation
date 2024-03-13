@@ -1,13 +1,15 @@
 <script setup>
-import { ref, reactive,onBeforeMount } from 'vue'
+import { ref, reactive, onBeforeMount } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import axios from '@/plugins/axiosBase';
+import { message } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
 const isShow = ref(false)
 const currentPage = ref(1);
 const totalPage = ref(2)
 const permission = ref(0);
+const jobItem = ref([])
 onBeforeMount(() => {
     axios.get("getPermission").then((res) => {
         if (res.code == 200) {
@@ -17,29 +19,41 @@ onBeforeMount(() => {
         }
     }
     )
-})
+    axios.get("getApplyJob").then((res) => {
+        if (res.code == 200) {
+            console.log(res);
+            jobItem.value = res.data
+            totalPage.value = res.data.length
+            isShow.value = true
+        } else {
+            console.log(res);
+            message.error("服务器返回错误")
+        }
+    }).catch((e) => {
+        console.log(e);
+        message.error("加载错误")
+    })
+}
+)
+
 // TODO 发送请求
 const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
 // TODO 从后端返回
-const jobItem = [
-    {
-        id: 1
-    }
-]
+
 // TODO 到详情页面
 const moveToJobMainPage = (id) => {
     router.push(`/jobPage/${id}`)
     console.log(id);
 }
-const back=()=>{
+const back = () => {
     router.push("/bringInPage/myEdit")
 }
 </script>
 
 <template>
-        <div class="auth" v-if="permission == 1">
+    <div class="auth" v-if="permission == 1">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">您是招聘人员</h1>
             <!-- <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button> -->
@@ -53,7 +67,8 @@ const back=()=>{
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">
             <a-card :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
                 style="width: 20vw;height: 30vh;">
-                <p v-if="jobItem[(currentPage - 1) * 8 + item - 1].vaild == '0'" style="color: red;font-size: 20px;">未通过审核</p>
+                <p v-if="jobItem[(currentPage - 1) * 8 + item - 1].vaild == '0'" style="color: red;font-size: 20px;">
+                    未通过审核</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].company_name }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].walfare }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].description }}</p>
@@ -91,6 +106,7 @@ const back=()=>{
         ;
     }
 }
+
 .job-contain {
     margin-top: 20px;
     height: calc(100vh - 300px);
@@ -101,7 +117,9 @@ const back=()=>{
 
 }
 
-// .job-item {}
+.job-item {
+    overflow: hidden;
+}
 
 .pagination-box {
     position: fixed;

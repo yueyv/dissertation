@@ -70,7 +70,9 @@ const moveToJobMainPage=(id)=>{
 
 }
 
-// .job-item {}
+.job-item {
+    overflow: hidden;
+}
 
 .pagination-box {
     position: fixed;

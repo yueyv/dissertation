@@ -236,7 +236,9 @@ watch(watchTargets, () => {
 
 }
 
-// .job-item {}
+.job-item {
+    overflow: hidden;
+}
 
 .pagination-box {
     position: fixed;

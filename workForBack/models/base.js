@@ -37,6 +37,9 @@ class Base {
     isPermission(id) {
         return knex(this.table).select('permission').where('username', '=', id).first();
     }
+    getApplyJob(id) {
+        return knex(this.table).select('job_id').where('username', '=', id).first();
+    }
     getChatId(id) {
         return knex(this.table).select('chat_id').where('username', '=', id).first();
     }

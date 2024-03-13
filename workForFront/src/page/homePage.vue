@@ -83,6 +83,9 @@ onBeforeMount(() => {
     gap: 10px 10px;
 
 }
+.job-item {
+    overflow: hidden;
+}
 .advs{
     font-weight: 800;
     color: white;

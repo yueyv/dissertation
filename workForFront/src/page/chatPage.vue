@@ -1,6 +1,6 @@
 <script setup>
 import myHeader from '@/components/header/header.vue';
-import { h, ref, onMounted, nextTick, onUpdated, watch, onBeforeMount, onUnmounted } from 'vue';
+import { h, ref,reactive, onMounted, nextTick, onUpdated, watch, onBeforeMount, onUnmounted } from 'vue';
 import axios from '../plugins/axiosBase'
 import { message } from "ant-design-vue"
 import { io } from "socket.io-client";
@@ -15,8 +15,9 @@ const selectedKeys = ref([]);
 const inputText = ref("")
 const openKeys = ref();
 const user_id = ref()
-const chatLog = ref()
-
+// todo 存储在storage中
+const chatLog =reactive({})
+const isShow=ref(false)
 // 读取key，获取交流
 const items = ref([
     {
@@ -45,7 +46,7 @@ const items = ref([
             },]
         }
 ]);
-const to_id = ref(items.value[0].key)
+const to_id = ref()
 let socket = undefined
 const handleClick = menuInfo => {
     if (menuInfo.key.includes("chat")) {
@@ -59,8 +60,8 @@ const handleClick = menuInfo => {
 const getChatLog = (chatToId) => {
     axios.post('get_chat', { chatWith: chatToId }).then((res) => {
         if (res.code == 200) {
-            chatLog.value = res.data
-
+            chatLog[chatToId] = res.data
+            console.log(chatLog);
         } else {
             console.log("服务器错误");
         }
@@ -107,7 +108,7 @@ const scrollToBottom = () => {
 };
 const sendMsg = () => {
     // console.log(inputText.value);
-    if (inputText?.value == "") {
+    if (inputText?.value == ""||inputText?.value == "\n") {
         message.info('Message is required!');
         return
     }
@@ -122,11 +123,21 @@ const sendMsg = () => {
 
 }
 onBeforeMount(() => {
+    const userInformation = JSON.parse(sessionStorage.getItem("userInformation"))
+    user_id.value = userInformation.user_id
     axios.get('getChatId').then((res) => {
         if (res.code == 200) {
             const chatId = res.data.chat_id.split(',')
-            const result = chatId.map(item=>buildChatItem(item));
+            const result = chatId.map(item=>{
+                // 给定初始化
+                chatLog[item]=Array(0)
+                console.log(chatLog);
+                return buildChatItem(item)});
             items.value=result
+            isShow.value=true
+            selectedKeys.value = [items.value[0].children[0].key];
+            getChatLog(items.value[0].key)
+            to_id.value = items.value[0].key
     console.log(result);
 } else {
     message.info("返回数据错误")
@@ -147,14 +158,18 @@ socket.on('connect', () => {
 socket.on('chat_success', (req) => {
     if (req == true) {
         message.info("已发送消息")
-        console.log(chatLog.value);
-        chatLog.value.push({ to_id: to_id.value, content: inputText.value })
+        // console.log(chatLog);
+        chatLog[to_id.value].push({ to_id: to_id.value, content: inputText.value })
         inputText.value = '';
+        console.log( chatLog);
     }
 });
 socket.on('reply_private_chat', (req) => {
-    message.info(`${req}收到了信息`)
     console.log(req);
+    message.info(`收到了信息`)
+    chatLog[req.from_id].push({ to_id: user_id.value, content: req.content })
+    console.log(chatLog);
+
 });
 
 socket.on("disconnect", () => {
@@ -163,11 +178,10 @@ socket.on("disconnect", () => {
 
 })
 onMounted(() => {
-    selectedKeys.value = [items.value[0].children[0].key];
-    const userInformation = JSON.parse(sessionStorage.getItem("userInformation"))
-    user_id.value = userInformation.user_id
+   
+    
     // console.log(items.value[0].key);
-    getChatLog(items.value[0].key)
+
     // console.log(userInformation);
 });
 onUpdated(() => {
@@ -190,12 +204,13 @@ onUnmounted(() => {
         <div class="chat-box">
             <div class="menu-nav">
                 <!-- :defaultOpenKeys="items[0].children[0].key" -->
-                <a-menu class="menu-item" :selectable="true" v-model:openKeys="openKeys"
+                <a-menu v-if="!isShow" class="menu-item" />
+                <a-menu v-if="isShow" class="menu-item" :selectable="true" v-model:openKeys="openKeys"
                     v-model:selectedKeys="selectedKeys" mode="vertical" :items="items" @click="handleClick" />
             </div>
             <div class="menu-content" style="width: 100%;">
                 <div class="chat-content" ref="scrollContainer">
-                    <div v-for="item in chatLog" :key="item.message_id">
+                    <div v-for="item in chatLog[to_id]" :key="item.message_id">
                         <div v-if="item.to_id == user_id" class="chat-item-left">
                             {{ item.content }}
                         </div>
@@ -256,7 +271,7 @@ onUnmounted(() => {
 
 .chat-item-left {
     max-width: 60%;
-    margin-right: 40%;
+    margin-right: 50%;
     display: inline-block;
     border-radius: 10px;
     padding-top: 5px;
@@ -274,7 +289,7 @@ onUnmounted(() => {
 
 .chat-item-right {
     margin-right: 10px;
-    margin-left: 40%;
+    margin-left: 50%;
     margin-bottom: 5px;
     max-width: 60%;
     border-radius: 10px;
@@ -301,7 +316,7 @@ onUnmounted(() => {
 
 .chat-content {
     overflow-x: hidden;
-
+    transition: all ease 1s;
     &::-webkit-scrollbar {
         display: none;
     }
