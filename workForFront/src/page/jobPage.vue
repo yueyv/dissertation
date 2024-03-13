@@ -32,7 +32,24 @@ onMounted(() => {
 })
 // TODO跳转聊天
 const clickButton = () => {
-
+    const permission=JSON.parse(sessionStorage.getItem("permission"))
+    if(permission==1){
+        message.error("您是招聘人员")
+    }
+    if(permission==0){
+        console.log(formState);
+        
+        axios.post("addChatAndJob",{user_id:formState.value[0].user_id,job_id:formState.value[0].job_id}).then((res)=>{
+            message.success("已申请，前往聊天中")
+            router.push('/chatPage')
+        }).catch((e)=>{
+            console.log(e);
+            message.error("服务器出错")
+        })
+    }
+    if(permission==null){
+        message.error("请先登录")
+    }
 }
 </script>
 
@@ -46,7 +63,7 @@ const clickButton = () => {
         <!-- 传参 -->
         <p style="padding-top: 10px; font-size: 20px;" v-if="isShow">{{formState.value[0].city}}</p>
         <a-space style="">
-            <a-button type="primary" ghost @click="">立刻沟通</a-button>
+            <a-button type="primary" ghost @click="clickButton">立刻沟通</a-button>
         </a-space>
 
     </div>
