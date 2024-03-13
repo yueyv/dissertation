@@ -20,19 +20,19 @@ const chatLog = ref()
 // 读取key，获取交流
 const items = ref([
     {
-        key: '30',
+        key: '0',
         icon: () => h(MailOutlined),
-        label: '交流30',
-        title: '交流30',
+        label: '交流0',
+        title: '交流0',
         children: [
             {
-                key: 'chat30',
+                key: 'chat0',
                 label: '查看聊天',
                 title: '查看聊天',
                 icon: () => h(CommentOutlined),
             },
             {
-                key: 'find30',
+                key: 'find0',
                 label: '查看资料',
                 title: '查看资料',
                 icon: () => h(AlignLeftOutlined),
@@ -43,39 +43,13 @@ const items = ref([
                 title: '删除',
                 icon: () => h(CloseOutlined),
             },]
-    }, {
-        key: '35',
-        icon: () => h(MailOutlined),
-        label: '交流35',
-        title: '交流35',
-        children: [
-            {
-                key: 'chat35',
-                label: '查看聊天',
-                title: '查看聊天',
-                icon: () => h(CommentOutlined),
-
-            },
-            {
-
-                key: 'find35',
-                label: '查看资料',
-                title: '查看资料',
-                icon: () => h(AlignLeftOutlined),
-            },
-            {
-                key: 'delete35',
-                label: '删除',
-                title: '删除',
-                icon: () => h(CloseOutlined),
-            },]
-    }
+        }
 ]);
 const to_id = ref(items.value[0].key)
 let socket = undefined
 const handleClick = menuInfo => {
     if (menuInfo.key.includes("chat")) {
-        to_id.value=openKeys.value[0]
+        to_id.value = openKeys.value[0]
         // 获取历史记录
         // TODO从存储中获取
         getChatLog(openKeys.value[0])
@@ -92,7 +66,34 @@ const getChatLog = (chatToId) => {
         }
     })
 }
-
+const buildChatItem = (item) => {
+    return {
+        key: item,
+        icon: () => h(MailOutlined),
+        label: `交流${item}`,
+        title: `交流${item}`,
+        children: [
+            {
+                key: `chat${item}`,
+                label: '查看聊天',
+                title: '查看聊天',
+                icon: () => h(CommentOutlined),
+            },
+            {
+                key: `find${item}`,
+                label: '查看资料',
+                title: '查看资料',
+                icon: () => h(AlignLeftOutlined),
+            },
+            {
+                key: `delete${item}`,
+                label: '删除',
+                title: '删除',
+                icon: () => h(CloseOutlined),
+            },
+        ]
+    };
+}
 
 //  获取聊天记录滚动到最底部
 const scrollContainer = ref(null);
@@ -120,6 +121,47 @@ const sendMsg = () => {
 
 
 }
+onBeforeMount(() => {
+    axios.get('getChatId').then((res) => {
+        if (res.code == 200) {
+            const chatId = res.data.chat_id.split(',')
+            const result = chatId.map(item=>buildChatItem(item));
+            items.value=result
+    console.log(result);
+} else {
+    message.info("返回数据错误")
+}
+    }).catch((e) => {
+    message.error("请求错误")
+    console.log(e);
+})
+// 挂载socket
+const token = JSON.parse(localStorage.getItem('token'))
+socket = io('http://localhost:3000', {
+    reconnectionDelayMax: 10000,
+    auth: { token: token }
+})
+socket.on('connect', () => {
+    socket.emit('online');
+});
+socket.on('chat_success', (req) => {
+    if (req == true) {
+        message.info("已发送消息")
+        console.log(chatLog.value);
+        chatLog.value.push({ to_id: to_id.value, content: inputText.value })
+        inputText.value = '';
+    }
+});
+socket.on('reply_private_chat', (req) => {
+    message.info(`${req}收到了信息`)
+    console.log(req);
+});
+
+socket.on("disconnect", () => {
+    socket.connect();
+});
+
+})
 onMounted(() => {
     selectedKeys.value = [items.value[0].children[0].key];
     const userInformation = JSON.parse(sessionStorage.getItem("userInformation"))
@@ -131,41 +173,15 @@ onMounted(() => {
 onUpdated(() => {
     nextTick(scrollToBottom);
 })
-onBeforeMount(() => {
-    const token = JSON.parse(localStorage.getItem('token'))
-    socket = io('http://localhost:3000', {
-        reconnectionDelayMax: 10000,
-        auth: { token: token }
-    })
-    socket.on('connect', () => {
-        socket.emit('online');
-    });
-    socket.on('chat_success', (req) => {
-        if (req == true) {
-            message.info("已发送消息")
-            console.log( chatLog.value);
-            chatLog.value.push({to_id: to_id.value, content: inputText.value})
-            inputText.value = '';
-        }
-    });
-    socket.on('reply_private_chat', (req) => {
-        message.info(`${req}收到了信息`)
-        console.log(req);
-    });
 
-    socket.on("disconnect", () => {
-        socket.connect();
-    });
-
-})
 onUnmounted(() => {
     socket.disconnect()
 })
 // MARK 测试
-watch(selectedKeys,()=>{
-    console.log(selectedKeys.value);
-    ref
-})
+// watch(selectedKeys, () => {
+//     console.log(selectedKeys.value);
+//     ref
+// })
 </script>
 
 <template>
@@ -259,7 +275,6 @@ watch(selectedKeys,()=>{
 .chat-item-right {
     margin-right: 10px;
     margin-left: 40%;
-    display: inline-block;
     margin-bottom: 5px;
     max-width: 60%;
     border-radius: 10px;

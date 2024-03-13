@@ -45,8 +45,8 @@ const back=()=>{
 
 <template>
     <myHeader></myHeader>
-    <router-link to="editPersonMesPage">
-        <div class="edit">
+    <router-link to="editPersonMesPage" >
+        <div class="edit" v-if="isShow&&permission!=1">
             <EditOutlined />
         </div>
     </router-link>
@@ -57,7 +57,7 @@ const back=()=>{
             <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">前往招聘页面</a-button>
         </div>
     </div>
-    <div class="appointment-w3" v-if="isShow">
+    <div class="appointment-w3" v-if="isShow&&permission!=1">
         <form action="#" method="post">
             <div class="personal">
                 <h2>个人信息</h2>

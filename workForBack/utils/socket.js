@@ -4,6 +4,7 @@
 // const { Logform } = require("winston")
 // MARK记录在线
 const users = {};
+// 连接池
 const USER_STATUS = ['ONLINE', 'OFFLINE'];
 const User = require('../models/user')
 const Mes = require('../models/message')
@@ -13,20 +14,25 @@ module.exports = (socket) => {
     // console.log(socket.handshake.auth.token);
     socket.on('online', status => {
         // console.log(status);
-        verify(socket.handshake.auth.token).then(async(username)=>{
-            // console.log(username);
-            socket.username=username
-            let userIdData = await User.searchId(username)
-            socket.user_id=userIdData.user_id
-            users[userIdData.user_id] = {
-                user_id:userIdData.user_id,
-                socketId: socket.id,
-                status: USER_STATUS[0],
-            };
-            console.log(users);
-        }).catch(
-            // socket.emit('disConnect',"验证错误")
-        )
+        try {
+            verify(socket.handshake.auth.token).then(async(username)=>{
+                // console.log(username);
+                socket.username=username
+                let userIdData = await User.searchId(username)
+                socket.user_id=userIdData.user_id
+                users[userIdData.user_id] = {
+                    user_id:userIdData.user_id,
+                    socketId: socket.id,
+                    status: USER_STATUS[0],
+                };
+                console.log(users);
+            }).catch((e)=>{
+                console.log(e);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+        
         
 
     })

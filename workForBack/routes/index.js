@@ -27,6 +27,7 @@ router.post('/api/upload_apply',upload.single('file'),useControllerUser.upload_a
 // 判定上传
 router.get('/api/get_isExistUpload',useControllerUser.isExistUpload)
 router.get('/api/getPermission',useControllerUser.getPermission)
+router.get('/api/getChatId',useControllerUser.getChatId)
 
 // IM JOB
 router.post('/api/addJob',useControllerJob.addJob)

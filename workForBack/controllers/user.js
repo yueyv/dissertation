@@ -5,6 +5,25 @@ const fs = require('fs');
 const jwt = require('../utils/jwt');
 
 const useController = {
+    getChatId:async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                let data = await User.getChatId(username)
+                // if(data.Permission==1)
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data:data
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
     getPermission:async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
