@@ -9,23 +9,23 @@ import { CustomerServiceOutlined, CommentOutlined } from '@ant-design/icons-vue'
 const router = useRouter()
 const faqMain = [
   {
-    title: "待填充",
-    content: "233233",
+    title: "为什么没有消息推送",
+    content: "通过存储的登录时间和此次登录时间的时间差之中的消息来实现（能力不足，暂定）",
 
   }, {
-    title: "",
-    content: "",
+    title: "我发送了消息，对面第一时间能收到吗",
+    content: "如果对方在线，可以第一时间收到",
 
   }, {
-    title: "",
-    content: "",
+    title: "审核流程",
+    content: "1:发起请求\n2:审核中\n3:审核成功OR失败",
 
   }, {
-    title: "",
-    content: "",
+    title: "为什么访问这么慢",
+    content: "服务器在国外",
   }, {
-    title: "",
-    content: "",
+    title: "随便扯点把",
+    content: "我嘟嘟嘟嘟嘟",
   },
 ]
 const faqActive = ref(Array(5).fill(-1))
@@ -62,7 +62,7 @@ const chatToadmin=()=>{
   <div class="tip-head" v-for="(item, index) in faqMain" @click="faqActiveFunc(index)">
     <p>{{ item.title }}</p><i :class="faqActive[index] > 0 ? 'rotating-element' : ''" class="bi bi-arrow-up-short"
       style="font-size: 30px; color: white; justify-self: end; padding: 0px 5px;"></i>
-    <p class="faqContent" :class="faqActive[index] < 0 ? 'hidden' : ''">233</p>
+    <p class="faqContent" :class="faqActive[index] < 0 ? 'hidden' : ''">{{ item.content }}</p>
   </div>
   <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }">
     <template #icon>

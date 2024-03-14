@@ -34,9 +34,16 @@ onMounted(() => {
         console.log(e);
     })
 })
-// TODO跳转聊天
+// done跳转聊天
 const clickButton = () => {
-
+    axios.post("chatToApplicant").then((res)=>{
+    if(res.code==200){
+      message.info("跳转中")
+      router.push('/chatPage')
+    }else{
+      message.error("服务器错误")
+    }
+  })
 }
 const open = ref(false)
 const deleteJob = () => {

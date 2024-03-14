@@ -45,6 +45,7 @@ router.post("/api/addChatAndJob",useControllerMes.addChatAndJob)
 router.post("/api/get_chat",useControllerMes.getChat)
 router.post("/api/chatDelete",useControllerMes.chatDelete)
 router.post("/api/chatToadmin",useControllerMes.chatToadmin)
+router.post("/api/chatToApplicant",useControllerMes.chatToApplicant)
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{
   // const token = req.headers.authorization;

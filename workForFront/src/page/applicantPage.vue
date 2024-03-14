@@ -20,20 +20,20 @@ const userData = ref({
 
 // Mark 原生剪切
 const copyText = async (content) => {
-  try {
-    await navigator.clipboard.writeText(content);
-    message.success(`已粘贴到剪切板,${content}`);
-  } catch {
-    message.warning(`粘贴失败,手动输入${content}`);
-  }
+    try {
+        await navigator.clipboard.writeText(content);
+        message.success(`已粘贴到剪切板,${content}`);
+    } catch {
+        message.warning(`粘贴失败,手动输入${content}`);
+    }
 
 
 };
 console.log(route.params.id);
 const permission = ref(1);
-const isShow=ref(false)
+const isShow = ref(false)
 onBeforeMount(() => {
-    axios.post('get_user_other',{user_id:route.params.id}).then((res) => {
+    axios.post('get_user_other', { user_id: route.params.id }).then((res) => {
         userData.value = res.data[0]
         console.log(res.data);
     }
@@ -45,21 +45,31 @@ onBeforeMount(() => {
         if (res.code == 200) {
             // console.log(permission.value);
             permission.value = res.data.permission
-            isShow.value=true
+            isShow.value = true
             console.log(permission.value);
             sessionStorage.setItem("permission", JSON.stringify(res.data.permission))
         }
     }
     )
 })
-const back=()=>{
+const back = () => {
     router.back()
+}
+const chatButton = () => {
+    axios.post("chatToApplicant",{user_id:userData.value.user_id}).then((res) => {
+        if (res.code == 200) {
+            message.info("跳转中")
+            router.push('/chatPage')
+        } else {
+            message.error("服务器错误")
+        }
+    })
 }
 </script>
 
 <template>
     <myHeader></myHeader>
-  
+
     <div class="auth" v-if="permission == 0">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">权限不足</h1>
@@ -67,28 +77,28 @@ const back=()=>{
             <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">返回</a-button>
         </div>
     </div>
-    <div class="appointment-w3" v-if="isShow==1&&permission==1">
-        <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw'}">
-    <template #icon>
-      <CustomerServiceOutlined />
-    </template>
-    <a-float-button @click="copyText(`${userData.phone}`)">
-      <template #icon >
-        <i class="bi bi-telephone" ></i>
-        <!-- MARK 黏贴到剪切板 -->
-      </template>
-    </a-float-button>
-    <a-float-button @click="copyText(`${userData.email}`)">
-      <template #icon>
-        <i class="bi bi-envelope" ></i>
-      </template>
-    </a-float-button>
-    <!-- TODO 和交流 -->
-    <a-float-button>
-      <template #icon>
-      <CustomerServiceOutlined />
-    </template></a-float-button>
-  </a-float-button-group>
+    <div class="appointment-w3" v-if="isShow == 1 && permission == 1">
+        <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }">
+            <template #icon>
+                <CustomerServiceOutlined />
+            </template>
+            <a-float-button @click="copyText(`${userData.phone}`)">
+                <template #icon>
+                    <i class="bi bi-telephone"></i>
+                    <!-- MARK 黏贴到剪切板 -->
+                </template>
+            </a-float-button>
+            <a-float-button @click="copyText(`${userData.email}`)">
+                <template #icon>
+                    <i class="bi bi-envelope"></i>
+                </template>
+            </a-float-button>
+            <!-- done 和交流 -->
+            <a-float-button @click="chatButton()"> 
+                <template #icon>
+                    <CustomerServiceOutlined />
+                </template></a-float-button>
+        </a-float-button-group>
         <form action="#" method="post">
             <div class="personal">
                 <h2>个人信息</h2>
@@ -170,6 +180,7 @@ const back=()=>{
         ;
     }
 }
+
 .edit {
     color: black;
     position: fixed;

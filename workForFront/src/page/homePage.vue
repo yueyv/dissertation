@@ -55,10 +55,10 @@ onBeforeMount(() => {
     <div class="advs">毕业设计火热制作中</div>
     <div style="margin-top:50px">
         <searchHome></searchHome>
-        <div class="commend-tag">
+        <!-- <div class="commend-tag">
             <p style="color: #9E9E9E;">热招岗位:</p>
             <p v-for="item in commendTags" class="smart-tag">{{ item.title }}</p>
-        </div>
+        </div> -->
     <div class="job-contain" v-if="isShow">
         <div class="job-item" v-for="item in jobItem.length" @click="moveToJobMainPage(jobItem[item-1].job_id)">
             <a-card :title="jobItem[item-1].title" :bordered="false" style="width: 20vw;height: 30vh;">
