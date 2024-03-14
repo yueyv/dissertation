@@ -38,13 +38,13 @@ router.post("/api/getHomeJob",useControllerJob.getHomeJob)
 router.post("/api/getJobInfo",useControllerJob.getJobInfo)
 router.post("/api/deleteJob",useControllerJob.deleteJob)
 router.post("/api/searchJob",useControllerJob.searchJob)
-
+router.post("/api/deleteApplicant",useControllerJob.deleteApplicant)
 // MARK 多表插入
 router.post("/api/addChatAndJob",useControllerMes.addChatAndJob)
 // IM聊天系统
 router.post("/api/get_chat",useControllerMes.getChat)
 router.post("/api/chatDelete",useControllerMes.chatDelete)
-
+router.post("/api/chatToadmin",useControllerMes.chatToadmin)
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{
   // const token = req.headers.authorization;

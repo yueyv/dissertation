@@ -42,7 +42,7 @@ const onChange = (pageNumber) => {
 };
 // done 从后端返回
 
-// TODO 到详情页面
+// done 到详情页面
 const moveToJobMainPage = (id) => {
     router.push(`/jobPage/${id}`)
     console.log(id);

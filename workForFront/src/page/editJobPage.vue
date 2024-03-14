@@ -67,9 +67,18 @@ const handleApplicants = () => {
 const moveToApplicatPage = (id) => {
     router.push(`/applicantPage/${id}`)
 }
-// TODO
-const moveTochatPage=()=>{
-    
+// done 删除
+const deleteApplicant=(applicant_id)=>{
+    axios.post('deleteApplicant',{job_id:formState.value[0].job_id,applicant_id:applicant_id}).then(
+        (res)=>{
+            if(res.code==200){
+                applicant.value=applicant.value.filter(item=>item.user_id!=applicant_id)
+                message.success("删除成功")
+            }else{
+                message.error("删除失败")
+            }
+        }
+    )
 }
 </script>
 
@@ -93,6 +102,7 @@ const moveTochatPage=()=>{
                         <!-- done -->
                         <div v-for="(item,key) in applicant" >
                             <a-button style=" margin-right: 40px;padding-bottom: 10px;" @click="moveToApplicatPage(item.user_id)">{{item.username }}</a-button>
+                            <a-button style=" margin-right: 40px;padding-bottom: 10px; float: right;" danger @click="deleteApplicant(item.user_id)">删除</a-button>
                         </div>     
                     </div>
                 </a-space>

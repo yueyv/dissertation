@@ -2,9 +2,11 @@
 import { ref, reactive } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import { message } from 'ant-design-vue';
-
+import axios from '../plugins/axiosBase.js';
+import { useRoute, useRouter } from 'vue-router';
 import { CustomerServiceOutlined, CommentOutlined } from '@ant-design/icons-vue';
 // mark 动画效果 
+const router = useRouter()
 const faqMain = [
   {
     title: "待填充",
@@ -32,7 +34,6 @@ const faqActiveFunc = (index) => {
   // console.log(faqActive.value);
 }
 // Mark 原生剪切
-// IM 需要https
 const copyText = async (content) => {
   try {
     await navigator.clipboard.writeText(content);
@@ -43,6 +44,16 @@ const copyText = async (content) => {
 
 
 };
+const chatToadmin=()=>{
+  axios.post("chatToadmin").then((res)=>{
+    if(res.code==200){
+      message.info("跳转中")
+      router.push('/chatPage')
+    }else{
+      message.error("服务器错误")
+    }
+  })
+}
 </script>
 
 <template>
@@ -68,8 +79,8 @@ const copyText = async (content) => {
         <i class="bi bi-envelope"></i>
       </template>
     </a-float-button>
-    <!-- TODO 和客服交流 -->
-    <a-float-button>
+    <!-- done 和客服交流 -->
+    <a-float-button @click="chatToadmin()">
       <template #icon>
         <CustomerServiceOutlined />
       </template></a-float-button>

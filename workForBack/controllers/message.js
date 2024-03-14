@@ -94,5 +94,29 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
+    chatToadmin:async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                // console.log(req.body);
+                let userIdData = await User.inquire(username)
+                let chat_id="0"+','+userIdData[0].chat_id
+                chat_id=(Array.from(new Set(chat_id.split(',')))).join(',')
+                // console.log(job_id,chat_id);
+                await User.update(username,{chat_id:chat_id})
+                // if(data.Permission==1)
+                res.json({
+                    code: 200,
+                    message: "success",
+                    // data:chatData
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
 }
 module.exports = useController

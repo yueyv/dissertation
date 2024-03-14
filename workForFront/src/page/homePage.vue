@@ -26,7 +26,7 @@ const commendTags=[
         link:"",
     }
 ]
-// TODO 到详情页面
+// done 到详情页面
 const moveToJobMainPage=(id)=>{
     router.push(`/jobPage/${id}`)
     console.log(id);
