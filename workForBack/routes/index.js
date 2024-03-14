@@ -39,6 +39,8 @@ router.post("/api/getJobInfo",useControllerJob.getJobInfo)
 router.post("/api/deleteJob",useControllerJob.deleteJob)
 router.post("/api/searchJob",useControllerJob.searchJob)
 
+// MARK 多表插入
+router.post("/api/addChatAndJob",useControllerMes.addChatAndJob)
 // IM聊天系统
 router.post("/api/get_chat",useControllerMes.getChat)
 router.post("/api/chatDelete",useControllerMes.chatDelete)

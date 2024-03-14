@@ -22,6 +22,9 @@ class Base {
     update(id, params) {
         return knex(this.table).where('username', '=', id).update(params)
     }
+    updateJob(id, params) {
+        return knex(this.table).where('job_id', '=', id).update(params)
+    }
     delete(param1, param2) {
         return knex(this.table).where(param1, '=', param2).del();
     }
