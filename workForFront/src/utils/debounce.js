@@ -2,7 +2,7 @@ export function debounce(func, delay) {
   // 计时器
   let time;
 
-  return function(this) {
+  return function() {
     const context = this;
     const args = arguments;
     // 如果存在就清除计时器
@@ -15,5 +15,3 @@ export function debounce(func, delay) {
     }, delay);
   };
 }
-
-

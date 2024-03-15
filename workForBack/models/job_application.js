@@ -1,3 +1,4 @@
+// MARK 优化掉
 const Base=require('./base')
 class job_application extends Base{
     constructor(props='job_applications'){

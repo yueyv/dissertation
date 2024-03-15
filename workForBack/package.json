@@ -2,6 +2,7 @@
   "name": "workforback",
   "type": "commonjs",
   "version": "0.3.0",
+  "author": "yueyvlunhui",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"

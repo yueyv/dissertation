@@ -145,7 +145,7 @@ const routes = [
       }
     }
   },
-    {
+  {
     path: '/applicantPage/:id',
     name: 'applicantPage',
     meta: {
@@ -235,7 +235,42 @@ const routes = [
     //     next("/login");
     //   }
     // }
-  }
+  }, {
+    path: '/adminLogin',
+    name: 'adminLogin',
+    meta: {
+      title: '管理员登录',
+      permission: true,
+      admin: true
+    },
+    component: () => import('../components/login/admin.vue'),
+  },
+    {
+      path: '/admin',
+      name: 'admin',
+      meta: {
+        title: '管理员登录',
+        permission: true,
+        admin: true
+      },
+      component: () => import('../admin/admin.vue'),
+    children: [
+      {
+        path: '/one',
+        component: () => import('../admin/children/test.vue'),
+      },
+
+    ],
+    beforeEnter: (to, from, next) => {
+      // 检查用户权限
+      if (localStorage.getItem("admin") && JSON.parse(localStorage.getItem("admin")) == "yueyv") {
+        next();
+      } else {
+        message.warning("权限不足");
+        next("/adminLogin");
+      }
+    }
+  },
 
 ]
 export const router = createRouter({
