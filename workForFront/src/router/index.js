@@ -249,7 +249,7 @@ const routes = [
       path: '/admin',
       name: 'admin',
       meta: {
-        title: '管理员登录',
+        title: '后台管理',
         permission: true,
         admin: true
       },

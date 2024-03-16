@@ -51,6 +51,9 @@ router.post("/api/chatToApplicant",useControllerMes.chatToApplicant)
 router.post("/api/adminLogin",useControllerAdmin.adminLogin)
 // BUG
 router.post("/api/get_chat_admin",useControllerAdmin.getChatAdmin)
+
+router.post("/api/getAllUser",useControllerAdmin.getAllUser)
+router.post("/api/getAllJobAdmin",useControllerAdmin.getAllJob)
 router.get("/api/getChatIdAdmin",useControllerAdmin.getChatIdAdmin)
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{

@@ -13,6 +13,7 @@ import {
 // 上一个
 // MARK 根据permission 进行不同页面的跳转
 const router = useRouter()
+const refresh=ref(0)
 const permission=ref(-1)
 const selectedKeys = ref([]);
 const inputText = ref("")
@@ -103,12 +104,6 @@ const buildChatItem = (item,label) => {
                 label: '查看聊天',
                 title: '查看聊天',
                 icon: () => h(CommentOutlined),
-            },
-            {
-                key: `find${item}`,
-                label: '查看资料',
-                title: '查看资料',
-                icon: () => h(AlignLeftOutlined),
             },
             {
                 key: `delete${item}`,
@@ -229,7 +224,7 @@ onUnmounted(() => {
 <template>
     <div class="chat-contain">
         <div class="chat-box">
-            <div class="menu-nav">
+            <div class="menu-nav" :key="refresh">
                 <!-- :defaultOpenKeys="items[0].children[0].key" -->
                 <a-menu v-if="!isShow" class="menu-item" />
                 <a-menu v-if="isShow" class="menu-item" :selectable="true" v-model:openKeys="openKeys"

@@ -38,13 +38,13 @@ const throttleEnter = throttle(() => {
 
     <navbox :nav_list="nav_list" style="z-index: 3;" :nav_show="nav_show" @nav_choose="nav_choose"></navbox>
     <keep-alive>
-    <component :is='manageUser' v-show="nav_show[0]" ></component>
+    <component :is='manageUser' v-if="nav_show[0]" ></component>
     </keep-alive>
     <keep-alive>
-        <component :is='manageJob' v-show="nav_show[1]" ></component>    
+        <component :is='manageJob' v-if="nav_show[1]" ></component>    
     </keep-alive>
     <keep-alive>
-        <component :is='chatSession' v-show="nav_show[2]" ></component> 
+        <component :is='chatSession' v-if="nav_show[2]" ></component> 
     </keep-alive>
 </div>
 </template>

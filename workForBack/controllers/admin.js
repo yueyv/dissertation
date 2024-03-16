@@ -18,7 +18,7 @@ const useController = {
             if (newData.password == pwd) {
                 const params = {
                     username: "客服",
-                    adminName:`${username}`,
+                    adminName: `${username}`,
                     admin: true
                 }
                 let jwtToken = jwt.sign(params)
@@ -102,5 +102,57 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
+    getAllUser: async function (req, res, next) {
+        jwt.adminVerify(req.headers.authorization).then(async admin => {
+            if (admin) {
+                try {
+                    let userData = await User.all()
+                    // console.log(IdData.chat_id);
+
+                    res.json({
+                        code: 200,
+                        message: "success",
+                        data: userData
+                    })
+                }
+                // if(data.Permission==1)
+
+                catch (e) {
+                    res.json({ code: 0, message: "default", data: e })
+                }
+            }
+            else {
+                res.json({ code: 500, message: "验证错误", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
+    getAllJob: async function (req, res, next) {
+        jwt.adminVerify(req.headers.authorization).then(async admin => {
+            if (admin) {
+                try {
+                    let jobData = await Job.all()
+                    // console.log(IdData.chat_id);
+
+                    res.json({
+                        code: 200,
+                        message: "success",
+                        data: jobData
+                    })
+                }
+                // if(data.Permission==1)
+
+                catch (e) {
+                    res.json({ code: 0, message: "default", data: e })
+                }
+            }
+            else {
+                res.json({ code: 500, message: "验证错误", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    }
 }
 module.exports = useController
