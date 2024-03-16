@@ -198,7 +198,7 @@ const changevaild = (user_id, vaild) => {
     // align-items: center;
     padding-left: 10px;
     border-radius: 20px;
-    margin-top: 5vh;
+    margin-top: 2vh;
     margin-left: 10vw;
     width: 80vw;
     height: 80vh;
