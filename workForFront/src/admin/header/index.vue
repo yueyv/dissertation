@@ -8,7 +8,7 @@ const router = useRouter()
 const userId = ref("未登录")
 async function getId() {
     try {
-        userId.value = JSON.parse(localStorage.getItem("userId"))
+        userId.value = JSON.parse(localStorage.getItem("userId")??'undefined')
     } catch (error) {
         console.error('Error:', error);
     }
@@ -35,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="box" @click="login()">
+    <div class="box">
         <img src="/FeHeart.svg" alt="no">
         <h1>{{ userId }}</h1>
     </div>

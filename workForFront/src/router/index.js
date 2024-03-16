@@ -254,16 +254,16 @@ const routes = [
         admin: true
       },
       component: () => import('../admin/admin.vue'),
-    children: [
-      {
-        path: '/one',
-        component: () => import('../admin/children/test.vue'),
-      },
+    // children: [
+    //   {
+    //     path: '/one',
+    //     component: () => import('../admin/children/test.vue'),
+    //   },
 
-    ],
+    // ],
     beforeEnter: (to, from, next) => {
       // 检查用户权限
-      if (localStorage.getItem("admin") && JSON.parse(localStorage.getItem("admin")) == "yueyv") {
+      if (sessionStorage.getItem("admin") && JSON.parse(sessionStorage.getItem("admin")) == "yueyv") {
         next();
       } else {
         message.warning("权限不足");

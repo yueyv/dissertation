@@ -91,7 +91,7 @@ const useController = {
         try {
             // console.log(req.body);
             let jobData = await Job.select("job_id", req.body.job_id)
-            console.log(jobData[0].applicant_id);
+            // console.log(jobData[0].applicant_id);
             let applicant = []
             if (jobData[0].applicant_id != null) {
 

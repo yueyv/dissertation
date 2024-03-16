@@ -22,6 +22,19 @@ let verify = (jwtToken) => {
     });
   });
 }
+let adminVerify = (jwtToken) => {
+  return new Promise((resolve, reject) => {
+    jwt.verify(jwtToken, 'yueyv', function(err, decoded) {
+      if (err) {
+        reject(err);
+        console.log("超时");
+      } else {
+        let {username,admin} = decoded;
+        resolve(admin);
+      }
+    });
+  });
+}
 module.exports = {
-  sign,verify
+  sign,verify,adminVerify
 }

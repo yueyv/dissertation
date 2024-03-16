@@ -49,6 +49,9 @@ router.post("/api/chatToadmin",useControllerMes.chatToadmin)
 router.post("/api/chatToApplicant",useControllerMes.chatToApplicant)
 // TODO admin
 router.post("/api/adminLogin",useControllerAdmin.adminLogin)
+// BUG
+router.post("/api/get_chat_admin",useControllerAdmin.getChatAdmin)
+router.get("/api/getChatIdAdmin",useControllerAdmin.getChatIdAdmin)
 // MARK 获取城市
 router.get('/api/get_city',(req,res,next)=>{
   // const token = req.headers.authorization;

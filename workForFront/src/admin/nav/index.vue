@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { debounce } from '../../utils/debounce';
 import { throttle } from '../../utils/throttle';
 import { message } from 'ant-design-vue';
+const router=useRouter()
 import "animate.css"
 const props = defineProps({
     nav_list:{
@@ -24,6 +25,11 @@ const emit=defineEmits(['nav_choose'])
 function nav_choosed(key){
     emit('nav_choose',key)
 }
+const exit=()=>{
+    localStorage.clear()
+    sessionStorage.clear()
+    router.push('/adminLogin')
+}
 </script>
 
 <template>
@@ -35,6 +41,9 @@ function nav_choosed(key){
             <br>
             <div class="choose" @click="()=>{shownav=false}">
                 <span>隐藏</span>
+            </div>
+            <div class="choose" @click="exit()">
+                <span>退出</span>
             </div>
         </div>
     </div>

@@ -18,11 +18,18 @@ const useController = {
                 chat_id=(Array.from(new Set(chat_id.split(',')))).join(',')
                 // console.log(job_id,chat_id);
                 await User.update(username,{job_id:job_id,chat_id:chat_id})
+                // 在job表加入
                 new Promise(async()=>{
                     let jobData= await Job.select('job_id',Number(req.body.job_id)).first()
                     let  applicant_id=jobData.applicant_id+','+userIdData[0].user_id
                     applicant_id=(Array.from(new Set(applicant_id.split(',')))).join(',')
                     await Job.updateJob(jobData.job_id,{applicant_id:applicant_id})
+                    // 在另一边加入聊天
+                    let chatUserData=await User.select("user_id",chat_id).first()
+                    // console.log(chatUserData);
+                    let NewChat_id=chatUserData.chat_id+','+userIdData[0].user_id
+                    NewChat_id=(Array.from(new Set(NewChat_id.split(',')))).join(',')
+                    await User.update(chatUserData.username,{chat_id:NewChat_id})
                     // console.log(applicant_id);
                 },()=>{
 
@@ -95,6 +102,7 @@ const useController = {
         })
     },
     chatToadmin:async function (req, res, next) {
+        
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
             //IM 访问别人的需要重新
@@ -105,6 +113,20 @@ const useController = {
                 chat_id=(Array.from(new Set(chat_id.split(',')))).join(',')
                 // console.log(job_id,chat_id);
                 await User.update(username,{chat_id:chat_id})
+                new Promise(async()=>{
+                    // 在另一边加入聊天
+                    let chatUserData=await User.select("user_id",0).first()
+                    // console.log(chatUserData);
+                    let NewChat_id=chatUserData.chat_id+','+userIdData[0].user_id
+                    // console.log(NewChat_id);
+                    NewChat_id=(Array.from(new Set(NewChat_id.split(',')))).join(',')
+                    await User.update(chatUserData.username,{chat_id:NewChat_id})
+                    // console.log(applicant_id);
+                },()=>{
+
+                }).then(()=>{
+
+                })
                 // if(data.Permission==1)
                 res.json({
                     code: 200,

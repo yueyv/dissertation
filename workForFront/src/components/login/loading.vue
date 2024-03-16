@@ -9,7 +9,7 @@ const router = useRouter()
 const login = setTimeout(() => {
     if ((localStorage.getItem("token")?.length ??1) > 40){
         message.success("登录成功")
-        if(localStorage.getItem("admin") && JSON.parse(localStorage.getItem("admin")) == "yueyv"){
+        if(sessionStorage.getItem("admin") && JSON.parse(sessionStorage.getItem("admin")) == "yueyv"){
             router.push('/admin')
         }else{
             router.push('/')    
