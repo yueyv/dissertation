@@ -76,7 +76,12 @@ const state = reactive({
     searchText: '',
     searchedColumn: '',
 });
-
+const props = defineProps({
+    nav_show: {
+        type: Array,
+        default: [true, false, false],
+    }
+})
 const searchInput = ref();
 onBeforeMount(() => {
     axios.post("getAllUser").then((res) => {
@@ -100,17 +105,56 @@ const handleReset = clearFilters => {
     clearFilters({ confirm: true });
     state.searchText = '';
 };
-// todo 聊天
+// done 聊天
 const chat = (user_id) => {
-
+    axios.post("adminChatTo", { to_id: user_id }).then((res) => {
+        if (res.code == 200) {
+            message.info("跳转聊天")
+            nav_choosed(2)
+        } else {
+            message.info("服务器错误")
+        }
+    })
 }
-// todo 查看文档（下载）
-const inquire = (user_id, apply_filename) => {
-
+const emit = defineEmits(['nav_choose'])
+function nav_choosed(key) {
+    emit('nav_choose', key)
 }
-// todo 变更权限
+// done 查看文档（下载）构造a标签，放弃
+// const inquire = (user_id, apply_filename) => {
+//     const filename = user_id + '_' + apply_filename
+//     // 发起 HTTP 请求获取文件内容
+//     axios.get('file', {
+//         params: {
+//             filename: filename
+//         },
+//         responseType: 'arraybuffer' 
+//     })
+//         .then(response => {
+//             const blob = new Blob([response.data], { type: response.headers['content-type'] });
+//             const url = URL.createObjectURL(blob);
+//             const link = document.createElement('a');
+//             link.href = url;
+//             link.download = filename;
+//             document.body.appendChild(link);
+//             link.click();
+//             document.body.removeChild(link);
+//             URL.revokeObjectURL(url);
+//         })
+//         .catch(error => {
+//             console.error('Failed to download file:', error);
+//         })
+
+// }
+// done 变更权限
 const changePermission = (user_id, permission) => {
-
+    axios.post("changePermission", { user_id: user_id, permission: permission }).then((res) => {
+        if (res.code == 200) {
+            message.info("更改成功，请刷新")
+        } else {
+            message.info("服务器错误")
+        }
+    })
 }
 </script>
 
@@ -163,11 +207,12 @@ const changePermission = (user_id, permission) => {
                     <span>
                         <a @click="chat(record.user_id)">聊天</a>
                         &nbsp;
-                        <a @click="inquire(record.user_id, record.apply_filename)"
+                        <a :href="'/api/file?filename=' + record.user_id + '_' + record.apply_filename"
+                            :download="record.user_id + '_' + record.apply_filename"
                             v-if="record.permission != '0'">查看申请文件</a>
                         <br>
                         <a @click="changePermission(record.user_id, 1)" v-if="record.permission == '-1'">同意申请</a>
-                        <a @click="changePermission(record.user_id, 0)" v-if="record.permission == '1'">取消权限</a>
+                        <a @click="changePermission(record.user_id, -1)" v-if="record.permission == '1'">取消权限</a>
                     </span>
                 </template>
             </template>

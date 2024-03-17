@@ -4,10 +4,12 @@ import { Alert, Input, Space } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
 import { message } from 'ant-design-vue';
 import axios from '@/plugins/axiosBase.js';
+import {useRouter} from 'vue-router';
 import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
 // done使用pinia
+const router=useRouter()
 const ipStore = useIPStore()
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
@@ -70,8 +72,9 @@ const navItems = [{
 
 // console.log(userId.value);
 const exitLogin = () => {
-    localStorage.removeItem("userId")
-    localStorage.removeItem("token")
+    localStorage.clear()
+    sessionStorage.clear()
+    router.go(0)
 }
 const switchCity = () => {
     open.value = true;

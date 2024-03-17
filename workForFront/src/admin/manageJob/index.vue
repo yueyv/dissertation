@@ -99,15 +99,31 @@ const handleReset = clearFilters => {
     clearFilters({ confirm: true });
     state.searchText = '';
 };
-// todo 申请
 const chat = (user_id) => {
-
+    axios.post("adminChatTo", { to_id: user_id }).then((res) => {
+        if (res.code == 200) {
+            message.info("跳转聊天")
+            nav_choosed(2)
+        } else {
+            message.info("服务器错误")
+        }
+    })
 }
-// todo 查看文档（下载）
+const emit = defineEmits(['nav_choose'])
+function nav_choosed(key) {
+    emit('nav_choose', key)
+}
 
 // todo 变更权限
-const changevaild = (user_id, vaild) => {
-
+const changevaild = (job_id, vaild) => {
+    axios.post("changevaild", { job_id: job_id, vaild: vaild }).then((res) => {
+        console.log(res);
+        if (res.code == 200) {
+            message.info("更改成功，请刷新")
+        } else {
+            message.info("服务器错误")
+        }
+    })
 }
 </script>
 
