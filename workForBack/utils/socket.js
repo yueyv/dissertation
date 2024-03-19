@@ -4,6 +4,17 @@
 // const { Logform } = require("winston")
 // MARK记录在线 连接池
 const users = {};
+// MARK 敏感词
+const sensitiveWords=['夜总会',"愚蠢"]
+function filterSensitiveWords(text, sensitiveWords) {
+    sensitiveWords.forEach(word => {
+        const regExp = new RegExp(word, 'gi');
+        text = text.replace(regExp, '*'.repeat(word.length));
+    });
+    return text;
+}
+// 敏感词
+
 // 连接池
 const USER_STATUS = ['ONLINE', 'OFFLINE'];
 const User = require('../models/user')
@@ -47,7 +58,7 @@ module.exports = (socket) => {
             await Mes.insert({
                 user_id:socket.user_id,
                 to_id:params.to_id,
-                content:params.text
+                content:filterSensitiveWords(params.text,sensitiveWords)
             })
             socket.emit('chat_success',true)
         } catch (error) {
