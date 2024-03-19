@@ -55,6 +55,7 @@ module.exports = (socket) => {
         }
 
         // TODO 过滤敏感词 以后再说
+        // 在content中识别过滤
         const receiver = users[params.to_id];
  
 // 放弃状态管理
