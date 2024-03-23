@@ -114,7 +114,7 @@ function nav_choosed(key) {
     emit('nav_choose', key)
 }
 
-// todo 变更权限
+// done 变更权限
 const changevaild = (job_id, vaild) => {
     axios.post("changevaild", { job_id: job_id, vaild: vaild }).then((res) => {
         console.log(res);

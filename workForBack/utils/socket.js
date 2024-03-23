@@ -72,7 +72,7 @@ module.exports = (socket) => {
 // 放弃状态管理
         if (receiver && receiver.status === USER_STATUS[0]) {
             console.log(receiver);
-            socket.to(receiver.socketId).emit('reply_private_chat', {from_id:socket.user_id,content:params.text,from_username:socket.username});
+            socket.to(receiver.socketId).emit('reply_private_chat', {from_id:socket.user_id,content:filterSensitiveWords(params.text,sensitiveWords),from_username:socket.username});
         } else {
             console.log(`${params.to_id} 不在线`);
         }
