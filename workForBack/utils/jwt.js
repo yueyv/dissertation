@@ -29,8 +29,8 @@ let adminVerify = (jwtToken) => {
         reject(err);
         console.log("超时");
       } else {
-        let {username,admin} = decoded;
-        resolve(admin);
+        let {adminName,admin} = decoded;
+        resolve(admin,adminName);
       }
     });
   });

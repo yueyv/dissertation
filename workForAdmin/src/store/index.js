@@ -59,4 +59,27 @@ const useIPStore=defineStore(Names.IP,{
     //     storage: window.sessionStorage,
     //   },
 })
-export {useIPStore,useUserStore}
+const useChatStore=defineStore(Names.CHAT,{
+    state:()=>({
+       status:false,
+    }),
+    getters:{
+ 
+    },
+    actions:{
+        async statusChangeFalse(){
+            this.status=false
+        },
+        async statusChangeTrue(){
+            this.status=true
+        },
+        async statusChange(){
+            this.status=!this.status
+        },
+    },
+    // SSR 省略
+    // persist: {
+    //     storage: window.sessionStorage,
+    //   },
+})
+export {useIPStore,useUserStore,useChatStore}

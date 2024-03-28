@@ -54,7 +54,7 @@ router.post("/api/adminLogin", useControllerAdmin.adminLogin)
 router.post("/api/adminChatTo", useControllerAdmin.adminChatTo)
 // BUG
 router.post("/api/get_chat_admin", useControllerAdmin.getChatAdmin)
-
+router.post('/api/get_admin', useControllerAdmin.showAdmin)
 router.post("/api/getAllUser", useControllerAdmin.getAllUser)
 router.post("/api/getAllJobAdmin", useControllerAdmin.getAllJob)
 router.get("/api/getChatIdAdmin", useControllerAdmin.getChatIdAdmin)

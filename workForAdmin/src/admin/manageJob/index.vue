@@ -5,6 +5,11 @@ import { message } from "ant-design-vue"
 import { useRoute, useRouter } from 'vue-router';
 import zh_CN from "ant-design-vue/lib/locale/zh_CN";
 import { SmileOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons-vue';
+import { useChatStore } from '../../store/index'
+import { storeToRefs } from 'pinia'
+const ChatStore = useChatStore()
+const { status } = storeToRefs(ChatStore)
+const { statusChangeTrue } = ChatStore
 const isShow = ref(false)
 const columns = [
     {
@@ -82,7 +87,7 @@ onBeforeMount(() => {
         if (res.code == 200) {
             isShow.value = true
             userData = res.data
-            console.log(userData);
+            // console.log(userData);
         } else {
             message.info("返回错误")
         }
@@ -104,20 +109,25 @@ const chat = (user_id) => {
         if (res.code == 200) {
             message.info("跳转聊天")
             nav_choosed(2)
+            statusChangeTrue()
+
+            // createChat(user_id)
         } else {
             message.info("服务器错误")
         }
     })
 }
-const emit = defineEmits(['nav_choose'])
+const emit = defineEmits(['nav_choose','createChat'])
 function nav_choosed(key) {
     emit('nav_choose', key)
 }
-
+function createChat(item,label) {
+    emit('createChat', item,label)
+}
 // done 变更权限
 const changevaild = (job_id, vaild) => {
     axios.post("changevaild", { job_id: job_id, vaild: vaild }).then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.code == 200) {
             message.info("更改成功，请刷新")
         } else {

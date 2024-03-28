@@ -5,6 +5,11 @@ import { message } from "ant-design-vue"
 import { useRoute, useRouter } from 'vue-router';
 import zh_CN from "ant-design-vue/lib/locale/zh_CN";
 import { SmileOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons-vue';
+import { useChatStore } from '../../store/index'
+import { storeToRefs } from 'pinia'
+const ChatStore = useChatStore()
+const { status } = storeToRefs(ChatStore)
+const { statusChangeTrue } = ChatStore
 const isShow = ref(false)
 const columns = [
     {
@@ -87,8 +92,9 @@ onBeforeMount(() => {
     axios.post("getAllUser").then((res) => {
         if (res.code == 200) {
             isShow.value = true
+            res.data.shift()
             userData = res.data
-            console.log(userData);
+            // console.log(userData);
         } else {
             message.info("返回错误")
         }
@@ -106,19 +112,25 @@ const handleReset = clearFilters => {
     state.searchText = '';
 };
 // done 聊天
-const chat = (user_id) => {
+const chat = (user_id,username) => {
     axios.post("adminChatTo", { to_id: user_id }).then((res) => {
         if (res.code == 200) {
             message.info("跳转聊天")
             nav_choosed(2)
+            createChat(user_id,username)
+            statusChangeTrue()
+            // console.log(status.value);
         } else {
             message.info("服务器错误")
         }
     })
 }
-const emit = defineEmits(['nav_choose'])
+const emit = defineEmits(['nav_choose','createChat'])
 function nav_choosed(key) {
     emit('nav_choose', key)
+}
+function createChat(item,label) {
+    emit('createChat', item,label)
 }
 // done 查看文档（下载）构造a标签，放弃
 // const inquire = (user_id, apply_filename) => {
@@ -172,7 +184,7 @@ const changePermission = (user_id, permission) => {
             </template>
             <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }">
                 <div style="padding: 8px">
-                    <a-input ref="searchInput" :placeholder="`Search ${column.dataIndex}`" :value="selectedKeys[0]"
+                    <a-input ref="searchInput" :placeholder="`搜索 ${column.dataIndex}`" :value="selectedKeys[0]"
                         style="width: 188px; margin-bottom: 8px; display: block"
                         @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
                         @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
@@ -205,7 +217,7 @@ const changePermission = (user_id, permission) => {
                 </template>
                 <template v-else-if="column.key === 'action'">
                     <span>
-                        <a @click="chat(record.user_id)">聊天</a>
+                        <a @click="chat(record.user_id,record.username)">聊天</a>
                         &nbsp;
                         <a :href="'/api/file?filename=' + record.user_id + '_' + record.apply_filename"
                             :download="record.user_id + '_' + record.apply_filename"

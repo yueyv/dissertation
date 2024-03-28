@@ -6,6 +6,31 @@ const Admin = require('../models/admin')
 const Mes = require('../models/message');
 const { promises } = require('dns');
 const useController = {
+    
+    showAdmin: async function (req, res, next) {
+        // console.log(req.headers.authorization);
+        jwt.adminVerify(req.headers.authorization).then(async (admin,username) => {
+            if (admin) {
+                try {
+                    let userData = await Admin.safeInquire(username)
+    
+                    res.json({
+                        code: 200,
+                        message: "success",
+                        data: userData
+                        // ss,sanitizedUserData
+                    })
+                } catch (e) {
+                    res.json({ code: 0, message: "default", data: e })
+                }
+            }
+            else {
+                res.json({ code: 500, message: "验证错误", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
     adminLogin: async function (req, res, next) {
         try {
             let username = req.body.account

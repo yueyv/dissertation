@@ -1,5 +1,5 @@
 <script setup>
-import { h, ref,reactive, onMounted, nextTick, onUpdated, watch, onBeforeMount, onUnmounted } from 'vue';
+import { h, ref, reactive, onMounted, nextTick, onUpdated, watch, onBeforeMount, onUnmounted } from 'vue';
 import axios from '@/plugins/axiosBase.js'
 import { message } from "ant-design-vue"
 import { io } from "socket.io-client";
@@ -10,19 +10,60 @@ import {
     CloseOutlined,
     AlignLeftOutlined
 } from '@ant-design/icons-vue';
+import { useChatStore } from '../../store/index'
+import { storeToRefs } from 'pinia'
+const ChatStore = useChatStore()
+const { status } = storeToRefs(ChatStore)
+const { statusChangeFalse } = ChatStore
+console.log(status.value);
+watch(status, () => {
+    if (status.value == true) {
+        statusChangeFalse()
+        axios.get('getChatId').then((res) => {
+            if (res.code == 200) {
+                const chatId = res.data
+                // console.log(res.data);
+                const result = chatId.map(item => {
+                    // 给定初始化
+                    chatLog[item[0]] = Array(0)
+                    // console.log(chatLog);
+                    return buildChatItem(item[0], item[1])
+                });
+                items.value = result
+                isShow.value = true
+                selectedKeys.value = [items.value[0].children[0].key];
+                getChatLog(items.value[0].key)
+                to_id.value = items.value[0].key
+                // console.log(result);
+            } else {
+                if (res.code == 202) {
+                    message.info("尚未开始聊天")
+                } else {
+                    message.info("返回数据错误")
+                }
+
+            }
+        }).catch((e) => {
+            message.error("请求错误")
+            console.log(e);
+        })
+    }
+})
 // 上一个
 // MARK 根据permission 进行不同页面的跳转
 const router = useRouter()
-const refresh=ref(0)
-const permission=ref(-1)
+const refresh = ref(0)
+const permission = ref(-1)
 const selectedKeys = ref([]);
 const inputText = ref("")
 const openKeys = ref();
 const user_id = ref(0)
 // todo 存储在indexedDB中 放弃
-const chatLog =reactive({})
-const isShow=ref(false)
+const chatLog = reactive({})
+const isShow = ref(false)
 // 读取key，获取交流
+
+
 const items = ref([
     {
         key: '0',
@@ -48,7 +89,7 @@ const items = ref([
                 title: '删除',
                 icon: () => h(CloseOutlined),
             },]
-        }
+    }
 ]);
 const to_id = ref()
 let socket = undefined
@@ -59,40 +100,40 @@ const handleClick = menuInfo => {
         // done从存储中获取
         getChatLog(openKeys.value[0])
     }
-    if(menuInfo.key.includes("find")){
+    if (menuInfo.key.includes("find")) {
         // done 分类操作
-        if(permission.value==1){
+        if (permission.value == 1) {
             router.push(`/applicantPage/${openKeys.value[0]}`)
         }
-        if(permission.value==0){
+        if (permission.value == 0) {
             router.push(`/chatFindPage/${openKeys.value[0]}`)
         }
-        
+
     }
-    if(menuInfo.key.includes("delete")){  
-        axios.post('chatDelete',{delete_id:openKeys.value[0]}).then((res)=>{
-            if(res.code==200){
+    if (menuInfo.key.includes("delete")) {
+        axios.post('chatDelete', { delete_id: openKeys.value[0] }).then((res) => {
+            if (res.code == 200) {
                 message.success("删除成功")
                 router.go(0)
             }
-        }  
+        }
         )
-        
+
     }
     // console.log(openKeys.value);
 };
 const getChatLog = (chatToId) => {
-    
+
     axios.post('get_chat', { chatWith: chatToId }).then((res) => {
         if (res.code == 200) {
             chatLog[chatToId] = res.data
-            console.log(chatLog);
+            // console.log(chatLog);
         } else {
             console.log("服务器错误");
         }
     })
 }
-const buildChatItem = (item,label) => {
+const buildChatItem = (item, label) => {
     return {
         key: item,
         icon: () => h(MailOutlined),
@@ -127,7 +168,7 @@ const scrollToBottom = () => {
 };
 const sendMsg = () => {
     // console.log(inputText.value);
-    if (inputText?.value == ""||inputText?.value == "\n") {
+    if (inputText?.value == "" || inputText?.value == "\n") {
         message.info('Message is required!');
         return
     }
@@ -145,64 +186,65 @@ onBeforeMount(() => {
     axios.get('getChatId').then((res) => {
         if (res.code == 200) {
             const chatId = res.data
-            console.log(res.data);
-            const result = chatId.map(item=>{
+            // console.log(res.data);
+            const result = chatId.map(item => {
                 // 给定初始化
-                chatLog[item[0]]=Array(0)
-                console.log(chatLog);
-                return buildChatItem(item[0],item[1])});
-            items.value=result
-            isShow.value=true
+                chatLog[item[0]] = Array(0)
+                // console.log(chatLog);
+                return buildChatItem(item[0], item[1])
+            });
+            items.value = result
+            isShow.value = true
             selectedKeys.value = [items.value[0].children[0].key];
             getChatLog(items.value[0].key)
             to_id.value = items.value[0].key
-    console.log(result);
-} else{
-    if(res.code==202){
-        message.info("尚未开始聊天")
-    }else{
-        message.info("返回数据错误")
-    }
-    
-}
+            // console.log(result);
+        } else {
+            if (res.code == 202) {
+                message.info("尚未开始聊天")
+            } else {
+                message.info("返回数据错误")
+            }
+
+        }
     }).catch((e) => {
-    message.error("请求错误")
-    console.log(e);
-})
-// 挂载socket
-const token = JSON.parse(localStorage.getItem('token'))
-socket = io('http://localhost:3000', {
-    reconnectionDelayMax: 10000,
-    auth: { token: token }
-})
-socket.on('connect', () => {
-    socket.emit('online');
-});
-socket.on('chat_success', (req) => {
-    if (req == true) {
-        message.info("已发送消息")
+        message.error("请求错误")
+        console.log(e);
+    })
+    // 挂载socket
+    const token = JSON.parse(localStorage.getItem('token'))
+    socket = io('http://localhost:3000', {
+        reconnectionDelayMax: 10000,
+        auth: { token: token }
+    })
+    socket.on('connect', () => {
+        socket.emit('online');
+    });
+    socket.on('chat_success', (req) => {
+        if (req == true) {
+            message.info("已发送消息")
+            // console.log(chatLog);
+            chatLog[to_id.value].push({ to_id: to_id.value, content: inputText.value })
+            inputText.value = '';
+            // console.log( chatLog);
+        }
+    });
+    socket.on('reply_private_chat', (req) => {
+        // console.log(req);
+        message.info(`收到了${req.from_username}的信息`)
+        chatLog[req.from_id].push({ to_id: user_id.value, content: req.content })
         // console.log(chatLog);
-        chatLog[to_id.value].push({ to_id: to_id.value, content: inputText.value })
-        inputText.value = '';
-        console.log( chatLog);
-    }
-});
-socket.on('reply_private_chat', (req) => {
-    console.log(req);
-    message.info(`收到了${req.from_username}的信息`)
-    chatLog[req.from_id].push({ to_id: user_id.value, content: req.content })
-    console.log(chatLog);
 
-});
+    });
 
-socket.on("disconnect", () => {
-    socket.connect();
-});
+    socket.on("disconnect", () => {
+        socket.connect();
+    });
 
 })
 onMounted(() => {
-   
-    
+
+
     // console.log(items.value[0].key);
 
     // console.log(userInformation);
@@ -339,6 +381,7 @@ onUnmounted(() => {
 .chat-content {
     overflow-x: hidden;
     transition: all ease 1s;
+
     &::-webkit-scrollbar {
         display: none;
     }

@@ -13,7 +13,11 @@ class Base {
         return knex(this.table).where(param1, '=', param2)
     }
     safeInquire(id) {
-        return knex(this.table).select('user_id', 'username', 'permission', 'email', 'phone', 'college', 'address', 'name', 'city', 'salary', 'other').where('username', '=', id)
+        return knex(this.table).select('user_id', 'username', 'permission', 'email', 'phone', 'college', 'address', 'name', 'city', 'salary', 'other',"updated_at").where('username', '=', id)
+            .first();
+    }
+    adminInquire(id) {
+        return knex(this.table).select('user_id', 'username',"updated_at").where('username', '=', id)
             .first();
     }
     insert(params) {
