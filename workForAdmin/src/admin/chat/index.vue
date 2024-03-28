@@ -25,8 +25,13 @@ watch(status, () => {
                 // console.log(res.data);
                 const result = chatId.map(item => {
                     // 给定初始化
+                    // console.log(item);
                     chatLog[item[0]] = Array(0)
                     // console.log(chatLog);
+                    // Mark 记录未读消息
+                    if (item[2]?.read == 0) {
+                        return buildUnReadChatItem(item[0], item[1])
+                    }
                     return buildChatItem(item[0], item[1])
                 });
                 items.value = result
@@ -36,6 +41,7 @@ watch(status, () => {
                 to_id.value = items.value[0].key
                 // console.log(result);
             } else {
+                console.log(res);
                 if (res.code == 202) {
                     message.info("尚未开始聊天")
                 } else {
@@ -114,7 +120,40 @@ const handleClick = menuInfo => {
         axios.post('chatDelete', { delete_id: openKeys.value[0] }).then((res) => {
             if (res.code == 200) {
                 message.success("删除成功")
-                router.go(0)
+                axios.get('getChatId').then((res) => {
+                    if (res.code == 200) {
+                        const chatId = res.data
+                        // console.log(res.data);
+                        const result = chatId.map(item => {
+                            // 给定初始化
+                            // console.log(item);
+                            chatLog[item[0]] = Array(0)
+                            // console.log(chatLog);
+                            // Mark 记录未读消息
+                            if (item[2]?.read == 0) {
+                                return buildUnReadChatItem(item[0], item[1])
+                            }
+                            return buildChatItem(item[0], item[1])
+                        });
+                        items.value = result
+                        isShow.value = true
+                        selectedKeys.value = [items.value[0].children[0].key];
+                        getChatLog(items.value[0].key)
+                        to_id.value = items.value[0].key
+                        // console.log(result);
+                    } else {
+                        console.log(res);
+                        if (res.code == 202) {
+                            message.info("尚未开始聊天")
+                        } else {
+                            message.info("返回数据错误")
+                        }
+
+                    }
+                }).catch((e) => {
+                    message.error("请求错误")
+                    console.log(e);
+                })
             }
         }
         )
@@ -155,7 +194,28 @@ const buildChatItem = (item, label) => {
         ]
     };
 }
-
+const buildUnReadChatItem = (item, label) => {
+    return {
+        key: item,
+        icon: () => h(MailOutlined, { style: { color: 'red' } }),
+        label: `${label}`,
+        title: `${label}`,
+        children: [
+            {
+                key: `chat${item}`,
+                label: '查看聊天',
+                title: '查看聊天',
+                icon: () => h(CommentOutlined),
+            },
+            {
+                key: `delete${item}`,
+                label: '删除',
+                title: '删除',
+                icon: () => h(CloseOutlined),
+            },
+        ]
+    };
+}
 //  获取聊天记录滚动到最底部
 const scrollContainer = ref(null);
 
@@ -189,8 +249,13 @@ onBeforeMount(() => {
             // console.log(res.data);
             const result = chatId.map(item => {
                 // 给定初始化
+                // console.log(item);
                 chatLog[item[0]] = Array(0)
                 // console.log(chatLog);
+                // Mark 记录未读消息
+                if (item[2]?.read == 0) {
+                    return buildUnReadChatItem(item[0], item[1])
+                }
                 return buildChatItem(item[0], item[1])
             });
             items.value = result
@@ -200,6 +265,7 @@ onBeforeMount(() => {
             to_id.value = items.value[0].key
             // console.log(result);
         } else {
+            console.log(res);
             if (res.code == 202) {
                 message.info("尚未开始聊天")
             } else {
@@ -401,4 +467,7 @@ onUnmounted(() => {
     // min-height: 20%;
     border-radius: 20px;
 }
-</style>
+
+// .anticon-mail{
+//     color: red !important;
+// }</style>

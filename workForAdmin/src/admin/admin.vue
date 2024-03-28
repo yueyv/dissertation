@@ -38,9 +38,17 @@ onMounted(()=>{
         axios.post('get_admin').then((res) => {
             if(res.code==200){
                 sessionStorage.setItem("adminInformation",JSON.stringify(res.data))
+            }else{
+                console.log(res);
             }
         })
     }
+    axios.post("searchUnreadMes",{user_id:0}).then((res)=>{
+        // console.log(res);
+                    if(res.code==200&&res.data.read==0){
+                        message.info("有未读消息")
+                    }
+                })
 })
 </script>
 

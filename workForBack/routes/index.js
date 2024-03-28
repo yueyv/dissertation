@@ -46,6 +46,8 @@ router.post("/api/deleteApplicant", useControllerJob.deleteApplicant)
 router.post("/api/addChatAndJob", useControllerMes.addChatAndJob)
 // IM聊天系统
 router.post("/api/get_chat", useControllerMes.getChat)
+router.post("/api/searchUnreadMes", useControllerMes.searchUnreadMes)
+
 router.post("/api/chatDelete", useControllerMes.chatDelete)
 router.post("/api/chatToadmin", useControllerMes.chatToadmin)
 router.post("/api/chatToApplicant", useControllerMes.chatToApplicant)

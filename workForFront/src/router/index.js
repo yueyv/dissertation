@@ -235,25 +235,26 @@ const routes = [
     //     next("/login");
     //   }
     // }
-  }, {
-    path: '/adminLogin',
-    name: 'adminLogin',
-    meta: {
-      title: '管理员登录',
-      permission: true,
-      admin: true
-    },
-    component: () => import('../components/login/admin.vue'),
-  },
-    {
-      path: '/admin',
-      name: 'admin',
-      meta: {
-        title: '后台管理',
-        permission: true,
-        admin: true
-      },
-      component: () => import('../admin/admin.vue'),
+  }
+  // , {
+  //   path: '/adminLogin',
+  //   name: 'adminLogin',
+  //   meta: {
+  //     title: '管理员登录',
+  //     permission: true,
+  //     admin: true
+  //   },
+  //   component: () => import('../components/login/admin.vue'),
+  // },
+  //   {
+  //     path: '/admin',
+  //     name: 'admin',
+  //     meta: {
+  //       title: '后台管理',
+  //       permission: true,
+  //       admin: true
+  //     },
+  //     component: () => import('../admin/admin.vue'),
     // children: [
     //   {
     //     path: '/one',
@@ -261,16 +262,16 @@ const routes = [
     //   },
 
     // ],
-    beforeEnter: (to, from, next) => {
-      // 检查用户权限
-      if (sessionStorage.getItem("admin") && JSON.parse(sessionStorage.getItem("admin")) == "yueyv") {
-        next();
-      } else {
-        message.warning("权限不足");
-        next("/adminLogin");
-      }
-    }
-  },
+  //   beforeEnter: (to, from, next) => {
+  //     // 检查用户权限
+  //     if (sessionStorage.getItem("admin") && JSON.parse(sessionStorage.getItem("admin")) == "yueyv") {
+  //       next();
+  //     } else {
+  //       message.warning("权限不足");
+  //       next("/adminLogin");
+  //     }
+  //   }
+  // },
 
 ]
 export const router = createRouter({

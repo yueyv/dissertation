@@ -13,6 +13,7 @@ const login = setTimeout(() => {
             router.push('/admin')
         }else{
             router.push('/')    
+            
         }
     }else{
         message.error("失败，返回")

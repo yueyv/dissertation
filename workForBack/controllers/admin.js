@@ -9,11 +9,11 @@ const useController = {
     
     showAdmin: async function (req, res, next) {
         // console.log(req.headers.authorization);
-        jwt.adminVerify(req.headers.authorization).then(async (admin,username) => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async (decoded) => {
+            if (decoded.admin) {
                 try {
-                    let userData = await Admin.safeInquire(username)
-    
+                    console.log(decoded.admin,decoded.adminName);
+                    let userData = await Admin.adminInquire(decoded.adminName)
                     res.json({
                         code: 200,
                         message: "success",
@@ -66,8 +66,8 @@ const useController = {
         }
     },
     getChatAdmin: async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     let userIdData = await User.searchId("admin")
                     let chatData = await Mes.selectChat(userIdData.user_id, req.body.chatWith)
@@ -89,8 +89,8 @@ const useController = {
         })
     },
     getChatIdAdmin: async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     let IdData = await User.getChatId("admin")
                     // console.log(IdData.chat_id);
@@ -100,7 +100,8 @@ const useController = {
                         // console.log(chat_id);
                         await Promise.all(chat_id.map(async (item) => {
                             let chatUsername = await User.getUserName(item)
-                            data.push([item, chatUsername.username])
+                            let readStatus=await Mes.selectUnreadChat(item,0)
+                            data.push([item, chatUsername.username,readStatus])
                         }))
                         res.json({
                             code: 200,
@@ -128,8 +129,8 @@ const useController = {
         })
     },
     getAllUser: async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     let userData = await User.all()
                     // console.log(IdData.chat_id);
@@ -154,8 +155,8 @@ const useController = {
         })
     },
     getAllJob: async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     let jobData = await Job.all()
                     // console.log(IdData.chat_id);
@@ -180,8 +181,8 @@ const useController = {
         })
     },
     adminChatTo:async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     // console.log(req.body);
                     let userIdData = await User.select("user_id",req.body.to_id)
@@ -221,8 +222,8 @@ const useController = {
         })
     },
     changePermission:async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     let userIdData = await User.select("user_id",req.body.user_id)
                     await User.update(userIdData[0].username,{permission:req.body.permission})
@@ -243,8 +244,8 @@ const useController = {
         })
     },
     changevaild:async function (req, res, next) {
-        jwt.adminVerify(req.headers.authorization).then(async admin => {
-            if (admin) {
+        jwt.adminVerify(req.headers.authorization).then(async decoded => {
+            if (decoded.admin) {
                 try {
                     console.log(req.body);
                     await Job.updateJob(req.body.job_id,{vaild:req.body.vaild})

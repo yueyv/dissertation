@@ -4,6 +4,7 @@ const User = require('../models/user')
 const fs = require('fs');
 const jwt = require('../utils/jwt');
 const Job = require('../models/jobs')
+const Mes = require('../models/message');
 const useController = {
     getApplyJob: async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
@@ -57,8 +58,12 @@ const useController = {
                     let chat_id = IdData.chat_id.split(",")
                     // console.log(chat_id);
                     await Promise.all(chat_id.map(async (item) => {
+                        // console.log(item,IdData.user_id);
                         let chatUsername = await User.getUserName(item)
-                        data.push([item, chatUsername.username])
+                        let readStatus = await Mes.selectUnreadChat(item,IdData.user_id)
+                        // console.log(readStatus);
+                        data.push([item, chatUsername.username,readStatus])
+                        
                     }))
                     res.json({
                         code: 200,

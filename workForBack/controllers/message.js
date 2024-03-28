@@ -5,6 +5,22 @@ const User = require('../models/user')
 const Mes=require('../models/message');
 const { promises } = require('dns');
 const useController = {
+    searchUnreadMes:async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                // console.log(req.body.user_id);
+                let UnreadChat=await Mes.selectUnreadChatAll(req.body.user_id)
+                // console.log(UnreadChat);
+                res.json({ code: 200, message: "success", data: UnreadChat })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
     addChatAndJob:async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);
@@ -56,6 +72,16 @@ const useController = {
             try {
                 let userIdData = await User.searchId(username)
                 let chatData=await Mes.selectChat(userIdData.user_id, req.body.chatWith)
+                new Promise((resolve, reject) => {
+                    Mes.readMes(req.body.chatWith, userIdData.user_id)
+                      .then(() => {
+                        resolve(); 
+                      })
+                      .catch((error) => {
+                        reject(error); 
+                      });
+                  });
+                  
                 // if(data.Permission==1)
                 res.json({
                     code: 200,

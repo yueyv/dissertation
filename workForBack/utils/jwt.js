@@ -30,7 +30,7 @@ let adminVerify = (jwtToken) => {
         console.log("超时");
       } else {
         let {adminName,admin} = decoded;
-        resolve(admin,adminName);
+        resolve({admin:admin,adminName:adminName});
       }
     });
   });

@@ -4,12 +4,12 @@ import { Alert, Input, Space } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
 import { message } from 'ant-design-vue';
 import axios from '@/plugins/axiosBase.js';
-import {useRouter} from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
 // done使用pinia
-const router=useRouter()
+const router = useRouter()
 const ipStore = useIPStore()
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
@@ -21,14 +21,32 @@ onBeforeMount(() => {
         useGetCity()
         // 存到store中
     }
+    console.log(233);
     if (!sessionStorage.getItem("userInformation")) {
         axios.post('get_user').then((res) => {
-            if(res.code==200){
-                sessionStorage.setItem("userInformation",JSON.stringify(res.data))
-                sessionStorage.setItem("permission",JSON.stringify(res.data.permission))
+            if (res.code == 200) {
+                sessionStorage.setItem("userInformation", JSON.stringify(res.data))
+                sessionStorage.setItem("permission", JSON.stringify(res.data.permission))
+                axios.post("searchUnreadMes", { user_id: res.data.userId }).then((res) => {
+                    // console.log(res);
+                    if (res.code == 200 && res.data.read == 0) {
+                        message.info("有未读消息")
+                    }
+                })
+            }
+        })
+    } 
+    else {
+        let userInformation = JSON.parse(sessionStorage.getItem("userInformation"))
+        // console.log(userInformation.user_id);
+        axios.post("searchUnreadMes", { user_id: userInformation.user_id }).then((res) => {
+            // console.log(res);
+            if (res.code == 200 && res.data.read == 0) {
+                message.info("有未读消息")
             }
         })
     }
+
     userId.value = JSON.parse(localStorage.getItem('userId')) ?? ""
 })
 const newCity = ref('');
