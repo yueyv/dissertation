@@ -4,7 +4,7 @@ import { message } from 'ant-design-vue';
 // const localStorage=import.meta.env.SSR?undefined:window.localStorage
 // SSR
 function isAuthenticated() {
-  return import.meta.env.SSR?true:localStorage.getItem("token") !== null;
+  return import.meta.env.SSR ? true : localStorage.getItem("token") !== null;
 }
 const routes = [
   {
@@ -111,8 +111,8 @@ const routes = [
       if (isAuthenticated()) {
         next();
       } else {
-        import.meta.env.SSR?false: message.warning("请先登录");
-       
+        import.meta.env.SSR ? false : message.warning("请先登录");
+
         next("/login");
       }
     }
@@ -148,7 +148,7 @@ const routes = [
       if (localStorage.getItem("token")) {
         next();
       } else {
-        import.meta.env.SSR?false: message.warning("请先登录");
+        import.meta.env.SSR ? false : message.warning("请先登录");
         next("/login");
       }
     }
@@ -165,7 +165,7 @@ const routes = [
       if (localStorage.getItem("token")) {
         next();
       } else {
-        import.meta.env.SSR?false: message.warning("请先登录");
+        import.meta.env.SSR ? false : message.warning("请先登录");
         next("/login");
       }
     }
@@ -182,7 +182,7 @@ const routes = [
       if (isAuthenticated()) {
         next();
       } else {
-        import.meta.env.SSR?false: message.warning("请先登录");
+        import.meta.env.SSR ? false : message.warning("请先登录");
         next("/login");
 
       }
@@ -201,7 +201,7 @@ const routes = [
       if (isAuthenticated()) {
         next();
       } else {
-        import.meta.env.SSR?false: message.warning("请先登录");
+        import.meta.env.SSR ? false : message.warning("请先登录");
         next("/login");
 
       }
@@ -221,7 +221,7 @@ const routes = [
       if (isAuthenticated()) {
         next();
       } else {
-        import.meta.env.SSR?false: age.warning("请先登录");
+        import.meta.env.SSR ? false : age.warning("请先登录");
         next("/login");
 
       }
@@ -307,6 +307,10 @@ export const router = createRouter({
 // });
 // SSR版本 路由有pagecontent完成，可省略
 router.beforeEach((to, from, next) => {
+  const pageTitle = to.meta.title;
+  if (pageTitle) {
+    import.meta.env.SSR ? true : document.title = pageTitle;;
+  }
   // 检查目标路由是否存在
   if (router.hasRoute(to.name)) {
     next(); // 继续路由导航

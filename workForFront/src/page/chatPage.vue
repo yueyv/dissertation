@@ -424,7 +424,7 @@ onUnmounted(() => {
 
 <style scoped lang='scss'>
 .unread {
-    color: #9c5e70;
+    color: #9c5e70 !important;
 }
 
 .item {
