@@ -19,6 +19,6 @@
 .main-bg-color{
     display: block;
     min-height: 100vh;
-    background-image: linear-gradient(200deg, #86e7f8, #13377a);
+    background-image: linear-gradient(200deg, #80d0c7, #13547a);
 }
 </style>

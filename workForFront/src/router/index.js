@@ -280,28 +280,28 @@ export const router = createRouter({
 })
 // 路由守卫
 // SPA 
-router.beforeEach((to, from, next) => {
-  const pageTitle = to.meta.title;
-  if (pageTitle) {
-    document.title = pageTitle;
-  }
-  // 检查目标路由是否存在
-  if (router.hasRoute(to.name)) {
-    next(); // 继续路由导航
-  } else {
-    console.log('errorPage');
-    document.title = "错误页面";
-    next({ name: 'errorPage' }); // 跳转到错误页面
-  }
-});
-// SSR版本 路由有pagecontent完成，可省略
 // router.beforeEach((to, from, next) => {
-//     // 检查目标路由是否存在
-//     if (router.hasRoute(to.name)) {
-//       next(); // 继续路由导航
-//     } else {
-//       console.log('errorPage');
-//       next({ name: 'errorPage' }); // 跳转到错误页面
-//     }
-//   });
+//   const pageTitle = to.meta.title;
+//   if (pageTitle) {
+//     document.title = pageTitle;
+//   }
+//   // 检查目标路由是否存在
+//   if (router.hasRoute(to.name)) {
+//     next(); // 继续路由导航
+//   } else {
+//     console.log('errorPage');
+//     document.title = "错误页面";
+//     next({ name: 'errorPage' }); // 跳转到错误页面
+//   }
+// });
+// SSR版本 路由有pagecontent完成，可省略
+router.beforeEach((to, from, next) => {
+    // 检查目标路由是否存在
+    if (router.hasRoute(to.name)) {
+      next(); // 继续路由导航
+    } else {
+      console.log('errorPage');
+      next({ name: 'errorPage' }); // 跳转到错误页面
+    }
+  });
 
