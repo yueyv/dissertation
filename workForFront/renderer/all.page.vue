@@ -10,7 +10,8 @@
   </div>
 </template>
 
-<script  setup>
+<script >
+
 </script>
 <style lang="scss">
 @import '@/assets/reset.css';

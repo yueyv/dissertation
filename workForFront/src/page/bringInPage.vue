@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive, onBeforeMount, toRaw } from 'vue'
 import myHeader from '@/components/header/header.vue';
-import { Dayjs } from 'dayjs';
 import { useRouter } from 'vue-router'
 import axios from '@/plugins/axiosBase.js';
 import { message } from 'ant-design-vue';

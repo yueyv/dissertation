@@ -1,7 +1,6 @@
 <script setup>
 import { ref, reactive, onBeforeMount, toRaw,onMounted } from 'vue'
 import myHeader from '@/components/header/header.vue';
-import { Dayjs } from 'dayjs';
 import { useRouter } from 'vue-router'
 import axios from '@/plugins/axiosBase.js';
 import { message } from 'ant-design-vue';
@@ -24,8 +23,7 @@ onBeforeMount(() => {
 onMounted(() => {
     axios.post('getMyEditJob').then((res)=>{
         if(res.code==200){
-            
-            console.log(res.data);
+            // console.log(res.data);
             jobItem.value=res.data
             // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
             totalPage.value=res.data.length

@@ -8,6 +8,7 @@ import { message } from 'ant-design-vue';
 const router = useRouter()
 const jobItem=ref([])
 const isShow=ref(false)
+// import.meta.env.SSR?false:message.info("222")
 const commendTags=[
     {
         title:"Java",

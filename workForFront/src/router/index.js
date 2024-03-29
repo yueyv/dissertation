@@ -1,13 +1,19 @@
 import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 import { message } from 'ant-design-vue';
-
+// MARK SSR控制
+// const localStorage=import.meta.env.SSR?undefined:window.localStorage
+// SSR
+function isAuthenticated() {
+  return import.meta.env.SSR?true:localStorage.getItem("token") !== null;
+}
 const routes = [
   {
     path: '/',
     alias: "/homePage",
     name: 'homePage',
     meta: {
-      title: '云聘'
+      title: '云聘',
+      description: '这是一个招聘网站的seo'
     },
     component: () => import('../page/homePage.vue')
   },
@@ -15,7 +21,8 @@ const routes = [
     path: '/commendPage',
     name: 'commendPage',
     meta: {
-      title: '推荐页面'
+      title: '推荐页面',
+      description: '这是一个招聘网站的推荐页面'
     },
     component: () => import('../page/commendPage.vue')
   },
@@ -101,10 +108,11 @@ const routes = [
     component: () => import('../page/editJobPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否有权限
-      if (localStorage.getItem("token")) {
+      if (isAuthenticated()) {
         next();
       } else {
-        message.warning("请先登录");
+        import.meta.env.SSR?false: message.warning("请先登录");
+       
         next("/login");
       }
     }
@@ -140,7 +148,7 @@ const routes = [
       if (localStorage.getItem("token")) {
         next();
       } else {
-        message.warning("请先登录");
+        import.meta.env.SSR?false: message.warning("请先登录");
         next("/login");
       }
     }
@@ -157,7 +165,7 @@ const routes = [
       if (localStorage.getItem("token")) {
         next();
       } else {
-        message.warning("请先登录");
+        import.meta.env.SSR?false: message.warning("请先登录");
         next("/login");
       }
     }
@@ -171,11 +179,12 @@ const routes = [
     component: () => import('../page/chatFindPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否有权限
-      if (localStorage.getItem("token")) {
+      if (isAuthenticated()) {
         next();
       } else {
-        message.warning("请先登录");
+        import.meta.env.SSR?false: message.warning("请先登录");
         next("/login");
+
       }
     }
   },
@@ -189,11 +198,12 @@ const routes = [
     component: () => import('../page/chatPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否已登录
-      if (localStorage.getItem("token")) {
+      if (isAuthenticated()) {
         next();
       } else {
-        message.warning("请先登录");
+        import.meta.env.SSR?false: message.warning("请先登录");
         next("/login");
+
       }
     }
   },
@@ -208,11 +218,12 @@ const routes = [
     beforeEnter: (to, from, next) => {
       // 检查用户是否已登录
       // IM 鉴权
-      if (localStorage.getItem("token")) {
+      if (isAuthenticated()) {
         next();
       } else {
-        message.warning("请先登录");
+        import.meta.env.SSR?false: age.warning("请先登录");
         next("/login");
+
       }
     }
   },
@@ -255,13 +266,13 @@ const routes = [
   //       admin: true
   //     },
   //     component: () => import('../admin/admin.vue'),
-    // children: [
-    //   {
-    //     path: '/one',
-    //     component: () => import('../admin/children/test.vue'),
-    //   },
+  // children: [
+  //   {
+  //     path: '/one',
+  //     component: () => import('../admin/children/test.vue'),
+  //   },
 
-    // ],
+  // ],
   //   beforeEnter: (to, from, next) => {
   //     // 检查用户权限
   //     if (sessionStorage.getItem("admin") && JSON.parse(sessionStorage.getItem("admin")) == "yueyv") {
@@ -296,12 +307,12 @@ export const router = createRouter({
 // });
 // SSR版本 路由有pagecontent完成，可省略
 router.beforeEach((to, from, next) => {
-    // 检查目标路由是否存在
-    if (router.hasRoute(to.name)) {
-      next(); // 继续路由导航
-    } else {
-      console.log('errorPage');
-      next({ name: 'errorPage' }); // 跳转到错误页面
-    }
-  });
+  // 检查目标路由是否存在
+  if (router.hasRoute(to.name)) {
+    next(); // 继续路由导航
+  } else {
+    console.log('errorPage');
+    next({ name: 'errorPage' }); // 跳转到错误页面
+  }
+});
 

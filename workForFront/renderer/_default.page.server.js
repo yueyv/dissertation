@@ -21,15 +21,16 @@ async function render(pageContext) {
   
   // See https://vite-plugin-ssr.com/head
   const documentProps  = router.currentRoute.value.meta
+  // console.log(documentProps);
   // 从路由中读取路由元信息
 
-  
-  const title = (documentProps && documentProps.title) || 'Vite SSR app'
-  const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr'
+  // SRO 优化
+  const title = (documentProps && documentProps.title) || '云聘'
+  const desc = (documentProps && documentProps.description) || '这是一个招聘网站的seo'
   // console.log(desc);
-  
+  // SEO 处理
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
         <meta charset="UTF-8" />
         <link rel="icon" href="${logoUrl}" />
