@@ -372,7 +372,14 @@ onUnmounted(() => {
                 <!-- <a-menu v-if="!isShow" class="menu-item" />
                 <a-menu v-if="isShow" class="menu-item" :selectable="true" v-model:openKeys="openKeys" :forceSubMenuRender="true"
                     v-model:selectedKeys="selectedKeys" mode="vertical" :items="items" @click="handleClick" /> -->
-                <div v-if="!isShow" class="menu-item"></div>
+                <div v-if="!isShow" class="menu-item">
+                    <div class="item-label" v-for="item in 3">
+                                <!-- <MailOutlined style="color: #ffe29f;" /> -->
+                                <a-skeleton :loading="true" active :paragraph="{ rows: 1,width:'100%' }"  :title="false"/>
+                            </div>
+                    
+                    
+                </div>
                 <div v-if="isShow" class="menu-item">
                     <div v-for="(item, index) in items">
                         <a-dropdown>
@@ -380,7 +387,6 @@ onUnmounted(() => {
                                 <MailOutlined style="color: #ffe29f;" :class="item.read ? '' : 'unread'" />
                                 {{ item.label }}
                             </div>
-                            <template #overlay>
                                 <a-menu style="width: 40%;margin-left: 80%; max-width: 200px;min-width: 150px;">
                                     <a-menu-item class="item" @click="chatItem(item.key)">
                                         <CommentOutlined />
@@ -395,7 +401,6 @@ onUnmounted(() => {
                                         删除
                                     </a-menu-item>
                                 </a-menu>
-                            </template>
                         </a-dropdown>
                     </div>
                 </div>

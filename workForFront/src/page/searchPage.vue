@@ -221,6 +221,13 @@ watch(watchTargets, () => {
             </a-card>
         </div>
     </div>
+    <div class="job-contain" v-if="!isShow">
+        <div class="job-item" v-for="item in 4">
+            <a-card style="width: 20vw;height: 30vh;">
+                <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+            </a-card>
+        </div>
+    </div>
     <div class="pagination-box">
         <a-pagination v-model:current="currentPage" :hideOnSinglePage="true" :defaultPageSize="4"
             :showSizeChanger="false" :total="totalPage" @change="onChange" />

@@ -62,7 +62,7 @@ const back = () => {
     </div>
     <myHeader :active-nav="6"></myHeader>
     <div class="advs">已投递岗位</div>
-    <div class="job-contain" v-if="isShow">
+    <div class="job-contain" v-if="isShow&&permission!=1">
         <div class="job-item" v-for="item in Math.min(8, jobItem.length - (currentPage - 1) * 8)"
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">
             <a-card :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
@@ -72,6 +72,13 @@ const back = () => {
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].company_name }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].walfare }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].description }}</p>
+            </a-card>
+        </div>
+    </div>
+    <div class="job-contain" v-if="!isShow||permission == 1">
+        <div class="job-item" v-for="item in 8">
+            <a-card style="width: 20vw;height: 30vh;">
+                <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
             </a-card>
         </div>
     </div>
@@ -88,7 +95,7 @@ const back = () => {
     width: 100%;
     height: 100%;
     background-color: #00000057;
-
+    z-index: 99;
     .auth-box {
         font-size: 30px;
         background-color: rgba(240, 248, 255, 0.76);
