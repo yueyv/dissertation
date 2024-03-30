@@ -387,6 +387,7 @@ onUnmounted(() => {
                                 <MailOutlined style="color: #ffe29f;" :class="item.read ? '' : 'unread'" />
                                 {{ item.label }}
                             </div>
+                            <template #overlay>
                                 <a-menu style="width: 40%;margin-left: 80%; max-width: 200px;min-width: 150px;">
                                     <a-menu-item class="item" @click="chatItem(item.key)">
                                         <CommentOutlined />
@@ -401,6 +402,7 @@ onUnmounted(() => {
                                         删除
                                     </a-menu-item>
                                 </a-menu>
+                            </template>
                         </a-dropdown>
                     </div>
                 </div>

@@ -73,7 +73,7 @@ const navItems = [{
     linkTo: "/faqPage",
     title: "FAQ"
 }, {
-    linkTo: "/bringInPage",
+    linkTo: "/bringInPage/myEdit",
     title: "招聘"
 }, {
     linkTo: "/huntJobPage",

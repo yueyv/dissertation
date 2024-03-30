@@ -128,7 +128,7 @@ const moveToJobMainPage = (id) => {
     width: 100%;
     height: 100%;
     background-color: #00000057;
-
+    z-index: 99;
     .auth-box {
         font-size: 30px;
         background-color: rgba(240, 248, 255, 0.76);
