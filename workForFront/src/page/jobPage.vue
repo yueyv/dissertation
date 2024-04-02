@@ -36,7 +36,7 @@ const clickButton = () => {
     if(permission==1){
         message.error("您是招聘人员")
     }
-    if(permission==0){
+    if(permission!=1){
         // console.log(formState);
         
         axios.post("addChatAndJob",{user_id:formState.value[0].user_id,job_id:formState.value[0].job_id}).then((res)=>{

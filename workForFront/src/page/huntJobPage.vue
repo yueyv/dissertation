@@ -21,11 +21,21 @@ onBeforeMount(() => {
     )
     axios.get("getApplyJob").then((res) => {
         if (res.code == 200) {
-            console.log(res);
+            // console.log(res);
             jobItem.value = res.data
             totalPage.value = res.data.length
             isShow.value = true
-        } else {
+        } 
+        else if (res.code == 201) {
+            // console.log(res);
+            jobItem.value = res.data
+            totalPage.value = res.data.length
+            setTimeout(() => {
+                isShow.value = true
+            }, 1000);
+            
+        } 
+        else {
             console.log(res);
             message.error("服务器返回错误")
         }

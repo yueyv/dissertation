@@ -1,21 +1,23 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue'
 import myHeader from '../components/header/header.vue';
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 import axios from '@/plugins/axiosBase';
 import { message } from 'ant-design-vue';
 const router = useRouter()
+const route = useRoute()
 const currentPage=ref(1)
 const jobItem=ref([])
 const totalPage = ref(2)
 const isShow=ref(false)
+// console.log(route.params.id);
 // done 发送请求
 const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
 // done 从后端返回
 onMounted(() => {
-    axios.post('getAllJob').then((res)=>{
+    axios.post('getAllPreJob',{user_id:route.params.id}).then((res)=>{
         // console.log(res);
         if(res.code==200){
             console.log(res.data);

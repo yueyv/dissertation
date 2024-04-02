@@ -74,6 +74,20 @@ const useController = {
             res.json({ code: 0, message: "default", data: e })
         }
     },
+    getAllPreJob: async function (req, res, next) {
+
+        try {
+            let jobData = await Job.selectJob("1", req.body?.user_id)
+            res.json({
+                code: 200,
+                message: "success",
+                data: jobData
+            })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
+    },
     getHomeJob: async function (req, res, next) {
         try {
             let jobData = await Job.homeJobSelect("vaild", "1")

@@ -130,7 +130,7 @@ const searchItem = (search_id) => {
     if (permission.value == 1) {
         router.push(`/applicantPage/${search_id}`)
     }
-    if (permission.value == 0) {
+    if (permission.value != 1) {
         router.push(`/chatFindPage/${search_id}`)
     }
 }

@@ -12,12 +12,18 @@ class Base {
     select(param1, param2) {
         return knex(this.table).where(param1, '=', param2)
     }
+    selectJob(param1, param2,) {
+        return knex(this.table).where((builder) => {
+            builder.where("vaild", '=', param1)
+                .andWhere("user_id", '=', param2);
+        })
+    }
     safeInquire(id) {
-        return knex(this.table).select('user_id', 'username', 'permission', 'email', 'phone', 'college', 'address', 'name', 'city', 'salary', 'other',"updated_at","resume").where('username', '=', id)
+        return knex(this.table).select('user_id', 'username', 'permission', 'email', 'phone', 'college', 'address', 'name', 'city', 'salary', 'other', "updated_at", "resume").where('username', '=', id)
             .first();
     }
     adminInquire(id) {
-        return knex(this.table).select('admin_id', 'username',"updated_at").where('username', '=', id)
+        return knex(this.table).select('admin_id', 'username', "updated_at").where('username', '=', id)
             .first();
     }
     insert(params) {
@@ -48,7 +54,7 @@ class Base {
         return knex(this.table).select('job_id').where('username', '=', id).first();
     }
     getChatId(id) {
-        return knex(this.table).select('user_id','chat_id').where('username', '=', id).first();
+        return knex(this.table).select('user_id', 'chat_id').where('username', '=', id).first();
     }
     getUserName(id) {
         return knex(this.table).select('username').where('user_id', '=', id).first();
@@ -77,7 +83,7 @@ class Base {
             })
             .orderBy('message_id', 'desc').first();
     }
-    selectUnreadChat(from_id,to_id) {
+    selectUnreadChat(from_id, to_id) {
         return knex(this.table)
             .select('read')
             .where((builder) => {
@@ -86,11 +92,11 @@ class Base {
             })
             .orderBy('message_id', 'desc').first();
     }
-    readMes(from_id,to_id){
+    readMes(from_id, to_id) {
         return knex(this.table).where((builder) => {
             builder.where("user_id", '=', from_id)
                 .andWhere("to_id", '=', to_id);
-        }).update({read:1})
+        }).update({ read: 1 })
     }
 }
 module.exports = Base

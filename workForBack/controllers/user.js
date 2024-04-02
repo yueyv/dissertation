@@ -13,7 +13,7 @@ const useController = {
             try {
                 let data = await User.getApplyJob(username)
                 let resData = []
-                if (data?.job_id !== undefined && data?.job_id !== "") {
+                if (data?.job_id !== undefined&&data?.job_id !== null && data?.job_id !== "") {
                     const job_id = data?.job_id.split(",")
                     await Promise.all(job_id.map(async (item) => {
                         // console.log(item);
@@ -30,7 +30,7 @@ const useController = {
                     });
                 } else {
                     res.json({
-                        code: 200,
+                        code: 201,
                         message: "success",
                         data: resData
                     });
@@ -141,6 +141,7 @@ const useController = {
             // console.log(username);
             try {
                 await User.update(username, {
+                    permission:2,
                     apply_filename: decodeURIComponent(req.file.originalname)
                 })
                 const returnData = await User.searchId(username)

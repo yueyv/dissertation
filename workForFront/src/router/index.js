@@ -44,7 +44,7 @@ const routes = [
   },
   {
     path: '/login',
-    // alias:'/',
+    // alias:'login',
     name: '登录',
     meta: {
       title: '登录'
@@ -61,6 +61,7 @@ const routes = [
   },
   {
     path: '/register',
+    // alias:'register',
     name: '注册',
     meta: {
       title: '注册'

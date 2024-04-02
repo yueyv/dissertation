@@ -38,11 +38,13 @@ router.get('/api/getChatId', useControllerUser.getChatId)
 router.post('/api/addJob', useControllerJob.addJob)
 router.post("/api/getMyEditJob", useControllerJob.getMyEditJob)
 router.post("/api/getAllJob", useControllerJob.getAllJob)
+router.post("/api/getAllPreJob", useControllerJob.getAllPreJob)
 router.post("/api/getHomeJob", useControllerJob.getHomeJob)
 router.post("/api/getJobInfo", useControllerJob.getJobInfo)
 router.post("/api/deleteJob", useControllerJob.deleteJob)
 router.post("/api/searchJob", useControllerJob.searchJob)
 router.post("/api/deleteApplicant", useControllerJob.deleteApplicant)
+
 // MARK 多表插入
 router.post("/api/addChatAndJob", useControllerMes.addChatAndJob)
 // IM聊天系统
@@ -88,7 +90,7 @@ router.get('/api/get_city', (req, res, next) => {
 // MARK 文件系统
 router.get('/api/file', (req, res) => {
   // console.log(req);
-  const filename = encodeURIComponent(req.query.filename);
+  const filename = req.query.filename;
   // console.log(filename);
   const currentDir = __dirname;
   // console.log(currentDir);
