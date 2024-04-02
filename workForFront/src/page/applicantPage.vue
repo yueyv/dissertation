@@ -4,7 +4,7 @@ import myHeader from '@/components/header/header.vue';
 import axios from '../plugins/axiosBase.js';
 import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
-import { CustomerServiceOutlined, CommentOutlined } from '@ant-design/icons-vue';
+import { CustomerServiceOutlined, CommentOutlined,DownloadOutlined,PlusOutlined } from '@ant-design/icons-vue';
 const router = useRouter()
 const route = useRoute()
 const userData = ref({
@@ -56,7 +56,7 @@ const back = () => {
     router.back()
 }
 const chatButton = () => {
-    axios.post("chatToApplicant",{user_id:userData.value.user_id}).then((res) => {
+    axios.post("chatToApplicant", { user_id: userData.value.user_id }).then((res) => {
         if (res.code == 200) {
             message.info("跳转中")
             router.push('/chatPage')
@@ -78,23 +78,31 @@ const chatButton = () => {
         </div>
     </div>
     <div class="appointment-w3" v-if="isShow == 1 && permission == 1">
-        <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }">
+        <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="快捷操作">
             <template #icon>
-                <CustomerServiceOutlined />
+                <PlusOutlined  />
             </template>
-            <a-float-button @click="copyText(`${userData.phone}`)">
+            <a-float-button tooltip="下载简历">
+                <template #icon>
+                    <a :href="'/api/resume?filename=' + `${userData.user_id}` + `_` + `${encodeURIComponent(userData.resume)}`"
+                        :download="userData.user_id + '_' + userData.resume">
+                        <DownloadOutlined />
+                    </a>
+                </template>
+            </a-float-button>
+            <a-float-button @click="copyText(`${userData.phone}`)" tooltip="复制电话">
                 <template #icon>
                     <i class="bi bi-telephone"></i>
                     <!-- MARK 黏贴到剪切板 -->
                 </template>
             </a-float-button>
-            <a-float-button @click="copyText(`${userData.email}`)">
+            <a-float-button @click="copyText(`${userData.email}`)" tooltip="复制邮箱">
                 <template #icon>
                     <i class="bi bi-envelope"></i>
                 </template>
             </a-float-button>
             <!-- done 和交流 -->
-            <a-float-button @click="chatButton()"> 
+            <a-float-button @click="chatButton()" tooltip="前往聊天">
                 <template #icon>
                     <CustomerServiceOutlined />
                 </template></a-float-button>

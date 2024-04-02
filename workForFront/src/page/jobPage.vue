@@ -90,6 +90,9 @@ const clickButton = () => {
             <a-descriptions-item  label="工作福利" :span="2">{{formState.value[0].walfare}}</a-descriptions-item>
         </a-descriptions>
     </div>
+    <div class="job-content" v-if="!isShow">
+        <a-skeleton :loading="true" active :paragraph="{ rows: 8 }" style="margin-top: 5vh;" />
+    </div>
 </template>
 
 <style scoped lang='scss'>

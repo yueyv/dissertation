@@ -4,7 +4,7 @@ import myHeader from '@/components/header/header.vue';
 import { message } from 'ant-design-vue';
 import axios from '../plugins/axiosBase.js';
 import { useRoute, useRouter } from 'vue-router';
-import { CustomerServiceOutlined, CommentOutlined } from '@ant-design/icons-vue';
+import { CustomerServiceOutlined, CommentOutlined,ExclamationOutlined } from '@ant-design/icons-vue';
 // mark 动画效果 
 const router = useRouter()
 const faqMain = [
@@ -68,6 +68,11 @@ const chatToadmin = () => {
     <template #icon>
       <CustomerServiceOutlined />
     </template>
+    <!-- <a-float-button  tooltip="举报反馈">
+      <template #icon>
+        <ExclamationOutlined />
+      </template>
+    </a-float-button> -->
     <a-float-button @click="copyText('05552333233')" tooltip="联系方式">
       <template #icon>
         <i class="bi bi-telephone"></i>
