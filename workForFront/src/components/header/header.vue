@@ -41,7 +41,7 @@ onBeforeMount(() => {
         // console.log(userInformation.user_id);
         axios.post("searchUnreadMes", { user_id: userInformation.user_id }).then((res) => {
             // console.log(res);
-            if (res.code == 200 && res.data.read == 0) {
+            if (res.code == 200 && res.data?.read == 0) {
                 message.info("有未读消息")
             }
         })

@@ -7,7 +7,7 @@ import { message } from "ant-design-vue";
 import { useRouter } from 'vue-router'
 const router = useRouter()
 import {
-    AlignCenterOutlined
+    AlignCenterOutlined,EditOutlined 
 } from '@ant-design/icons-vue';
 const userData = reactive({
     email: null,
@@ -56,11 +56,6 @@ const clickCommitForm = () => {
 
 <template>
     <myHeader></myHeader>
-    <router-link to="personalPage">
-        <div class="edit">
-            <AlignCenterOutlined />
-        </div>
-        </router-link>
     <div class="appointment-w3">
         <form @submit.prevent="submitForm">
             <div class="personal">
@@ -120,6 +115,18 @@ const clickCommitForm = () => {
             <input type="submit" value="提交修改" @click="clickCommitForm()">
         </form>
     </div>
+    <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="编辑个人信息">
+        <template #icon>
+            <EditOutlined />
+        </template>
+        <a-float-button tooltip="查看个人信息">
+            <template #icon>
+                <router-link to="personalPage">
+                    <AlignCenterOutlined />
+                </router-link>
+            </template>
+        </a-float-button>
+    </a-float-button-group>
 </template>
 
 <style scoped lang='scss'>

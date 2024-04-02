@@ -31,7 +31,8 @@ onMounted(() => {
             // console.log(jobItem.value[0].title);
 
         }else{
-            message.error("服务器返回错误")
+            message.error("加载错误")
+            // message.error("服务器返回错误")
         }
     }).catch((e)=>{
         console.log(e);

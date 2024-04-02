@@ -58,11 +58,14 @@ const useController = {
                     let chat_id = IdData.chat_id.split(",")
                     // console.log(chat_id);
                     await Promise.all(chat_id.map(async (item) => {
-                        // console.log(item,IdData.user_id);
+                        if(!isNaN(Number(item))){
+                            // console.log(item,IdData.user_id);
                         let chatUsername = await User.getUserName(item)
                         let readStatus = await Mes.selectUnreadChat(item,IdData.user_id)
                         // console.log(readStatus);
                         data.push([item, chatUsername.username,readStatus])
+                        }
+                        
                         
                     }))
                     res.json({
@@ -138,7 +141,7 @@ const useController = {
             // console.log(username);
             try {
                 await User.update(username, {
-                    apply_filename: req.file.originalname
+                    apply_filename: decodeURIComponent(req.file.originalname)
                 })
                 const returnData = await User.searchId(username)
                 // console.log(returnData.user_id);
@@ -148,7 +151,42 @@ const useController = {
                 // const convertedString = bufferData.toString('utf-8');
                 // console.log(convertedString);
                 try {
-                    fs.writeFileSync(`./file/${returnData.user_id}_${req.file.originalname}`, req.file.buffer);
+                    fs.writeFileSync(`./file/${returnData.user_id}_${decodeURIComponent(req.file.originalname)}`, req.file.buffer);
+                    // console.log(233);
+                } catch (err) {
+                    console.error('Error saving file:', err);
+                }
+                // console.log(req.file);
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data: null
+                })
+            } catch (e) {
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            console.log(e);
+            res.json({ code: 100, message: "超时", data: e })
+        })
+    },
+    upload_resume: async function (req, res, next) {
+        // console.log(req.headers.authorization);
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            try {
+                await User.update(username, {
+                    resume: decodeURIComponent(req.file.originalname)
+                })
+                const returnData = await User.searchId(username)
+                // console.log(returnData.user_id);
+                // console.log(req.file);
+                // const bufferData = Buffer.from(req.file.butter, 'binary');
+                // console.log(bufferData);
+                // const convertedString = bufferData.toString('utf-8');
+                // console.log(convertedString);
+                try {
+                    fs.writeFileSync(`./resume/${returnData.user_id}_${decodeURIComponent(req.file.originalname)}`, req.file.buffer);
                     // console.log(233);
                 } catch (err) {
                     console.error('Error saving file:', err);

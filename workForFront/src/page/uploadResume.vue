@@ -28,13 +28,12 @@ const headleUpload = (info) => {
     // console.log(fileList.value);
     fileList.value.forEach((file) => {
         // console.log(file.originFileObj);
-
         formData.append("file", file.originFileObj,encodeURIComponent(file.name))
     })
     // test
     status.value = true
     message.info(`${info.file.name} 上传中.`);
-    axios.post('upload_apply', formData, {
+    axios.post('upload_resume', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
@@ -69,7 +68,7 @@ const reApply = () => {
 
 <template>
     <myHeader :active-nav="5"></myHeader>
-    <div class="advs">申请招聘</div>
+    <div class="advs">上传简历</div>
     <div class="auth" v-show="existUpload">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">已经上传文件</h1>
@@ -85,10 +84,7 @@ const reApply = () => {
             <p class="ant-upload-drag-icon" style="margin-top: 10vh;">
                 <inbox-outlined></inbox-outlined>
             </p>
-            <p class="ant-upload-text">点击这个区域上传相关证明</p>
-            <p class="ant-upload-hint">
-                包括但不限与各种证明
-            </p>
+            <p class="ant-upload-text">点击这个区域上传简历</p>
         </a-upload-dragger>
     </div>
 </template>

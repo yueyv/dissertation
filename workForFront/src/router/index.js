@@ -144,11 +144,12 @@ const routes = [
     },
     component: () => import('../page/editPersonMesPage.vue'),
     beforeEnter: (to, from, next) => {
-      // 检查用户是否已登录
-      if (localStorage.getItem("token")) {
+      // 检查用户是否有权限
+      if (isAuthenticated()) {
         next();
       } else {
         import.meta.env.SSR ? false : message.warning("请先登录");
+
         next("/login");
       }
     }
@@ -162,10 +163,11 @@ const routes = [
     component: () => import('../page/applicantPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否有权限
-      if (localStorage.getItem("token")) {
+      if (isAuthenticated()) {
         next();
       } else {
         import.meta.env.SSR ? false : message.warning("请先登录");
+
         next("/login");
       }
     }
@@ -215,6 +217,26 @@ const routes = [
       permission: true
     },
     component: () => import('../page/personalPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否已登录
+      // IM 鉴权
+      if (isAuthenticated()) {
+        next();
+      } else {
+        import.meta.env.SSR ? false : age.warning("请先登录");
+        next("/login");
+
+      }
+    }
+  },
+  {
+    path: '/uploadResume',
+    name: 'uploadResume',
+    meta: {
+      title: '上传简历',
+      permission: true
+    },
+    component: () => import('../page/uploadResume.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否已登录
       // IM 鉴权

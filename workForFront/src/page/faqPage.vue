@@ -44,12 +44,12 @@ const copyText = async (content) => {
 
 
 };
-const chatToadmin=()=>{
-  axios.post("chatToadmin").then((res)=>{
-    if(res.code==200){
+const chatToadmin = () => {
+  axios.post("chatToadmin").then((res) => {
+    if (res.code == 200) {
       message.info("跳转中")
       router.push('/chatPage')
-    }else{
+    } else {
       message.error("服务器错误")
     }
   })
@@ -64,26 +64,27 @@ const chatToadmin=()=>{
       style="font-size: 30px; color: white; justify-self: end; padding: 0px 5px;"></i>
     <p class="faqContent" :class="faqActive[index] < 0 ? 'hidden' : ''">{{ item.content }}</p>
   </div>
-  <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }">
+  <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="联系客服">
     <template #icon>
       <CustomerServiceOutlined />
     </template>
-    <a-float-button @click="copyText('05552333233')">
+    <a-float-button @click="copyText('05552333233')" tooltip="联系方式">
       <template #icon>
         <i class="bi bi-telephone"></i>
         <!-- MARK 黏贴到剪切板 -->
       </template>
     </a-float-button>
-    <a-float-button @click="copyText('yueyvlunhui@outlook.com')">
+    <a-float-button @click="copyText('yueyvlunhui@outlook.com')" tooltip="电子邮箱">
       <template #icon>
         <i class="bi bi-envelope"></i>
       </template>
     </a-float-button>
     <!-- done 和客服交流 -->
-    <a-float-button @click="chatToadmin()">
+    <a-float-button @click="chatToadmin()" tooltip="客服反馈">
       <template #icon>
         <CustomerServiceOutlined />
-      </template></a-float-button>
+      </template>
+    </a-float-button>
   </a-float-button-group>
 </template>
 

@@ -3,6 +3,7 @@ import { ref, reactive, onBeforeMount } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import axios from '../plugins/axiosBase.js';
 import { useRouter } from 'vue-router';
+import { UploadOutlined, DownloadOutlined, CustomerServiceOutlined, CommentOutlined, AlignCenterOutlined } from '@ant-design/icons-vue';
 const router = useRouter()
 import {
     EditOutlined
@@ -19,10 +20,11 @@ const userData = ref({
 });
 
 const permission = ref(0);
-const isShow=ref(false)
+const isShow = ref(false)
 onBeforeMount(() => {
     axios.post('get_user').then((res) => {
         userData.value = res.data
+        console.log(userData.value);
     }
     ).catch((e) => {
         console.log("查询失败");
@@ -31,25 +33,21 @@ onBeforeMount(() => {
     axios.get("getPermission").then((res) => {
         if (res.code == 200) {
             permission.value = res.data.permission
-            isShow.value=true
+            isShow.value = true
             console.log(permission.value);
             sessionStorage.setItem("permission", JSON.stringify(res.data.permission))
         }
     }
     )
 })
-const back=()=>{
+const back = () => {
     router.push("/bringInPage/myEdit")
 }
 </script>
 
 <template>
     <myHeader></myHeader>
-    <router-link to="editPersonMesPage" >
-        <div class="edit" v-if="isShow&&permission!=1">
-            <EditOutlined />
-        </div>
-    </router-link>
+
     <div class="auth" v-if="permission == 1">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">您是招聘人员</h1>
@@ -57,7 +55,7 @@ const back=()=>{
             <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">前往招聘页面</a-button>
         </div>
     </div>
-    <div class="appointment-w3" v-if="isShow&&permission!=1">
+    <div class="appointment-w3" v-if="isShow && permission != 1">
         <form action="#" method="post">
             <div class="personal">
                 <h2>个人信息</h2>
@@ -113,6 +111,33 @@ const back=()=>{
             </div>
         </form>
     </div>
+    <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="编辑个人信息">
+        <template #icon>
+            <EditOutlined />
+        </template>
+        <a-float-button tooltip="上传简历">
+            <template #icon>
+                <router-link to="uploadResume">
+                    <UploadOutlined />
+                </router-link>
+            </template>
+        </a-float-button>
+        <a-float-button tooltip="下载简历">
+            <template #icon>
+                <a :href="'/api/resume?filename='+`${userData.user_id}`+`_`+`${encodeURIComponent(userData.resume)}` " :download="userData.user_id + '_' + userData.resume">
+                    <DownloadOutlined />
+                </a>
+            </template>
+        </a-float-button>
+        <a-float-button tooltip="编辑个人信息">
+            <template #icon>
+                <router-link to="editPersonMesPage">
+                    <EditOutlined />
+                </router-link>
+            </template>
+        </a-float-button>
+
+    </a-float-button-group>
 </template>
 
 <style scoped lang='scss'>
@@ -139,6 +164,7 @@ const back=()=>{
         ;
     }
 }
+
 .edit {
     color: black;
     position: fixed;

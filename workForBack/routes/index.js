@@ -28,6 +28,7 @@ router.post('/api/login', useControllerUser.login)
 router.post('/api/register', useControllerUser.register)
 // 上传材料
 router.post('/api/upload_apply', upload.single('file'), useControllerUser.upload_apply)
+router.post('/api/upload_resume', upload.single('file'), useControllerUser.upload_resume)
 // 判定上传
 router.get('/api/get_isExistUpload', useControllerUser.isExistUpload)
 router.get('/api/getPermission', useControllerUser.getPermission)
@@ -87,7 +88,7 @@ router.get('/api/get_city', (req, res, next) => {
 // MARK 文件系统
 router.get('/api/file', (req, res) => {
   // console.log(req);
-  const filename = req.query.filename;
+  const filename = encodeURIComponent(req.query.filename);
   // console.log(filename);
   const currentDir = __dirname;
   // console.log(currentDir);
@@ -104,6 +105,29 @@ router.get('/api/file', (req, res) => {
       return;
     }
 
+    // 向客户端发送文件内容作为响应
+    res.set('Content-Type', 'application/octet-stream'); 
+    res.send(data);
+  });
+});
+router.get('/api/resume', (req, res) => {
+  // console.log(req);
+  const filename = req.query.filename;
+  // console.log(encodeURIComponent(filename));
+  const currentDir = __dirname;
+  // console.log(currentDir);
+  const parentDir = path.dirname(currentDir);
+  const folderPath = path.join(parentDir, 'resume');
+  // console.log(folderPath,filename);
+  const filePath = path.join(folderPath, filename);
+  console.log(filePath);
+  // 使用 Node.js 的文件系统模块读取文件内容
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      // 如果读取文件时发生错误，则向客户端发送错误响应
+      res.status(500).send('Failed to read file');
+      return;
+    }
     // 向客户端发送文件内容作为响应
     res.set('Content-Type', 'application/octet-stream'); 
     res.send(data);
