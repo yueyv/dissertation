@@ -6,9 +6,8 @@
   "author": "yueyvlunhui",
   "scripts": {
     "dev": "vite serve  --config vite.config.spa.js",
-    "ssr-dev": "npm rum server",
-    "build": "vite build",
-    "preview": "vite preview",
+    "build": "cross-env NODE_ENV=production vite build --config vite.config.spa.js",
+    "preview": "vite preview --config vite.config.spa.js",
     "ssr-prod": "npm run build && npm run server:prod",
     "ssr-build": "vite build",
     "server": "node ./server/index.js",

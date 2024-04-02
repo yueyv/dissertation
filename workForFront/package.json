@@ -6,7 +6,7 @@
   "author": "yueyvlunhui",
   "scripts": {
     "ssr-dev": "npm rum server",
-    "ssr-prod": "npm run build && npm run server:prod",
+    "ssr-prod": "npm run ssr-build && npm run server-js:prod",
     "ssr-build": "vite build",
     "server": "node ./server/index.js",
     "server-js:prod": "cross-env NODE_ENV=production node ./server/index.js"

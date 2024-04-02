@@ -20,6 +20,7 @@ const logger = createLogger({
     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
   ),
   transports: [
+    // Console transport for logging console output
     new transports.Console({
       format: format.combine(
         format.colorize(),
@@ -29,6 +30,7 @@ const logger = createLogger({
         )
       )
     }),
+    // File transport for logging to file
     new transports.File({
       filename,
       format: format.combine(
@@ -40,5 +42,15 @@ const logger = createLogger({
     })
   ]
 });
+
+// Create a custom console transport to capture console output
+logger.add(new transports.Console({
+  format: format.combine(
+    format.printf(
+      info =>
+        `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
+    )
+  )
+}));
 
 module.exports = logger;

@@ -1,15 +1,25 @@
-FROM nginx
-# 移除默认的NGINX配置
-RUN rm /etc/nginx/conf.d/default.conf
+# /usr/src/nodejs/hello-docker/Dockerfile
+FROM node
 
-# 复制NGINX配置文件到容器中
-COPY https_default.conf /etc/nginx/conf.d/default.conf
-COPY dist/ /usr/share/nginx/html/
-#创建ssl目录
-RUN mkdir /etc/nginx/ssl
+# 在容器中创建一个目录
+RUN mkdir -p /usr/src/front/
 
-# 将CA证书复制到容器中的/etc/nginx/ssl/目录
-COPY .plugin/www.yueyvlunhui.cn_chain.crt /etc/nginx/ssl/
-COPY .plugin/www.yueyvlunhui.cn_key.key /etc/nginx/ssl/
-# 暴露NGINX的端口
-EXPOSE 443
+# 定位到容器的工作目录
+WORKDIR /usr/src/front/
+
+# RUN/COPY 是分层的，package.json 提前，只要没修改，就不会重新安装包
+COPY package.json /usr/src/front/package.json
+COPY yarn.lock /usr/src/front/yarn.lock
+COPY dist /usr/src/front/dist
+COPY server /usr/src/front/server
+RUN cd /usr/src/front/
+RUN yarn install
+RUN yarn add cross-env -g
+# RUN npm install js-node -g
+
+
+
+
+
+EXPOSE 5200
+CMD yarn run server-js:prod

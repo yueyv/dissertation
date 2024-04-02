@@ -1,9 +1,18 @@
 import axios from 'axios';
-
-const axiosBase = axios.create({
-    baseURL: "/api",
-    timeout: 20000
-});
+const productionURL=()=>{
+    if(process.env.NODE_ENV === 'production'){
+        return  {
+            baseURL: "http://20.213.10.238:3000/api",
+            timeout: 20000
+        }
+    }else{
+        return {
+            baseURL: "/api",
+            timeout: 20000
+        }
+    }
+}
+const axiosBase = axios.create(productionURL());
 
 // 请求拦截器
 axiosBase.interceptors.request.use((config) => {

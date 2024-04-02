@@ -14,11 +14,11 @@ COPY dist /usr/src/front/dist
 COPY server /usr/src/front/server
 RUN cd /usr/src/front/
 RUN yarn install
-RUN npm install ts-node -g
+RUN npm install js-node -g
 
 
 
 
 
-EXPOSE 3000
+EXPOSE 80
 CMD yarn run server-js:prod
