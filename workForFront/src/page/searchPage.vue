@@ -211,7 +211,7 @@ watch(watchTargets, () => {
     <div class="job-contain" v-if="isShow">
         <div class="job-item" v-for="item in Math.min(4, jobItem.length - (currentPage - 1) * 4)"
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 4 + item - 1].job_id)">
-            <a-card :title="jobItem[(currentPage - 1) * 4 + item - 1].title" :bordered="false"
+            <a-card class="job-card" :title="jobItem[(currentPage - 1) * 4 + item - 1].title" :bordered="false"
                 style="width: 20vw;height: 30vh;">
                 <p v-if="jobItem[(currentPage - 1) * 4 + item - 1].vaild == '0'" style="color: red;font-size: 20px;">
                     未通过审核</p>
@@ -236,6 +236,12 @@ watch(watchTargets, () => {
 </template>
 
 <style scoped lang='scss'>
+.job-card{
+    &:hover{
+        box-shadow: 0px 5px 0px 0px rgba(255, 255, 255, 0.4);
+        transition: all ease 0.5s;
+    }
+}
 .sift-box {
     justify-items: center;
     align-items: center;
@@ -246,6 +252,10 @@ watch(watchTargets, () => {
     margin-left: 20px;
     width: calc(100vw - 40px);
     height: 50px;
+    &:hover{
+        box-shadow: 0px 5px 0px 0px rgba(255, 255, 255, 0.4);
+        transition: all ease 0.5s;
+    }
 }
 
 .job-contain {

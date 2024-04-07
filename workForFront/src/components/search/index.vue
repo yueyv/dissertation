@@ -70,6 +70,12 @@ const clickSearchHeadItem=(item)=>{
     justify-content: center;
     margin-bottom: 20px;
     // grid-template-columns: min(80vw,700px);
+    &:hover{
+        &:hover{
+        box-shadow: 0px 5px 4px 0px rgba(255, 255, 255, 0.4);
+        transition: all ease 0.5s;
+    }
+    }
 }
 
 .search-input {

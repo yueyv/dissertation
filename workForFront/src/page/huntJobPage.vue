@@ -75,7 +75,7 @@ const back = () => {
     <div class="job-contain" v-if="isShow&&permission!=1">
         <div class="job-item" v-for="item in Math.min(8, jobItem.length - (currentPage - 1) * 8)"
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">
-            <a-card :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
+            <a-card class="job-card" :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
                 style="width: 20vw;height: 30vh;">
                 <p v-if="jobItem[(currentPage - 1) * 8 + item - 1].vaild == '0'" style="color: red;font-size: 20px;">
                     未通过审核</p>
@@ -100,6 +100,12 @@ const back = () => {
 </template>
 
 <style scoped lang='scss'>
+.job-card{
+    &:hover{
+        box-shadow: 0px 5px 0px 0px rgba(255, 255, 255, 0.4);
+        transition: all ease 0.5s;
+    }
+}
 .auth {
     position: fixed;
     width: 100%;

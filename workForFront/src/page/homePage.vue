@@ -60,9 +60,10 @@ onBeforeMount(() => {
             <p style="color: #9E9E9E;">热招岗位:</p>
             <p v-for="item in commendTags" class="smart-tag">{{ item.title }}</p>
         </div> -->
+        <h1 class="job-title">最新岗位</h1>
         <div class="job-contain" v-if="isShow">
             <div class="job-item" v-for="item in jobItem.length" @click="moveToJobMainPage(jobItem[item - 1].job_id)">
-                <a-card :title="jobItem[item - 1].title" :bordered="false" style="width: 20vw;height: 30vh;">
+                <a-card class="job-card" :title="jobItem[item - 1].title" :bordered="false" style="width: 20vw;height: 30vh;">
                     <p>{{ jobItem[item - 1].company_name }}</p>
                     <p>{{ jobItem[item - 1].walfare }}</p>
                     <p>{{ jobItem[item - 1].description }}</p>
@@ -72,7 +73,7 @@ onBeforeMount(() => {
         <!-- 骨架屏 -->
         <div class="job-contain" v-if="!isShow">
             <div class="job-item">
-                <a-card style="width: 20vw;height: 30vh;">
+                <a-card style="width: 20vw;height: 30vh;" >
 
                     <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
 
@@ -101,19 +102,33 @@ onBeforeMount(() => {
 
 <style scoped lang='scss'>
 .job-contain {
-    margin-top: 10vh;
-    height: calc(100vh - 300px);
+    margin-top: 5vh;
+    // height: calc(100vh - 300px);
     display: grid;
     justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px 10px;
 
 }
-
-.job-item {
-    overflow: hidden;
+.job-title{
+    font-weight: 800;
+    letter-spacing: 5px;
+    font-size: 40px;
+    margin-top: 15vh;
+    font-size: 25px;
+    margin-left: 40px;
+    color: rgb(227, 251, 255);
 }
-
+// / .job-item {
+// //     // overflow: hidden;
+    
+// // }
+.job-card{
+    &:hover{
+        box-shadow: 0px 5px 0px 0px rgba(255, 255, 255, 0.4);
+        transition: all ease 0.5s;
+    }
+}
 .advs {
     font-weight: 800;
     color: white;

@@ -45,7 +45,7 @@ const moveToJobMainPage = (id) => {
     <div class="job-contain" v-if="isShow">
         <div class="job-item" v-for="item in Math.min(8, jobItem.length - (currentPage - 1) * 8)"
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">
-            <a-card :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
+            <a-card class="job-card" :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
                 style="width: 20vw;height: 30vh;">
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].company_name }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].walfare }}</p>
@@ -77,7 +77,12 @@ const moveToJobMainPage = (id) => {
     gap: 10px 10px;
 
 }
-
+.job-card{
+    &:hover{
+        box-shadow: 0px 5px 0px 0px rgba(255, 255, 255, 0.4);
+        transition: all ease 0.5s;
+    }
+}
 .job-item {
     overflow: hidden;
 }
