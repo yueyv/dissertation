@@ -2,7 +2,7 @@
 import { message } from 'ant-design-vue';
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import axios from '@/plugins/axiosBase.js'
 import md5 from 'js-md5'
 import {onMounted,onBeforeUnmount} from 'vue'
 // Mark 加密
@@ -12,21 +12,19 @@ const router = useRouter()
 const password = ref("");
 const account = ref("");
 const second_password = ref("")
-async function response(result) {
-    if (result.status === 200) {
-        // 在session中存储token
-        if((result.data.code)==200){
-            localStorage.setItem("token", JSON.stringify(result.data.data))
+async function response(res) {
+    console.log(res);
+        if(res.code==200){
+            localStorage.setItem("token", JSON.stringify(res.data))
             localStorage.setItem("userId",JSON.stringify(account.value))
         }
-    }
     setTimeout(() => {
-        message.info(result.data.message)
+        message.info(res.message)
     }, 1000)
 }
 async function check() {
     localStorage.removeItem('token');
-    await axios.post('/api/register', { account: `${account.value}`, password: `${md5(password.value+mdtSalt)}` })
+    await axios.post('/register', { account: `${account.value}`, password: `${md5(password.value+mdtSalt)}` })
         .then(response)
         .catch(err => {
             console.log(err)

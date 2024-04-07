@@ -4,22 +4,24 @@ import { io } from "socket.io-client";
 const token = JSON.parse(localStorage.getItem('token'))
 // 发送接收信息
 
+
+// console.log(token);
+// 携带token
+const productionURL=()=>{
+    if(process.env.NODE_ENV === 'production'){
+        return "http://20.213.10.238:3000"
+    }else{
+        return "http://localhost:3000"
+    }
+}
 const inputText = ref("")
 const to_id = ref()
 // console.log(token);
 // 携带token
-const socket = io('http://localhost:3000', {
+const socket = io(productionURL(), {
     reconnectionDelayMax: 10000,
     auth: { token: token }
 })
-socket.on('connect', () => {
-    socket.emit('online');
-});
-socket.on('chat_success', (req) => {
-    if (req == true) {
-        message.info("已发送消息")
-    }
-});
 socket.on('reply_private_chat', (req) => {
     message.info(`${req}收到了信息`)
     console.log(req);

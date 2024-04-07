@@ -12,4 +12,4 @@ RUN mkdir /etc/nginx/ssl
 COPY key/yueyvlunhui.cn_chain.crt /etc/nginx/ssl/
 COPY key/yueyvlunhui.cn_key.key /etc/nginx/ssl/
 # 暴露NGINX的端口
-EXPOSE 443
+EXPOSE 8080

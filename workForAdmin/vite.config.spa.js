@@ -22,6 +22,12 @@ export default defineConfig({
         target:'http://20.213.10.238:3000',
         changeOrigin: true,
         // rewrite: (path) => path.replace('/api', '')
+      },
+      '/socket.io': {
+        // target: 'http://localhost:3000',
+        target:'http://20.213.10.238:3000',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace('/api', '')
       }
     },
     targets:[viteCompression()],

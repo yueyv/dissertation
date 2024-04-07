@@ -2,29 +2,27 @@
 import { message } from 'ant-design-vue';
 import { ref, onMounted,onBeforeUnmount} from 'vue'
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import axios from '../../plugins/axiosBase';
 import md5 from 'js-md5'
 // 要操作的元素
 const router = useRouter()
 const account = ref("");
 const password = ref("");
 const mdtSalt="yueyvlunhui";
-async function response(result) {
+async function response(res) {
 
-    if (result.status === 200) {
-        if(result.data.code==200){
-            localStorage.setItem("token", JSON.stringify(result.data.data))
+        if(res.code==200){
+            localStorage.setItem("token", JSON.stringify(res.data))
             localStorage.setItem("userId",JSON.stringify(account.value))
             sessionStorage.setItem("admin",JSON.stringify("yueyv"))
         }
-    }
     setTimeout(() => {
-        message.info(result.data.message)
+        message.info(res.message)
     }, 1000)
 }
 async function check() {
     localStorage.clear();
-    await axios.post('/api/adminLogin', { account: `${account.value}`,  password: `${md5(password.value+mdtSalt)}` })
+    await axios.post('/adminLogin', { account: `${account.value}`,  password: `${md5(password.value+mdtSalt)}` })
         .then(response)
         .catch(err => {
             console.log(err)

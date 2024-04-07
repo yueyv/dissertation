@@ -43,6 +43,7 @@ class Base {
     }
     selectTitle(title) {
         return knex(this.table).where('title', 'like', `%${title}%`).where('vaild', '=', '1')
+        // .orderBy('job_id', 'desc');
     }
     searchIsUpload(id) {
         return knex(this.table).select('apply_filename').where('username', '=', id).first()

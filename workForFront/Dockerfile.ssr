@@ -14,11 +14,12 @@ COPY dist /usr/src/front/dist
 COPY server /usr/src/front/server
 RUN cd /usr/src/front/
 RUN yarn install
-RUN npm install js-node -g
+RUN yarn add cross-env -g
+# RUN npm install js-node -g
 
 
 
 
 
-EXPOSE 80
+EXPOSE 5200
 CMD yarn run server-js:prod

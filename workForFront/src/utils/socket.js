@@ -3,12 +3,18 @@ import { io } from "socket.io-client";
 // SSR tip
 const token = JSON.parse(localStorage.getItem('token'))
 // 发送接收信息
-
+const productionURL=()=>{
+    if(process.env.NODE_ENV === 'production'){
+        return "http://20.213.10.238:3000"
+    }else{
+        return "http://localhost:3000"
+    }
+}
 const inputText = ref("")
 const to_id = ref()
 // console.log(token);
 // 携带token
-const socket = io('http://localhost:3000', {
+const socket = io(productionURL(), {
     reconnectionDelayMax: 10000,
     auth: { token: token }
 })

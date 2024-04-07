@@ -23,6 +23,13 @@ const user_id = ref()
 // todo 存储在indexedDB中
 const chatLog = reactive({})
 const isShow = ref(false)
+const productionURL=()=>{
+    if(process.env.NODE_ENV === 'production'){
+        return "http://20.213.10.238:3000"
+    }else{
+        return "http://localhost:3000"
+    }
+}
 // 读取key，获取交流
 const items = ref([
     {
@@ -312,7 +319,7 @@ onBeforeMount(() => {
     })
     // 挂载socket
     const token = JSON.parse(localStorage.getItem('token'))
-    socket = io('http://localhost:3000', {
+    socket = io(productionURL(), {
         reconnectionDelayMax: 10000,
         auth: { token: token }
     })

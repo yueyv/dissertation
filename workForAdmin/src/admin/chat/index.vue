@@ -15,6 +15,16 @@ import { storeToRefs } from 'pinia'
 const ChatStore = useChatStore()
 const { status } = storeToRefs(ChatStore)
 const { statusChangeFalse } = ChatStore
+const productionURL=()=>{
+    if(process.env.NODE_ENV === 'production'){
+        return "http://20.213.10.238:3000"
+    }else if(process.env.NODE_ENV === 'nginx'){
+        return ""
+    }
+    else{
+        return ""
+    }
+}
 console.log(status.value);
 watch(status, () => {
     if (status.value == true) {
@@ -279,7 +289,7 @@ onBeforeMount(() => {
     })
     // 挂载socket
     const token = JSON.parse(localStorage.getItem('token'))
-    socket = io('http://localhost:3000', {
+    socket = io(productionURL(), {
         reconnectionDelayMax: 10000,
         auth: { token: token }
     })

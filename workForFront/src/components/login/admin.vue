@@ -24,7 +24,7 @@ async function response(result) {
 }
 async function check() {
     localStorage.removeItem('token');
-    await axios.post('/api/adminLogin', { account: `${account.value}`,  password: `${md5(password.value+mdtSalt)}` })
+    await axios.post('/adminLogin', { account: `${account.value}`,  password: `${md5(password.value+mdtSalt)}` })
         .then(response)
         .catch(err => {
             console.log(err)

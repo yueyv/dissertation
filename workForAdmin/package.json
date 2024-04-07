@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite serve  --config vite.config.spa.js",
     "build": "cross-env NODE_ENV=production vite build --config vite.config.spa.js",
+    "ngnix_build": "cross-env NODE_ENV=nginx vite build --config vite.config.spa.js",
     "preview": "vite preview --config vite.config.spa.js",
     "ssr-prod": "npm run build && npm run server:prod",
     "ssr-build": "vite build",

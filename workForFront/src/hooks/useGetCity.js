@@ -28,7 +28,7 @@ const getCity = async (IP) => {
           // console.log(res);
           if (res.code === 200) {
               // console.log(res.city);
-              return res.city;
+              return res.city!=''?res.city:"手动定位";
           }
       } catch (error) {
           console.error('获取城市地址时出现错误：', error);
