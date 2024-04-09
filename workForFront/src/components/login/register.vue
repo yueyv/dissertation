@@ -3,7 +3,9 @@ import { message } from 'ant-design-vue';
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router';
 import axios from '@/plugins/axiosBase.js'
-import md5 from 'js-md5'
+import CryptoJS from 'crypto-js';
+// import md5 from 'js-md5'
+// import argon2 from 'argon2';
 import {onMounted,onBeforeUnmount} from 'vue'
 // Mark 加密
 const mdtSalt="yueyv"
@@ -12,6 +14,30 @@ const router = useRouter()
 const password = ref("");
 const account = ref("");
 const second_password = ref("")
+// async function hashPassword(password) {
+//   try {
+//     const hash = await argon2.hash(password);
+//     return hash;
+//   } catch (error) {
+//     console.error('Error hashing password:', error);
+//     throw error;
+//   }
+// }
+
+
+// 定义密钥和初始向量
+const key = CryptoJS.enc.Utf8.parse('yueyv');
+const iv = CryptoJS.enc.Utf8.parse('lunhui');
+
+// 加密方法
+const encryptPassword = (password) => {
+    const encrypted = CryptoJS.AES.encrypt(password, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+    return encrypted.toString();
+};
+
+
+
+
 async function response(res) {
     console.log(res);
         if(res.code==200){
@@ -24,7 +50,8 @@ async function response(res) {
 }
 async function check() {
     localStorage.removeItem('token');
-    await axios.post('/register', { account: `${account.value}`, password: `${md5(password.value+mdtSalt)}` })
+    password.value=  await encryptPassword(password.value)
+    await axios.post('/register', { account: `${account.value}`, password: `${password.value}` })
         .then(response)
         .catch(err => {
             console.log(err)

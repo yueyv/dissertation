@@ -1,0 +1,229 @@
+{
+  "main": {
+    "id": "95c04b649ffedcc5",
+    "type": "split",
+    "children": [
+      {
+        "id": "9b505d8e1b312b3e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "95ede410edc1115f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "相关技术概述/AES-128加密算法概述.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "861abd38e5011d3e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "JWT和HMAC-SHA256加密算法概述.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2045dd50dbb7d76a",
+    "type": "split",
+    "children": [
+      {
+        "id": "186e1a43bc1a3b3a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dfd53ec99e0afe99",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byCreatedTimeReverse"
+              }
+            }
+          },
+          {
+            "id": "48092c916c72c10a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#详细设计（每个模块的算法和数据结构，详细）",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bf28db08214e5944",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "a6dc19cf54abb49a",
+    "type": "split",
+    "children": [
+      {
+        "id": "91b248df4e8cb85c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b3eb9a6ea3cac933",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "JWT和HMAC-SHA256加密算法概述.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f16723504402a7fd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "JWT和HMAC-SHA256加密算法概述.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "cb5dfd33859dcead",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "270692f07a1b1802",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "JWT和HMAC-SHA256加密算法概述.md"
+              }
+            }
+          },
+          {
+            "id": "3ab736a33d8986f2",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "publish:发布更改": false,
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "obsidian42-brat:BRAT": false
+    }
+  },
+  "active": "861abd38e5011d3e",
+  "lastOpenFiles": [
+    "image/JWT.drawio",
+    "绪论/论文框架结构.md",
+    "JWT和HMAC-SHA256加密算法概述.md",
+    "绪论/研究意义.md",
+    "绪论/国内外研究现状.md",
+    "绪论/研究背景.md",
+    "相关技术概述/AES-128加密算法概述.md",
+    "image/AES加密.png",
+    "image/AES加密.drawio",
+    "参考/可扩充.md",
+    "相关技术概述/Socket通信概述.md",
+    "image/Pasted image 20240409144403.jpg",
+    "image/Pasted image 20240409144223.jpg",
+    "相关技术概述/客户端渲染（SPA)和服务器渲染（SSR）概述.md",
+    "相关技术概述/Vite和Vue3概述.md",
+    "相关技术概述/Docker平台概述.md",
+    "image/Pasted image 20240409135421.png",
+    "参考/目录.md",
+    "相关技术概述/express概述.md",
+    "未命名",
+    "相关技术概述",
+    "绪论",
+    "未命名 1",
+    "参考",
+    "bne.md",
+    "注意事项.md",
+    "面试题/拷贝.md",
+    "模块.md",
+    "毕业论文",
+    "面试/项目/网站亮点.md",
+    "签约",
+    "面试/项目/自我介绍 1.md",
+    "面试/项目/自我介绍.md",
+    "浏览器/HTTP和HTTPS.md",
+    "浏览器/从输入 URL 开始建立前端知识体系.md",
+    "浏览器/从URL输入到页面展现到底发生什么？.md",
+    "浏览器/中间人攻击.md",
+    "浏览器/HSTS.md",
+    "图片/13bd596e624645a9afb58800be6ddc59~tplv-k3u1fbpfcp-zoom-in-crop-mark_4536_0_0_0.webp",
+    "面试",
+    "前端框架/nodejs",
+    "图片/Pasted image 20230618200208.png",
+    "图片/Pasted image 20230618200200.png",
+    "图片/Pasted image 20230618200152.png",
+    "图片/Pasted image 20230618200014.png",
+    "图片/Pasted image 20230618195958.png",
+    "未命名.canvas",
+    "未命名 1.canvas"
+  ]
+}

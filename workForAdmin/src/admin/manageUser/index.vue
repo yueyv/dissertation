@@ -223,8 +223,8 @@ const changePermission = (user_id, permission) => {
                             :download="record.user_id + '_' + record.apply_filename"
                             v-if="record.permission != '0'">查看申请文件</a>
                         <br>
-                        <a @click="changePermission(record.user_id, 1)" v-if="record.permission == '-1'">同意申请</a>
-                        <a @click="changePermission(record.user_id, -1)" v-if="record.permission == '1'">取消权限</a>
+                        <a @click="changePermission(record.user_id, 1)" v-if="record.permission == '2'">同意申请</a>
+                        <a @click="changePermission(record.user_id, 2)" v-if="record.permission == '1'">取消权限</a>
                     </span>
                 </template>
             </template>

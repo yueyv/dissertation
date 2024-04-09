@@ -13,8 +13,10 @@
     "regex"
   ],
   "dependencies": {
+    "argon2": "^0.40.1",
     "axios": "^1.5.0",
     "cheerio": "^1.0.0-rc.12",
+    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.9",
     "puppeteer": "^21.1.1"
   },

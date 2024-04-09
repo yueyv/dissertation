@@ -4,11 +4,30 @@ import { ref, onMounted,onBeforeUnmount} from 'vue'
 import { useRouter } from 'vue-router';
 import axios from '@/plugins/axiosBase.js'
 import md5 from 'js-md5'
+import CryptoJS from 'crypto-js';
+// import argon2 from 'argon2';
 // 要操作的元素
 const router = useRouter()
 const account = ref("");
 const password = ref("");
-const mdtSalt="yueyv";
+// async function hashPassword(password) {
+//   try {
+//     const hash = await argon2.hash(password);
+//     return hash;
+//   } catch (error) {
+//     console.error('Error hashing password:', error);
+//     throw error;
+//   }
+// }
+// const mdtSalt="yueyv";
+const key = CryptoJS.enc.Utf8.parse('yueyv');
+const iv = CryptoJS.enc.Utf8.parse('lunhui');
+
+// 加密方法
+const encryptPassword = (password) => {
+    const encrypted = CryptoJS.AES.encrypt(password, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 });
+    return encrypted.toString();
+};
 async function response(res) {
     console.log(res);
         if(res.code==200){
@@ -21,7 +40,8 @@ async function response(res) {
 }
 async function check() {
     localStorage.removeItem('token');
-    await axios.post('/login', { account: `${account.value}`,  password: `${md5(password.value+mdtSalt)}` })
+    password.value=  await encryptPassword(password.value)
+    await axios.post('/login', { account: `${account.value}`,  password: `${password.value}` })
         .then(response)
         .catch(err => {
             console.log(err)
