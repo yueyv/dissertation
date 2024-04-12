@@ -56,6 +56,9 @@ async function startServer() {
   })
 // SSR 端口
   const port = process.env.PORT || 5200
+  const ip = '0.0.0.0'; // 或者指定具体的局域网 IP 地址
+
   app.listen(port)
+  // console.log(`Server running at http://${ip}:${port}`);
   console.log(`Server running at http://localhost:${port}`)
 }

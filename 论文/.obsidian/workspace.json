@@ -4,35 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "9b505d8e1b312b3e",
+        "id": "4d152c3086e45399",
         "type": "tabs",
         "children": [
           {
-            "id": "95ede410edc1115f",
+            "id": "97f3e80a7bf32309",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "相关技术概述/AES-128加密算法概述.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "861abd38e5011d3e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JWT和HMAC-SHA256加密算法概述.md",
+                "file": "系统分析/需求分析.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JWT和HMAC-SHA256加密算法概述.md",
+                "file": "系统分析/需求分析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JWT和HMAC-SHA256加密算法概述.md",
+                "file": "系统分析/需求分析.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "JWT和HMAC-SHA256加密算法概述.md"
+                "file": "系统分析/需求分析.md"
               }
             }
           },
@@ -175,28 +162,35 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "861abd38e5011d3e",
+  "active": "97f3e80a7bf32309",
   "lastOpenFiles": [
-    "image/JWT.drawio",
+    "image/管理员.png",
+    "系统分析/需求分析.md",
     "绪论/论文框架结构.md",
-    "JWT和HMAC-SHA256加密算法概述.md",
+    "image/招聘用户.png",
+    "image/普通用户.png",
+    "相关技术概述/JWT和HMAC-SHA256加密算法概述.md",
+    "image/招聘用户.drawio",
+    "image/普通用户.drawio",
+    "相关技术概述/AES-128加密算法概述.md",
+    "系统分析",
+    "相关技术概述/Socket通信概述.md",
+    "相关技术概述/Docker平台概述.md",
+    "相关技术概述/客户端渲染（SPA)和服务器渲染（SSR）概述.md",
+    "相关技术概述/express概述.md",
+    "相关技术概述/Vite和Vue3概述.md",
+    "image/JWT和SHA256加密.drawio",
+    "image/JWT.drawio",
     "绪论/研究意义.md",
     "绪论/国内外研究现状.md",
     "绪论/研究背景.md",
-    "相关技术概述/AES-128加密算法概述.md",
     "image/AES加密.png",
     "image/AES加密.drawio",
     "参考/可扩充.md",
-    "相关技术概述/Socket通信概述.md",
     "image/Pasted image 20240409144403.jpg",
     "image/Pasted image 20240409144223.jpg",
-    "相关技术概述/客户端渲染（SPA)和服务器渲染（SSR）概述.md",
-    "相关技术概述/Vite和Vue3概述.md",
-    "相关技术概述/Docker平台概述.md",
     "image/Pasted image 20240409135421.png",
     "参考/目录.md",
-    "相关技术概述/express概述.md",
-    "未命名",
     "相关技术概述",
     "绪论",
     "未命名 1",
@@ -205,24 +199,17 @@
     "注意事项.md",
     "面试题/拷贝.md",
     "模块.md",
-    "毕业论文",
     "面试/项目/网站亮点.md",
-    "签约",
     "面试/项目/自我介绍 1.md",
     "面试/项目/自我介绍.md",
     "浏览器/HTTP和HTTPS.md",
     "浏览器/从输入 URL 开始建立前端知识体系.md",
     "浏览器/从URL输入到页面展现到底发生什么？.md",
     "浏览器/中间人攻击.md",
-    "浏览器/HSTS.md",
     "图片/13bd596e624645a9afb58800be6ddc59~tplv-k3u1fbpfcp-zoom-in-crop-mark_4536_0_0_0.webp",
-    "面试",
-    "前端框架/nodejs",
     "图片/Pasted image 20230618200208.png",
     "图片/Pasted image 20230618200200.png",
     "图片/Pasted image 20230618200152.png",
-    "图片/Pasted image 20230618200014.png",
-    "图片/Pasted image 20230618195958.png",
     "未命名.canvas",
     "未命名 1.canvas"
   ]

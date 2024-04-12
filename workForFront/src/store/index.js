@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import {getCity,getIP} from '../hooks/useGetCity.js'
+import {message} from 'ant-design-vue'
 import  Names  from "./store-name";
 
 
@@ -59,4 +60,51 @@ const useIPStore=defineStore(Names.IP,{
     //     storage: window.sessionStorage,
     //   },
 })
-export {useIPStore,useUserStore}
+const useVideoChatStore = defineStore(Names.VIDEOCHAT, {
+  state: () => ({
+    // 多媒体管理器
+    multimediaManager: null,
+    // 是否与服务器连接
+    isServerConnect: false
+  }),
+  actions: {
+    // 初始化多媒体管理器
+    initMultimediaManager() {
+      GlobalUtil.setUseWss(true);
+      this.multimediaManager = MultimediaManagerFactory.GetSingleton();
+      this.multimediaManager.SetCameraVideoSize(1280, 720);
+      this.multimediaManager.SetMaxCameraFrameRate(15);
+      this.multimediaManager.SetCameraEncodeQuality(15);
+      // 设置与媒体服务器连接断开事件
+      this.multimediaManager.ConnectionInterrupted = () => {
+        console.log("设置与媒体服务器连接断开事件");
+        this.isServerConnect = false;
+      };
+      // 设置与媒体服务器连接重连成功事件
+      this.multimediaManager.ConnectionRebuildSucceed = () => {
+        console.log("设置与媒体服务器连接重连成功事件");
+        this.isServerConnect = true;
+      };
+      this.multimediaManager.SetBeingKickedOut(() => {
+        message.info("你已被强制下线");
+        localStorage.removeItem("H5MediaUser");
+        location.reload();
+      });
+      this.multimediaManager.SetBeingPushedOut(() => {
+        message.info("在别处登录");
+        localStorage.removeItem("H5MediaUser");
+        location.reload();
+      });
+    },
+    // 更新与服务器连接状态
+    updateServerConnect(value) {
+      this.isServerConnect = value;
+    },
+    // 设置自定义消息处理回调
+    setCustomMessageReceivedCallback(callback) {
+      this.multimediaManager.SetCustomMessageReceivedCallback(callback);
+    }
+  }
+});
+
+export {useIPStore,useUserStore,useVideoChatStore}
