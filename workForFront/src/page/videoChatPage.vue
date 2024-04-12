@@ -78,7 +78,15 @@ const videoChatStart=()=>{
   );
 }
 onBeforeMount(() => {
-    
+    // import('/H5Media.iife.lock.js')
+    //     .then(() => Object.keys(H5Media).forEach((key) => {
+    //         if (key !== "default") {
+    //             window[key] = H5Media[key];
+    //         }
+    //     }))
+    //     .catch(error => {
+    //         console.error('Error loading external JavaScript file:', error);
+    //     })
     Object.keys(H5Media).forEach((key) => {
           if (key !== "default") {
             window[key] = H5Media[key];
@@ -197,6 +205,7 @@ onBeforeMount(() => {
         display: inline-block;
         // position: absolute;
         left: 70px;
+        width: 100%;
     }
 
     &:hover {

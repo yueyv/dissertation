@@ -12,15 +12,15 @@ async function render(pageContext) {
   // This render() hook only supports SSR, see https://vite-plugin-ssr.com/render-modes for how to modify render() to support SPA
   // if (!Page) throw new Error('My render() hook expects pageContext.Page to be defined')
   // console.log(Page);
-  
-  const {app,router} = createApp(Page, pageProps, pageContext)
+
+  const { app, router } = createApp(Page, pageProps, pageContext)
   router.push(pageContext.urlOriginal)
   await router.isReady()
   const appHtml = await renderToString(app)
   // console.log(router.currentRoute.value.meta);
-  
+
   // See https://vite-plugin-ssr.com/head
-  const documentProps  = router.currentRoute.value.meta
+  const documentProps = router.currentRoute.value.meta
   // console.log(documentProps);
   // 从路由中读取路由元信息
 
@@ -37,13 +37,13 @@ async function render(pageContext) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
         <script src="./H5Media.iife.lock.js"></script>
-          <script>
-        Object.keys(H5Media).forEach((key) => {
-          if (key !== "default") {
-            window[key] = H5Media[key];
-          }
-        });
-      </script>
+        <script>
+      Object.keys(H5Media).forEach((key) => {
+        if (key !== "default") {
+          window[key] = H5Media[key];
+        }
+      });
+    </script>
         <title>${title}</title>
       </head>
       <body>
