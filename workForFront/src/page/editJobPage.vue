@@ -41,7 +41,7 @@ const clickButton = () => {
       message.info("跳转中")
       router.push('/chatPage')
     }else{
-      message.error("服务器错误")
+      message.error("返回错误，请登录后重试")
     }
   })
 }
@@ -55,7 +55,7 @@ const handleOk = () => {
             message.success("删除成功")
             router.push("/bringInPage/myEdit")
         }else{
-            message.error("服务器错误")
+            message.error("返回错误，请登录后重试")
         }
 
     }).catch((e)=>{

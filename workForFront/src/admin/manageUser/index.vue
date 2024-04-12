@@ -112,7 +112,7 @@ const chat = (user_id) => {
             message.info("跳转聊天")
             nav_choosed(2)
         } else {
-            message.info("服务器错误")
+            message.info("返回错误，请登录后重试")
         }
     })
 }
@@ -152,7 +152,7 @@ const changePermission = (user_id, permission) => {
         if (res.code == 200) {
             message.info("更改成功，请刷新")
         } else {
-            message.info("服务器错误")
+            message.info("返回错误，请登录后重试")
         }
     })
 }

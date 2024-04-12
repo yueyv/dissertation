@@ -49,7 +49,7 @@ onMounted(() => {
                 }
             }
             else{
-                message.error("服务器错误")
+                message.error("返回错误，请登录后重试")
             }
         }).catch((e) => {
             console.log(e);

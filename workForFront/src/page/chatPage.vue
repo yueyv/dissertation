@@ -6,6 +6,7 @@ import { message } from "ant-design-vue"
 import { io } from "socket.io-client";
 import { useRoute, useRouter } from 'vue-router';
 import {
+    VideoCameraFilled,
     CommentOutlined,
     MailOutlined,
     CloseOutlined,
@@ -140,6 +141,15 @@ const searchItem = (search_id) => {
     if (permission.value != 1) {
         router.push(`/chatFindPage/${search_id}`)
     }
+}
+const videoChatItem = (item) => {
+    if (permission.value == 1) {
+        sessionStorage.setItem('videoChat',JSON.stringify(item))
+        router.push(`/videoChatPage`)
+    }else{
+        message.info("发送失败,重新登录")
+    }
+
 }
 const deleteItem = (delete_id) => {
     axios.post('chatDelete', { delete_id: delete_id }).then((res) => {
@@ -403,6 +413,10 @@ onUnmounted(() => {
                                     <a-menu-item class="item" @click="searchItem(item.key)">
                                         <AlignLeftOutlined />
                                         查看资料
+                                    </a-menu-item>
+                                    <a-menu-item class="item" v-if="permission==1" @click="videoChatItem(item)">
+                                        <VideoCameraFilled />
+                                        视频面试
                                     </a-menu-item>
                                     <a-menu-item class="item" @click="deleteItem(item.key)">
                                         <CloseOutlined />
