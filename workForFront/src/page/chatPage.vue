@@ -145,7 +145,7 @@ const searchItem = (search_id) => {
 const videoChatItem = (item) => {
     if (permission.value == 1) {
         sessionStorage.setItem('videoChat',JSON.stringify(item))
-        router.push(`/videoChatPage`)
+        window.open('/videoChatPage', '_blank');
     }else{
         message.info("发送失败,重新登录")
     }

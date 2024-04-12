@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup>
 import { message } from 'ant-design-vue';
 import { ref, onMounted } from 'vue'
 import { useRouter } from "vue-router";
@@ -36,7 +36,7 @@ onMounted(() => {
 
 <template>
     <div class="box">
-        <img src="/FeHeart.svg" alt="no">
+        <!-- <img src="/FeHeart.svg" alt="no"> -->
         <h1>{{ userId }}</h1>
     </div>
 </template>
@@ -47,7 +47,7 @@ onMounted(() => {
     z-index: 2;
     width: 200px;
     top: 5vh;
-    left: 70vw;
+    left: 80vw;
     position: absolute;
     height: 50px;
     background-color: #ff719a;

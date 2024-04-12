@@ -36,6 +36,14 @@ async function render(pageContext) {
         <link rel="icon" href="${logoUrl}" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
+        <script src="./H5Media.iife.lock.js"></script>
+          <script>
+        Object.keys(H5Media).forEach((key) => {
+          if (key !== "default") {
+            window[key] = H5Media[key];
+          }
+        });
+      </script>
         <title>${title}</title>
       </head>
       <body>
