@@ -211,6 +211,25 @@ const routes = [
     }
   },
   {
+    path: '/videoChatPage',
+    name: 'videoChatPage',
+    meta: {
+      title: '视频面试页面',
+      permission: true
+    },
+    component: () => import('../page/videoChatPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否已登录
+      if (isAuthenticated()) {
+        next();
+      } else {
+        import.meta.env.SSR ? false : message.warning("请先登录");
+        next("/login");
+
+      }
+    }
+  },
+  {
     path: '/personalPage',
     name: 'personalPage',
     meta: {
