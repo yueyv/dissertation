@@ -1,24 +1,27 @@
 <script setup>
-import { ref, reactive,computed,onBeforeMount,shallowReactive, onUnmounted } from 'vue'
-import {message} from 'ant-design-vue'
-import { useRouter } from "vue-router";
-import nprogress from "nprogress";
-import { useVideoChatStore } from "../store/index";
-import { InformationTypes } from "@/omcs";
-import RequestDialog2Active from "@/components/videoChat/RequestDialog2Active.vue";
-import RequestDialog2Passive from "@/components/videoChat/RequestDialog2Passive.vue";
-import Tabs from "@/components/videoChat/Tabs.vue";
-let videoChatTo = ref()
-const videoMode = ref(false)
-const isReady=ref(false)
-const isVideoChat = ref(false)
-const isVideoScreen = ref(false)
-const videoChat=useVideoChatStore()
-const formData = shallowReactive({
-  username: "",
-  password: "",
-  serverIP: ""
+defineOptions({
+  name: "Home"
 });
+import { ElButton, ElDialog } from 'element-plus'
+import { onMounted, computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import {message} from 'ant-design-vue'
+import nprogress from "nprogress";
+import { useAppStore } from "@/store";
+import { InformationTypes } from "@/omcs";
+import RequestDialog2Active from "@/components/RequestDialog2Active.vue";
+import RequestDialog2Passive from "@/components/RequestDialog2Passive.vue";
+import Tabs from "@/components/Tabs.vue";
+/**
+ * ------------数据层------------
+ */
+// #region
+// 全局共享数据
+const app = useAppStore();
+// 路由器isRequestDesktop
+const router = useRouter();
+// 当前登录用户信息
+const H5MediaUser = ref(null);
 // 对方的账号
 const targetUsername = ref("");
 // 摄像头 麦克风 阵列
@@ -53,105 +56,41 @@ const cameraBtnIndex = ref(1);
 // 麦克风按钮数据
 const micBtnData = [
   {
-    img_url: new URL("../assets/image/mic_closed.png", import.meta.url).href,
+    img_url: new URL("../../assets/image/mic_closed.png", import.meta.url).href,
     text: "麦克风关闭"
   },
   {
-    img_url: new URL("../assets/image/mic_opened.png", import.meta.url).href,
+    img_url: new URL("../../assets/image/mic_opened.png", import.meta.url).href,
     text: "麦克风开启"
   }
 ];
 // 扬声器按钮数据
 const speakerBtnData = [
   {
-    img_url: new URL("../assets/image/speaker_closed.png", import.meta.url).href,
+    img_url: new URL("../../assets/image/speaker_closed.png", import.meta.url).href,
     text: "扬声器关闭"
   },
   {
-    img_url: new URL("../assets/image/speaker_opened.png", import.meta.url).href,
+    img_url: new URL("../../assets/image/speaker_opened.png", import.meta.url).href,
     text: "扬声器开启"
   }
 ];
 // 摄像头按钮数据
 const cameraBtnData = [
   {
-    img_url: new URL("../assets/image/camera_closed.png", import.meta.url).href,
+    img_url: new URL("../../assets/image/camera_closed.png", import.meta.url).href,
     text: "摄像头关闭"
   },
   {
-    img_url: new URL("../assets/image/camera_opened.png", import.meta.url).href,
+    img_url: new URL("../../assets/image/camera_opened.png", import.meta.url).href,
     text: "摄像头开启"
   }
 ];
-const userId = ref("")
-const userStatus = ref("加载中")
 
-async function getId() {
-    try {
-        userId.value = JSON.parse(localStorage.getItem("userId")??'undefined')
-    } catch (error) {
-        console.error('Error:', error);
-    }
-   
-    
-}
-// 基本信息
-const FromUserHandler = () => {
-  formData.username = userId.value;
-  formData.password = "1";
-  formData.serverIP = "h5rtc.oraycn.com";
-  // formData.serverIP = "192.168.0.234";
-};
-// p2p服务器
-const videoChatStart=()=>{
-    if(formData.username=='undefined'||formData.username=='未登录'){
-        return message.error("请返回重试")
-    }
-    nprogress.start()
-    // P2P
-    videoChat.multimediaManager.Initialize(
-    formData.username,
-    formData.password,
-    formData.serverIP,
-    9900,
-    {
-      // MARK P2P连接
-      iceServers: [
-        { urls: "stun:47.109.16.11:3478" },
-        {
-          urls: "turn:47.109.16.11:3478",
-          username: "liliang",
-          credential: "123456"
-        }
-      ],
-      iceTransportPolicy: "all"
-    },
-    (res) => {
-      nprogress.done();
-      if (res.logonResult === 0) {
-        message.success("上线成功");
-        userStatus.value="在线中"
-        // 更新与服务器连接状态
-        videoChat.updateServerConnect(true);
-        // 跳转页面
-        // router.replace("/home");
-        // 缓存必要信息
-        localStorage.setItem(
-          "videoChatFrom",
-          JSON.stringify({
-            username: formData.username,
-            serverIP: formData.serverIP,
-          })
-        );
-      } else {
-        message.error("请重试");
-      }
-    }
-  );
-}
+
 // 连接状态计算属性
 const connectStr = computed(() => {
-  return videoChat.isServerConnect ? "已连接" : "断开，正在重连...";
+  return app.isServerConnect ? "已连接" : "断开，正在重连...";
 });
 
 const isVideoing = computed(() => {
@@ -161,9 +100,86 @@ const isVideoing = computed(() => {
 const remoteVideoHeight = computed(() => {
   return isVideoing.value ? "calc(100% - 120px)" : "100%";
 });
+// #endregion
 
+/**
+ * ------------生命周期层------------
+ */
+// #region
+// 是否登录
+onMounted(() => {
+  const H5MediaUserStr = localStorage.getItem("H5MediaUser");
+  if (H5MediaUserStr) {
+    H5MediaUser.value = JSON.parse(H5MediaUserStr);
+    // debugger;
+    if (H5MediaUser.value.action === "login") {
+      localStorage.setItem("H5MediaUser", JSON.stringify(Object.assign(H5MediaUser.value, { action: "logined" })));
+      return;
+    }
+    const { username, password, serverIP } = H5MediaUser.value;
+    // 重新初始化多媒体管理器及登录
+    nprogress.start();
+    app.initMultimediaManager();
+    app.multimediaManager.Initialize(
+      username,
+      password,
+      serverIP,
+      9900,
+      {
+        iceServers: [
+          { urls: "stun:47.109.16.11:3478" },
+          {
+            urls: "turn:47.109.16.11:3478",
+            username: "liliang",
+            credential: "123456"
+          }
+        ],
+        iceTransportPolicy: "all"
+      },
+      (res) => {
+        nprogress.done();
+        if (res.logonResult === 0) {
+          message.success("登录成功!");
+          // 更新与服务器连接状态
+          app.updateServerConnect(true);
+        } else {
+          message.error("登录失败!");
+          router.replace("/login");
+        }
+      }
+    );
+  } else {
+    message.warning("登录状态丢失，请重新登录!");
+    router.replace("/login");
+  }
+});
+// 初始化自定义消息处理
+onMounted(() => {
+  if (app) {
+    app.setCustomMessageReceivedCallback(messageHandler);
+  }
+});
+// 测试
+onMounted(() => {
+  const remoteVideoEl = document.querySelector("#remote-video");
+  remoteVideoEl.addEventListener("resize", (event) => {
+    console.log("###remoteVideoEl resize###", remoteVideoEl.videoWidth, remoteVideoEl.videoHeight);
+  });
+});
+// #endregion
+/**
+ * ------------事件处理层------------
+ */
+// #region
+// 退出登录事件处理
+const exitBtnHandler = () => {
+  app.multimediaManager.Dispose();
+  localStorage.removeItem("H5MediaUser");
+  router.replace("/login");
+};
+// 请求远程视频会话
 const requestVideoBtnHandler = async () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   if (targetUsername.value === "") {
     return message.error("请输入对方的账号!");
   }
@@ -176,14 +192,14 @@ const requestVideoBtnHandler = async () => {
 };
 // 取消请求远程视频会话
 const cancelRequestVideoHandler = () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   dynamicCameraConnector4Me.Disconnect();
   multimediaManager.sendCustomMessage(targetUsername.value, InformationTypes.CancelVideo, null, null);
   isActiveRequestVideo.value = false;
 };
 // 请求远程桌面会话
 const requestDesktopBtnHandler = async () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   if (targetUsername.value === "") {
     return message.error("请输入对方的账号!");
   }
@@ -195,7 +211,7 @@ const requestDesktopBtnHandler = async () => {
 };
 // 取消请求远程桌面会话
 const cancelRequestDesktopHandler = () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   multimediaManager.sendCustomMessage(targetUsername.value, InformationTypes.CancelDesktop, null, null);
   isActiveRequestDesktop.value = false;
 };
@@ -203,7 +219,7 @@ const cancelRequestDesktopHandler = () => {
 const messageHandler = (data) => {
   if (data.MsgType == InformationTypes.VideoRequest) {
     // 2023-08-28
-    const multimediaManager = videoChat.multimediaManager;
+    const multimediaManager = app.multimediaManager;
     if (videoingid.value) {
       multimediaManager.sendCustomMessage(data.TargetUserID, InformationTypes.BusyLine, null, null);
       return;
@@ -233,7 +249,7 @@ const messageHandler = (data) => {
     closeVideo(true);
     message.info(`${data.TargetUserID}忙线中`);
   } else if (data.MsgType == InformationTypes.DesktopRequest) {
-    const multimediaManager = videoChat.multimediaManager;
+    const multimediaManager = app.multimediaManager;
     if (desktopPassiveUsername.value) {
       multimediaManager.sendCustomMessage(data.TargetUserID, InformationTypes.BusyLine, null, null);
       return;
@@ -276,14 +292,14 @@ const connectOtherVideoHandler = (ownerID, baseResult) => {
 };
 // 断开桌面分享
 const disconnectBtnHandler = () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   multimediaManager.sendCustomMessage(desktopPassiveUsername.value, InformationTypes.OwnerCloseDesktop, null, null);
   isMonitored.value = false;
   desktopPassiveUsername.value = "";
 };
 // 麦克风按钮点击事件处理函数
 const micBtnHandler = () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   if (micBtnIndex.value === 0) {
     micBtnIndex.value = 1;
     multimediaManager.SetOutputAudio(true);
@@ -304,7 +320,7 @@ const speakerBtnHandler = () => {
 };
 // 摄像头按钮点击事件处理函数
 const cameraBtnHandler = () => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   if (cameraBtnIndex.value === 0) {
     cameraBtnIndex.value = 1;
     multimediaManager.SetOutputVideo(true);
@@ -324,7 +340,7 @@ const cameraBtnHandler = () => {
 // 连接自己的视频
 const connectVideoSelf = () => {
   // debugger;
-  const myUsername = userId.value;
+  const myUsername = H5MediaUser.value.username;
   const haveCon = Object.keys(cameraArr).includes(myUsername) ? 1 : 0;
   if (haveCon === 0) {
     dynamicCameraConnector4Me = new DynamicCameraConnector();
@@ -387,7 +403,7 @@ const createDisconnected = () => {
  * @param {boolean} flag
  */
 const videoResult = (flag) => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   multimediaManager.sendCustomMessage(targetUsername.value, InformationTypes.VideoResult, [flag ? 1 : 0], "");
   if (flag) {
     isPassiveRequestVideo.value = false;
@@ -412,7 +428,7 @@ const closeVideo = (flag) => {
     delete micArr[key];
   }
   if (!flag) {
-    const multimediaManager = videoChat.multimediaManager;
+    const multimediaManager = app.multimediaManager;
     if (videoingid.value === "") {
       multimediaManager.sendCustomMessage(targetUsername.value, InformationTypes.CloseVideo, null, null);
     } else {
@@ -426,7 +442,7 @@ const closeVideo = (flag) => {
  * 响应桌面请求：true-同意 false-拒绝
  */
 const desktopResult = (flag) => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   multimediaManager.sendCustomMessage(desktopPassiveUsername.value, InformationTypes.DesktopResult, [flag ? 1 : 0], "");
   isPassiveRequestDesktop.value = false;
   if (flag) {
@@ -439,14 +455,14 @@ const desktopResult = (flag) => {
 const connectDesktop = (targetUserID) => {
   dynamicDesktopConnector = new DynamicDesktopConnector();
   dynamicDesktopConnector.OwnerOutputChanged = function (ownerID, flag) {
-    console.log(` ${ownerID}; 输出?: ${flag}`);
+    console.log(`ownerID: ${ownerID}; is video output?: ${flag}`);
   };
   dynamicDesktopConnector.SetWatchingOnly(false);
   dynamicDesktopConnector.SetShowMouseCursor(true);
   dynamicDesktopConnector.ConnectEnded = (ownerID, res) => {
     if (res.ResultCode === 3) {
       message.info(`${ownerID}为移动端设备，不支持远程桌面`);
-      const multimediaManager = videoChat.multimediaManager;
+      const multimediaManager = app.multimediaManager;
       multimediaManager.sendCustomMessage(targetUsername.value, InformationTypes.GuestCloseDesktop, null, null);
       closeDesktop(true);
     }
@@ -456,7 +472,7 @@ const connectDesktop = (targetUserID) => {
 };
 // 关闭远程桌面
 const closeDesktop = (flag) => {
-  const multimediaManager = videoChat.multimediaManager;
+  const multimediaManager = app.multimediaManager;
   // this.screenShareStatus = false;
   if (dynamicDesktopConnector != undefined) {
     dynamicDesktopConnector.Disconnect();
@@ -466,116 +482,88 @@ const closeDesktop = (flag) => {
   }
   desktopActiveUsername.value = "";
 };
-onBeforeMount(() => {
-    // import('/H5Media.iife.lock.js')
-    //     .then(() => Object.keys(H5Media).forEach((key) => {
-    //         if (key !== "default") {
-    //             window[key] = H5Media[key];
-    //         }
-    //     }))
-    //     .catch(error => {
-    //         console.error('Error loading external JavaScript file:', error);
-    //     })
-    // Object.keys(H5Media).forEach((key) => {
-    //       if (key !== "default") {
-    //         window[key] = H5Media[key];
-    //       }
-    //     });
-    getId()
-    if (sessionStorage.getItem("videoChat")) {
-        videoChatTo.value = JSON.parse(sessionStorage.getItem("videoChat")??"")
-        isReady.value=true
-        targetUsername.value=videoChatTo.value.label
-        console.log(targetUsername.value);
-    }
-    videoChat.initMultimediaManager();
-    FromUserHandler()
-    // videoChatStart()
-    if(videoChat){
-        videoChat.setCustomMessageReceivedCallback(messageHandler)
-    }
-    // console.log(userId.value)
-    
-
-}) 
-onUnmounted(()=>{
-    videoChat.multimediaManager.Dispose()
-    // TODO 发送请求
-})
+// #endregion
 </script>
 
 <template>
-    <a-layout class="container">
-        <a-layout-header class="header">
-            <div class="box">
-        <!-- <img src="/FeHeart.svg" alt="no"> -->
-        <h1>{{userStatus}}</h1>
+  <div class="home">
+    <div class="header">
+      <div class="monitored" v-if="isMonitored">
+        <span class="username">{{ desktopPassiveUsername }}</span>
+        <span>正在观看你的屏幕</span>
+        <span class="stop-btn" @click="disconnectBtnHandler">断开连接</span>
+      </div>
     </div>
-        </a-layout-header>
-        <a-layout class="header">
-            <a-layout-sider :width="'40vw'" class="sider">
-                <h1 class="title">我的摄像头</h1>
-                <div class="my-video">
-
+    <div class="main">
+      <div class="aside">
+        <h4>会话账号及类型选择</h4>
+        <div class="target">
+          <el-button
+            style="font-size: 18px"
+            size="large"
+            type="primary"
+            plain
+            :disabled="videoingid !== ''"
+            @click="requestVideoBtnHandler"
+            >请求视频会话</el-button
+          >
+          <el-button
+            style="margin-left: 0; font-size: 18px"
+            size="large"
+            type="success"
+            plain
+            :disabled="desktopActiveUsername !== ''"
+            @click="requestDesktopBtnHandler"
+            >请求远程桌面</el-button
+          >
+        </div>
+        <h4>本地摄像头区域</h4>
+        <div class="local-video">
+          <video id="local-video" autoplay></video>
+        </div>
+        <h4 class="tip">对方摄像头区域 ——→</h4>
+      </div>
+      <div class="remote-video">
+        <Tabs :videoingid="videoingid" :desktopingid="desktopActiveUsername">
+          <template #video>
+            <div class="video-area">
+              <video id="remote-video" autoplay></video>
+              <div class="video-btns" v-show="videoingid !== ''">
+                <div class="mic-btn" @click="micBtnHandler">
+                  <img :src="micBtnData[micBtnIndex].img_url" />
+                  <span>{{ micBtnData[micBtnIndex].text }}</span>
                 </div>
-                <div class="video-to">
-                    <div v-if="!isReady">
-                        <h2 class="title" style="padding-top: 6%;">面试对象：</h2>
-                        </div>
-                        <div v-else>
-                            <h2 class="title" style="padding-top: 6%;">面试对象：{{ videoChatTo.label }}</h2>
-                        </div>
-                    
-                    <div style="text-align: center;">
-                        <div v-if="!isVideoChat">
-                            <a-button style="margin-top: 40px;" ghost type="primary">申请视频聊天（空闲）</a-button>
-                        </div>
-                        <div v-else>
-                            <a-button style="margin-top: 40px;" ghost type="primary" disabled>视频聊天已开启</a-button>
-                        </div>
-                        <!-- <a-button danger>Danger Default</a-button> -->
-
-                    </div>
-                    <div style="text-align: center;">
-                        <div v-if="!isVideoScreen">
-                            <a-button style="margin-top: 15px;" ghost type="primary">申请分享屏幕（空闲）</a-button>
-                        </div>
-                        <div v-else>
-                            <a-button style="margin-top: 15px;" ghost type="primary" disabled>屏幕分享已开启</a-button>
-                        </div>
-                        <!-- <a-button type="primary">Primary Button</a-button>
-                        <a-button danger>Danger Default</a-button> -->
-
-                    </div>
-                    <div style="text-align: center;">
-                        <div v-if="videoMode">
-                            <a-button style="margin-top: 15px;" ghost type="primary">当前显示视频聊天</a-button>
-                        </div>
-                        <div v-else>
-                            <a-button disabled style=" margin-top: 15px;" ghost type="primary">当前显示屏幕分享</a-button>
-                        </div>
-                        <a-button style="margin-top: 15px;" ghost>切换显示</a-button>
-                    </div>
+                <div class="speaker-btn" @click="speakerBtnHandler">
+                  <img :src="speakerBtnData[speakerBtnIndex].img_url" />
+                  <span>{{ speakerBtnData[speakerBtnIndex].text }}</span>
                 </div>
-
-            </a-layout-sider>
-
-            <a-layout-content class="content">
-                <div class="content-header">
-                    <p class="title">面试摄像头</p>
+                <div class="camera-btn" @click="cameraBtnHandler">
+                  <img :src="cameraBtnData[cameraBtnIndex].img_url" />
+                  <span>{{ cameraBtnData[cameraBtnIndex].text }}</span>
                 </div>
-                <div v-show="!videoMode" class="video-chat">
-
+                <div class="close-btn" @click="() => closeVideo(false)">
+                  <img src="@/assets/image/group_handsup.png" />
+                  <span>结束视频会话</span>
                 </div>
-                <div v-show="videoMode" class="video-chat">
-
+              </div>
+            </div>
+          </template>
+          <template #desktop>
+            <div class="desktop-area">
+              <div class="desktop-btns">
+                <div class="close-btn" v-show="desktopActiveUsername !== ''" @click="() => closeDesktop(false)">
+                  结束桌面会话
                 </div>
-            </a-layout-content>
-        </a-layout>
-        <a-layout-footer class="footer"></a-layout-footer>
-    </a-layout>
-     <!-- 发起视频请求对话框 -->
-     <RequestDialog2Active :isShow="isActiveRequestVideo" type="video" @close="cancelRequestVideoHandler" />
+              </div>
+              <video id="remote-desktop" autoplay></video>
+            </div>
+          </template>
+        </Tabs>
+      </div>
+    </div>
+
+    <!-- 发起视频请求对话框 -->
+    <RequestDialog2Active :isShow="isActiveRequestVideo" type="video" @close="cancelRequestVideoHandler" />
     <!-- 接受视频请求对话框 -->
     <RequestDialog2Passive
       :isShow="isPassiveRequestVideo"
@@ -595,100 +583,213 @@ onUnmounted(()=>{
       @desktop-resolve="() => desktopResult(true)"
       @desktop-reject="() => desktopResult(false)"
     />
+  </div>
 </template>
 
-<style scoped lang='scss'>
-.box {
-    transition: all 1s;
-    z-index: 2;
-    width: 200px;
-    top: 5vh;
-    left: 80vw;
-    position: absolute;
-    height: 50px;
-    background-color: #ff719a;
-    border-radius: 20px;
-    display: flex;
-    box-shadow: 5ch;
-    // visibility: hidden;
-    z-index: 3;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(to top left, #ffe29f, #ffa99f, #ff719a);
-    text-align: center;
-    line-height: 50px;
-    h1 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: whitesmoke;
-        text-align: center;
-        line-height: 50px;
-        display: inline-block;
-        // position: absolute;
-        left: 70px;
-        width: 100%;
-    }
-
-    &:hover {
-        box-shadow: 5px 5px 2px 1px rgba(255, 255, 255, 0.3);
-        visibility: visible;
-        background: linear-gradient(to bottom right, #ffe29f, #ffa99f, #ff719a);
-        transform: all 0.6s linear;
-        transition-delay: 0.5s;
-    }
-}
-.title {
-    text-align: center;
-    color: white;
-    font-size: 1.5rem;
-
-}
-
-.my-video {
-    background-color: aqua;
-    height: 40%;
-    // padding: 20px;
-    margin: 20px;
-    border-radius: 10px;
-}
-
-.video-to {
-    background-color: rgba(97, 255, 255, 0.651);
-    height: 40%;
-    // padding: 20px;
-    margin: 10vh 20px 20px 20px;
-    border-radius: 10px;
-}
-
-.video-chat {
-    background-color: rgb(0, 238, 238);
-    height: 90%;
-    // padding: 20px;
-    margin: 25px 20px 20px 20px;
-    border-radius: 10px;
-}
-
+<style lang="less" scoped>
 .header {
-    background-color: rgba(255, 255, 255, 0);
-    // background-color: aqua;
+  position: relative;
+  height: 80px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 60px;
+
+  .title {
+    font-size: 36px;
+  }
+
+  .monitored {
+    position: absolute;
+    padding: 16px 20px;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 10px #666;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .username {
+      color: red;
+      margin-right: 3px;
+    }
+
+    .stop-btn {
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 2px;
+      background-color: #0a7dd6;
+      color: #fff;
+      cursor: pointer;
+      // transition: filter 0.2s;
+    }
+    .stop-btn:hover {
+      filter: brightness(1.1);
+    }
+  }
 }
 
-.container {
-    background-color: rgba(255, 255, 255, 0);
-    height: 100vh;
-    width: 100vw;
-}
+.main {
+  height: calc(100vh - 80px);
+  background-color: #f2f2f2;
+  display: flex;
 
-.sider {
-    // width: 40vw;
-    background-color: rgba(255, 255, 255, 0);
-}
+  video {
+    width: 100%;
+    height: 100%;
+  }
+  .aside {
+    width: 640px;
+    background-color: #f5f5dc;
+    box-sizing: border-box;
+    padding: 20px;
+    font-size: 24px;
+    .userinfo {
+      display: flex;
+      gap: 20px;
 
-.content {
-    background-color: rgba(255, 255, 255, 0);
-}
+      .msg {
+        box-sizing: border-box;
+        padding: 10px;
+        p {
+          margin-bottom: 20px;
+        }
+      }
 
-.footer {
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0);
+      img {
+        width: 200px;
+        height: 200px;
+        box-sizing: border-box;
+        border: 1px solid #666;
+      }
+    }
+
+    h4 {
+      font-size: 22px;
+      margin: 30px 0 15px;
+    }
+
+    .target {
+      display: flex;
+      gap: 5px;
+    }
+
+    .local-video {
+      height: 340px;
+      background-color: #000;
+    }
+
+    .tip {
+      margin-top: 50px;
+      text-align: right;
+    }
+  }
+
+  .remote-video {
+    flex: 1;
+    // position: relative;
+    // background-color: #000;
+    .video-area {
+      width: 100%;
+      height: 100%;
+      // position: relative;
+      // display: flex;
+      flex-direction: column;
+
+      #remote-video {
+        // height: calc(100% - 120px);
+        height: v-bind(remoteVideoHeight);
+        background-color: #303030;
+      }
+
+      .video-btns {
+        flex-shrink: 0;
+        height: 120px;
+        display: flex;
+        gap: 20px;
+        position: relative;
+        // background-color: #fff;
+
+        > div {
+          font-size: 18px;
+          cursor: pointer;
+          padding: 8px 20px;
+          color: #fff;
+          transition: all 0.2s;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background-color: #41555d;
+
+          &:hover {
+            background-color: #20333b;
+          }
+
+          img {
+            width: 70px;
+            height: 70px;
+          }
+        }
+        // .mic-btn {
+        //   background-color: #0c8918;
+
+        //   &:hover {
+        //     background-color: #0a6706;
+        //   }
+        // }
+        // .speaker-btn {
+        //   background-color: #ff8936;
+
+        //   &:hover {
+        //     background-color: #dd6714;
+        //   }
+        // }
+        // .camera-btn {
+        //   background-color: #2e4e7e;
+
+        //   &:hover {
+        //     background-color: #0c2c5c;
+        //   }
+        // }
+
+        .close-btn {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
+    .desktop-area {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      .desktop-btns {
+        position: absolute;
+        z-index: 999;
+        right: 0;
+        top: 0;
+
+        .close-btn {
+          font-size: 18px;
+          cursor: pointer;
+          padding: 8px 20px;
+          background-color: #d54b44;
+          color: #fff;
+          transition: all 0.2s;
+        }
+        .close-btn:hover {
+          background-color: #b32922;
+        }
+      }
+      #remote-desktop {
+        width: 100%;
+        height: 100%;
+        background-color: #303030;
+      }
+    }
+  }
 }
 </style>

@@ -21,7 +21,7 @@ async function render(pageContext) {
 
   // See https://vite-plugin-ssr.com/head
   const documentProps = router.currentRoute.value.meta
-  // console.log(documentProps);
+  // console.log(documentProps?.videoChat);
   // 从路由中读取路由元信息
 
   // SRO 优化
@@ -29,7 +29,21 @@ async function render(pageContext) {
   const desc = (documentProps && documentProps.description) || '这是一个招聘网站的seo'
   // console.log(desc);
   // SEO 处理
-  const documentHtml = escapeInject`<!DOCTYPE html>
+  let documentHtml = escapeInject`<!DOCTYPE html>
+    <html lang="zh-CN">
+      <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="${logoUrl}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="${desc}" />    
+        <title>${title}</title>
+      </head>
+      <body>
+        <div id="app">${dangerouslySkipEscape(appHtml)}</div>
+      </body>
+    </html>`
+  if (documentProps.videoChat) {
+    documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="zh-CN">
       <head>
         <meta charset="UTF-8" />
@@ -50,7 +64,7 @@ async function render(pageContext) {
         <div id="app">${dangerouslySkipEscape(appHtml)}</div>
       </body>
     </html>`
-
+  }
   return {
     documentHtml,
     pageContext: {

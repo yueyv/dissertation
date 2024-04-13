@@ -215,7 +215,8 @@ const routes = [
     name: 'videoChatPage',
     meta: {
       title: '视频面试页面',
-      permission: true
+      permission: true,
+      videoChat:true
     },
     component: () => import('../page/videoChatPage.vue'),
     beforeEnter: (to, from, next) => {
