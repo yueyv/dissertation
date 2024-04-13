@@ -14,6 +14,7 @@ const ipStore = useIPStore()
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
 const userId = ref("")
+
 // UPDATE 修改为只允许运行一次，待更新
 onBeforeMount(() => {
     if (!sessionStorage.getItem("userIP")) {
@@ -35,6 +36,15 @@ onBeforeMount(() => {
                 })
             }
         })
+        axios.post('videoChatSearch').then((res)=>{
+        if(res.code==200){
+            if(res.data){
+                message.info(`${res.from_username}向你发送的面试邀约`)
+                isVideoChat.value=true
+            }
+        }
+        
+    })
     } 
     else {
         let userInformation = JSON.parse(sessionStorage.getItem("userInformation"))

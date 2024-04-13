@@ -7,6 +7,7 @@ import { useVideoChatStore } from "../store/index";
 import { InformationTypes } from "@/omcs";
 import RequestDialog2Active from "@/components/videoChat/RequestDialog2Active.vue";
 import RequestDialog2Passive from "@/components/videoChat/RequestDialog2Passive.vue";
+import axios from '../plugins/axiosBase';
 // import Tabs from "@/components/videoChat/Tabs.vue";
 let videoChatTo = ref()
 const videoMode = ref(false)
@@ -129,7 +130,7 @@ const videoChatStart = () => {
         (res) => {
             nprogress.done();
             if (res.logonResult === 0) {
-                message.success("上线成功");
+                // message.success("上线成功");
                 userStatus.value = "在线中"
                 // 更新与服务器连接状态
                 videoChat.updateServerConnect(true);
@@ -490,16 +491,31 @@ onBeforeMount(() => {
     }
     videoChat.initMultimediaManager();
     FromUserHandler()
-    // videoChatStart()
+    // IM 连接服务器
+    videoChatStart()
     if (videoChat) {
         videoChat.setCustomMessageReceivedCallback(messageHandler)
     }
     // console.log(userId.value)
-
+    axios.post("videoChatOver").then(
+        (res)=>{
+            if(res.code==200){
+                // message.info("退出面试")
+            }
+        }
+    )
 
 })
+
 onUnmounted(() => {
-    videoChat.multimediaManager.Dispose()
+    // videoChat.multimediaManager.Dispose()
+    // axios.post("videoChatOver").then(
+    //     (res)=>{
+    //         if(res.code==200){
+    //             message.info("退出面试")
+    //         }
+    //     }
+    // )
     // TODO 发送请求
 })
 </script>
@@ -507,29 +523,34 @@ onUnmounted(() => {
 <template>
     <a-layout class="container">
         <a-layout-header class="header">
+            <div class="monitored"  v-if="isMonitored">
+                <span class="username">{{ desktopPassiveUsername }}</span>
+                <span>正在观看你的屏幕</span>
+                <a-button @click="disconnectBtnHandler">断开连接</a-button>
+            </div>
             <div class="box">
                 <!-- <img src="/FeHeart.svg" alt="no"> -->
-                <h1>{{ userStatus }}</h1>
+                <h1>{{ connectStr }}</h1>
             </div>
         </a-layout-header>
-        <a-layout class="header">
+        <a-layout class="header" >
             <a-layout-sider :width="'40vw'" class="sider">
                 <h1 class="title">我的摄像头</h1>
-                <div class="my-video">
-
+                <div class="my-video" style="overflow: hidden;">
+                    <video id="local-video" autoplay></video>
                 </div>
                 <div class="video-to" style="overflow: hidden;">
                     <div v-if="!isReady">
-                        <h2 class="title" style="padding-top: 10px;">面试对象：</h2>
+                        <h2 class="title" style="padding-top: 10px;">交流对象：</h2>
                     </div>
                     <div v-else>
-                        <h2 class="title" style="padding-top: 10px;">面试对象：{{ targetUsername }}</h2>
+                        <h2 class="title" style="padding-top: 10px;">交流对象：{{ targetUsername }}</h2>
                     </div>
 
                     <div style="text-align: center;">
                         <div v-if="!isActiveRequestVideo">
                             <a-button style="margin-top: 20px;" ghost type="primary"
-                                @click="requestVideoBtnHandler">申请视频聊天（空闲）</a-button>
+                                @click="requestVideoBtnHandler">申请视频聊天</a-button>
                         </div>
                         <div v-else>
                             <a-button style="margin-top: 20px;" ghost type="primary" disabled>视频聊天已开启</a-button>
@@ -540,7 +561,7 @@ onUnmounted(() => {
                     <div style="text-align: center;">
                         <div v-if="!isActiveRequestDesktop">
                             <a-button style="margin-top: 15px;" ghost type="primary"
-                                @click="requestDesktopBtnHandler">申请分享屏幕（空闲）</a-button>
+                                @click="requestDesktopBtnHandler">申请分享屏幕</a-button>
                         </div>
                         <div v-else>
                             <a-button style="margin-top: 15px;" ghost type="primary" disabled>屏幕分享已开启</a-button>
@@ -560,7 +581,7 @@ onUnmounted(() => {
                             @click="() => { videoMode = !videoMode }">切换显示</a-button>
                     </div>
                     <!-- <div v-if="isActiveRequestVideo&&videoMode"> -->
-                    <div v-if="!videoMode">
+                    <div v-if="!videoMode&&videoingid !== ''">
                         <div class="video-btns">
                             <div class="mic-btn" @click="micBtnHandler">
                                 <img :src="micBtnData[micBtnIndex].img_url" />
@@ -590,10 +611,10 @@ onUnmounted(() => {
                 </div>
                 <!-- v-show="!videoMode" -->
                 <div class="video-chat">
-                    <div v-show="!videoMode" class="video-area" style="background-color: aliceblue;">
+                    <div v-show="!videoMode"   class="video-area" style="background-color: aliceblue;">
                         <video id="remote-video" autoplay></video>
                         <!-- v-show="videoingid !== ''" -->
-                        <div class="close-btn" @click="() => closeVideo(false)">
+                        <div class="close-btn" v-show="videoingid !== ''"  @click="() => closeVideo(false)">
                             <img src="@/assets/image/group_handsup.png" />
                             <br>
                             <p>结束视频会话</p>
@@ -602,11 +623,11 @@ onUnmounted(() => {
                     <div v-show="videoMode" class="desktop-area" style="background-color: aqua;">
                         <video id="remote-desktop" autoplay></video>
                         <!-- v-show="desktopActiveUsername !== ''"  -->
-                            <div class="close-btn" @click="() => closeDesktop(false)">
-                                <img src="@/assets/image/group_handsup.png" />
-                                <br>
-                                <p>结束桌面会话</p>
-                            </div>
+                        <div class="close-btn" v-show="desktopActiveUsername !== ''" @click="() => closeDesktop(false)">
+                            <img src="@/assets/image/group_handsup.png" />
+                            <br>
+                            <p>结束桌面会话</p>
+                        </div>
                     </div>
                 </div>
             </a-layout-content>
@@ -627,6 +648,35 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang='scss'>
+.monitored {
+    margin-top: 40px;
+    text-align: center;
+    line-height: 40px;
+    position: absolute;
+    padding: 4px 4px;
+    height: 50px;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 0 10px #666;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .username {
+        color: red;
+        margin-right: 3px;
+    }
+
+    .stop-btn:hover {
+        filter: brightness(1.1);
+    }
+}
+
+.username {
+    color: red;
+    margin-right: 3px;
+}
+
 .box {
     transition: all 1s;
     z-index: 2;
@@ -793,7 +843,11 @@ onUnmounted(() => {
         background-color: #303030;
     }
 }
-
+#local-video{
+    width: 100%;
+    height: 100%;
+    background-color: #303030;
+}
 .close-btn {
     position: absolute;
     font-size: 12px;
@@ -806,13 +860,15 @@ onUnmounted(() => {
     left: 90vw;
     text-align: center;
     z-index: 999;
+
     &:hover {
         color: #fd3737;
         // background-color: #b32922;
     }
-    img{
+
+    img {
         width: 80px;
-            height: 80px;
+        height: 80px;
     }
 }
 </style>

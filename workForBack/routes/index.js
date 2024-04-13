@@ -5,6 +5,7 @@ const useControllerUser = require('../controllers/user');
 const useControllerJob = require('../controllers/job');
 const useControllerMes = require('../controllers/message');
 const useControllerAdmin = require('../controllers/admin');
+const useControllerVideoChat = require('../controllers/video_chat');
 // mark 过滤文件
 const multer = require('multer');
 const upload = multer();
@@ -65,6 +66,10 @@ router.post("/api/getAllJobAdmin", useControllerAdmin.getAllJob)
 router.get("/api/getChatIdAdmin", useControllerAdmin.getChatIdAdmin)
 router.post("/api/changePermission", useControllerAdmin.changePermission)
 router.post("/api/changevaild", useControllerAdmin.changevaild)
+// 视频聊天
+router.post("/api/videoChatTo", useControllerVideoChat.videoChatTo)
+router.post("/api/videoChatSearch", useControllerVideoChat.videoChatSearch)
+router.post("/api/videoChatOver", useControllerVideoChat.videoChatOver)
 
 // MARK 获取城市
 router.get('/api/get_city', (req, res, next) => {

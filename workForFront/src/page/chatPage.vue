@@ -15,6 +15,7 @@ import {
 // 上一个
 // MARK 根据permission 进行不同页面的跳转
 const router = useRouter()
+const isVideoChat=ref(false)
 const permission = ref(-1)
 const selectedKeys = ref([]);
 const inputText = ref("")
@@ -145,7 +146,11 @@ const searchItem = (search_id) => {
 const videoChatItem = (item) => {
     if (permission.value == 1) {
         sessionStorage.setItem('videoChat',JSON.stringify(item))
-        window.open('/videoChatPage', '_blank');
+        // window.open('/videoChatPage', '_blank');
+        router.push("/videoChatPage")
+        axios.post('/videoChatTo',{to_name:item.label}).then(()=>{
+            message.info("已发送请求")
+        })
     }else{
         message.info("发送失败,重新登录")
     }
@@ -359,7 +364,15 @@ onBeforeMount(() => {
 
 })
 onMounted(() => {
-
+    axios.post('videoChatSearch').then((res)=>{
+        if(res.code==200){
+            if(res.data){
+                message.info(`${res.from_username}向你发送的面试邀约`)
+                isVideoChat.value=true
+            }
+        }
+        
+    })
 
     // console.log(items.value[0].key);
 
@@ -372,6 +385,10 @@ onUpdated(() => {
 onUnmounted(() => {
     socket.disconnect()
 })
+const ToVideoPage=()=>{
+    // window.open('/videoChatPage', '_blank')
+    router.push("/videoChatPage")
+}
 // MARK 测试
 // watch(selectedKeys, () => {
 //     console.log(selectedKeys.value);
@@ -381,6 +398,10 @@ onUnmounted(() => {
 
 <template>
     <myHeader></myHeader>
+    <div class="videoChat" v-if="isVideoChat" @click="ToVideoPage">
+        面试
+        <br>邀约
+    </div>
     <div class="chat-contain">
         <div class="chat-box">
             <div class="menu-nav">
@@ -394,8 +415,6 @@ onUnmounted(() => {
                                 <!-- <MailOutlined style="color: #ffe29f;" /> -->
                                 <a-skeleton :loading="true" active :paragraph="{ rows: 1,width:'100%' }"  :title="false"/>
                             </div>
-                    
-                    
                 </div>
                 <div v-if="isShow" class="menu-item">
                     <div v-for="(item, index) in items">
@@ -451,6 +470,20 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang='scss'>
+.videoChat{
+    padding-top: 0px;
+    background-color: aqua;
+    height: 80px;
+    width: 80px;
+    position: fixed;
+    line-height: 40px; 
+    left: 80vw;
+    border-radius: 50%;
+    text-align: center;
+    &:hover{
+        background-color: rgba(0, 255, 255, 0.301);
+    }
+}
 .unread {
     color: #9c5e70 !important;
 }

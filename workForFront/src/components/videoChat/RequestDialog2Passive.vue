@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from "vue";
+import '@element-plus/icons-vue'
 /**
  * ------------数据层------------
  */
@@ -59,12 +60,16 @@ const desktopRejectHandler = () => {
       <!-- 视频 -->
       <div v-else class="video-btns">
         <div class="reject-btn" @click="videoRejectHandler">
-          <span class="iconfont icon-reject"></span>
-          <span>挂断</span>
+          <span class="iconfont icon-reject">
+            <span>挂断</span>
+          </span>
+          
         </div>
         <div class="resolve-btn" @click="videoResolveHandler">
-          <span class="iconfont icon-resolve"></span>
-          <span>接听</span>
+          <span class="iconfont icon-resolve">
+            <span>接听</span>
+          </span>
+          
         </div>
       </div>
     </el-dialog>
