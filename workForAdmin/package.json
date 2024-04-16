@@ -5,7 +5,7 @@
   "type": "module",
   "author": "yueyvlunhui",
   "scripts": {
-    "dev": "vite serve  --config vite.config.spa.js",
+    "dev": "vite --config vite.config.spa.js",
     "build": "cross-env NODE_ENV=production vite build --config vite.config.spa.js",
     "ngnix_build": "cross-env NODE_ENV=nginx vite build --config vite.config.spa.js",
     "preview": "vite preview --config vite.config.spa.js",

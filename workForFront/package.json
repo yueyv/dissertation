@@ -5,7 +5,8 @@
   "type": "module",
   "author": "yueyvlunhui",
   "scripts": {
-    "ssr-dev": "npm rum server",
+    "dev": "vite",
+    "ssr-dev": "npm rum server --config vite.config.ssr.js",
     "ssr-prod": "npm run ssr-build && npm run server-js:prod",
     "ssr-build": "cross-env NODE_ENV=production vite build",
     "preview": "vite preview",

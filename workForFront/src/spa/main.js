@@ -8,9 +8,11 @@ import App from './App.vue'
 import '@/assets/reset.css';
 import '@/mock/index.js'
 import { storeToRefs } from 'pinia'
-
+import "nprogress/nprogress.css";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 const pinia=createPinia()
 pinia.use(piniaPluginPersistedstate)
-createApp(App).use(router).use(Antd).use(pinia).mount('#app')
+createApp(App).use(router).use(Antd).use(ElementPlus).use(pinia).mount('#app')
 // IM 初始化数据
 // done使用pinia
