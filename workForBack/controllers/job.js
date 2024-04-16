@@ -101,6 +101,45 @@ const useController = {
             res.json({ code: 0, message: "default", data: e })
         }
     },
+    getHomeJob2: async function (req, res, next) {
+        try {
+            let jobData = await Job.homeJobSelect2({type:"vaild", value:"1"},{type:"job_info", value:"0"})
+            res.json({
+                code: 200,
+                message: "success",
+                data: jobData
+            })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
+    },
+    getHomeJob3: async function (req, res, next) {
+        try {
+            let jobData = await Job.homeJobSelect2({type:"vaild", value:"1"},{type:"job_info", value:"2"})
+            res.json({
+                code: 200,
+                message: "success",
+                data: jobData
+            })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
+    },
+    getHomeJob4: async function (req, res, next) {
+        try {
+            let jobData = await Job.homeJobSelect2({type:"vaild", value:"1"},{type:"city", value:"南京"})
+            res.json({
+                code: 200,
+                message: "success",
+                data: jobData
+            })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
+    },
     getJobInfo: async function (req, res, next) {
         try {
             // console.log(req.body);

@@ -7,6 +7,9 @@ import axios from '@/plugins/axiosBase';
 import { message } from 'ant-design-vue';
 const router = useRouter()
 const jobItem = ref([])
+const jobItem2 = ref([])
+const jobItem3 = ref([])
+const jobItem4 = ref([])
 const isShow = ref(false)
 // import.meta.env.SSR?false:message.info("222")
 const commendTags = [
@@ -48,6 +51,51 @@ onBeforeMount(() => {
         console.log(e);
         message.error("加载错误")
     })
+    axios.post("getHomeJob4").then((res) => {
+        // console.log(res);
+        if (res.code == 200) {
+            // console.log(res.data);
+            jobItem4.value = res.data
+            // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
+            isShow.value = true
+            // console.log(jobItem.value[0].title);
+        } else {
+            message.error("服务器返回错误")
+        }
+    }).catch((e) => {
+        console.log(e);
+        message.error("加载错误")
+    })
+    axios.post("getHomeJob2").then((res) => {
+        // console.log(res);
+        if (res.code == 200) {
+            // console.log(res.data);
+            jobItem2.value = res.data
+            // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
+            isShow.value = true
+            // console.log(jobItem.value[0].title);
+        } else {
+            message.error("服务器返回错误")
+        }
+    }).catch((e) => {
+        console.log(e);
+        message.error("加载错误")
+    })
+    axios.post("getHomeJob3").then((res) => {
+        // console.log(res);
+        if (res.code == 200) {
+            // console.log(res.data);
+            jobItem3.value = res.data
+            // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
+            isShow.value = true
+            // console.log(jobItem.value[0].title);
+        } else {
+            message.error("服务器返回错误")
+        }
+    }).catch((e) => {
+        console.log(e);
+        message.error("加载错误")
+    })
 })
 </script>
 
@@ -60,40 +108,173 @@ onBeforeMount(() => {
             <p style="color: #9E9E9E;">热招岗位:</p>
             <p v-for="item in commendTags" class="smart-tag">{{ item.title }}</p>
         </div> -->
-        <h1 class="job-title">最新岗位</h1>
-        <div class="job-contain" v-if="isShow">
-            <div class="job-item" v-for="item in jobItem.length" @click="moveToJobMainPage(jobItem[item - 1].job_id)">
-                <a-card class="job-card" :title="jobItem[item - 1].title" :bordered="false" style="width: 20vw;height: 30vh;">
-                    <p>{{ jobItem[item - 1].company_name }}</p>
-                    <p>{{ jobItem[item - 1].walfare }}</p>
-                    <p>{{ jobItem[item - 1].description }}</p>
-                </a-card>
+        <div>
+            <router-link to="/searchPage">
+                <h1 class="job-title">热门招聘</h1>
+            </router-link>
+            <div class="job-contain" v-if="isShow">
+                <div class="job-item" v-for="item in jobItem.length"
+                    @click="moveToJobMainPage(jobItem[item - 1].job_id)">
+                    <a-card class="job-card" :title="jobItem[item - 1].title" :bordered="false"
+                        style="width: 20vw;height: 30vh;">
+                        <p>{{ jobItem[item - 1].company_name }}</p>
+                        <p>{{ jobItem[item - 1].walfare }}</p>
+                        <p>{{ jobItem[item - 1].description }}</p>
+                    </a-card>
+                </div>
+            </div>
+            <!-- 骨架屏 -->
+            <div class="job-contain" v-if="!isShow">
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
             </div>
         </div>
-        <!-- 骨架屏 -->
-        <div class="job-contain" v-if="!isShow">
-            <div class="job-item">
-                <a-card style="width: 20vw;height: 30vh;" >
-
-                    <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
-
-                </a-card>
+        <div>
+            <router-link to="/searchPage">
+                <h1 class="job-title">全职招聘</h1>
+            </router-link>
+            <div class="job-contain" v-if="isShow">
+                <div class="job-item" v-for="item in jobItem2.length"
+                    @click="moveToJobMainPage(jobItem2[item - 1].job_id)">
+                    <a-card class="job-card" :title="jobItem2[item - 1].title" :bordered="false"
+                        style="width: 20vw;height: 30vh;">
+                        <p>{{ jobItem2[item - 1].company_name }}</p>
+                        <p>{{ jobItem2[item - 1].walfare }}</p>
+                        <p>{{ jobItem2[item - 1].description }}</p>
+                    </a-card>
+                </div>
             </div>
-            <div class="job-item">
-                <a-card style="width: 20vw;height: 30vh;">
-                    <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
-                </a-card>
-            </div>
-            <div class="job-item">
-                <a-card style="width: 20vw;height: 30vh;">
-                    <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
-                </a-card>
-            </div>
-            <div class="job-item">
-                <a-card style="width: 20vw;height: 30vh;">
+            <!-- 骨架屏 -->
+            <div class="job-contain" v-if="!isShow">
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
 
-                    <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
-                </a-card>
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+            </div>
+        </div>
+        <div>
+            <router-link to="/searchPage">
+                <h1 class="job-title">兼职招聘</h1>
+            </router-link>
+           
+            <div class="job-contain" v-if="isShow">
+                <div class="job-item" v-for="item in jobItem3.length"
+                    @click="moveToJobMainPage(jobItem3[item - 1].job_id)">
+                    <a-card class="job-card" :title="jobItem3[item - 1].title" :bordered="false"
+                        style="width: 20vw;height: 30vh;">
+                        <p>{{ jobItem3[item - 1].company_name }}</p>
+                        <p>{{ jobItem3[item - 1].walfare }}</p>
+                        <p>{{ jobItem3[item - 1].description }}</p>
+                    </a-card>
+                </div>
+            </div>
+            <!-- 骨架屏 -->
+            <div class="job-contain" v-if="!isShow">
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+            </div>
+        </div>
+        <div>
+            <router-link to="/searchPage">
+                <h1 class="job-title">南京招聘</h1>
+            </router-link>
+            <div class="job-contain" v-if="isShow">
+                <div class="job-item" v-for="item in jobItem.length"
+                    @click="moveToJobMainPage(jobItem4[item - 1].job_id)">
+                    <a-card class="job-card" :title="jobItem4[item - 1].title" :bordered="false"
+                        style="width: 20vw;height: 30vh;">
+                        <p>{{ jobItem4[item - 1].company_name }}</p>
+                        <p>{{ jobItem4[item - 1].walfare }}</p>
+                        <p>{{ jobItem4[item - 1].description }}</p>
+                    </a-card>
+                </div>
+            </div>
+            <!-- 骨架屏 -->
+            <div class="job-contain" v-if="!isShow">
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
+                <div class="job-item">
+                    <a-card style="width: 20vw;height: 30vh;">
+
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 4 }" />
+                    </a-card>
+                </div>
             </div>
         </div>
     </div>
@@ -110,7 +291,8 @@ onBeforeMount(() => {
     gap: 10px 10px;
 
 }
-.job-title{
+
+.job-title {
     font-weight: 800;
     letter-spacing: 5px;
     font-size: 40px;
@@ -119,16 +301,18 @@ onBeforeMount(() => {
     margin-left: 40px;
     color: rgb(227, 251, 255);
 }
+
 // / .job-item {
 // //     // overflow: hidden;
-    
+
 // // }
-.job-card{
-    &:hover{
+.job-card {
+    &:hover {
         box-shadow: 0px 5px 0px 0px rgba(255, 255, 255, 0.4);
         transition: all ease 0.5s;
     }
 }
+
 .advs {
     font-weight: 800;
     color: white;

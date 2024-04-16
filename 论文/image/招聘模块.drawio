@@ -1,0 +1,122 @@
+<mxfile host="65bd71144e">
+    <diagram id="1TcwfUT8fwci3lx3ULhN" name="第 1 页">
+        <mxGraphModel dx="1071" dy="971" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" style="edgeStyle=none;html=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="30">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="242.50000000000045" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="招聘人员" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=none;html=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="30" target="32">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" value="填写岗位信息" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="270" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" style="edgeStyle=none;html=1;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="32" target="34">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="470" y="450" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="提交岗位申请" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="420" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" style="edgeStyle=none;html=1;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="34" target="37">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="532.5" y="660" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="533" y="615"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" style="edgeStyle=none;html=1;strokeWidth=2;" edge="1" parent="1" source="34">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="532.5" y="330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="管理员&lt;br&gt;审批" style="rhombus;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="405" width="125" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="通过" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="535" y="530" width="60" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" style="edgeStyle=none;html=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="37" target="39">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="750" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="37" value="发布岗位" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="584.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" style="edgeStyle=none;html=1;strokeWidth=2;" edge="1" parent="1" source="39" target="45">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="等待求职者申请" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="740" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" style="edgeStyle=none;html=1;strokeWidth=2;" edge="1" parent="1" source="42">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="210" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="530" y="210"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="42" value="联系修改" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;arcSize=25;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="270" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="失败" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="350" width="60" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" style="edgeStyle=none;html=1;strokeWidth=2;" edge="1" parent="1" source="45">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="1040" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="45" value="查看候选人名单" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="880" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" style="edgeStyle=none;html=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="48" target="50">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="1180" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" value="查看候选人资料和简历" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="1040" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="联系求职者" style="rounded=1;whiteSpace=wrap;html=1;fontSize=19;arcSize=50;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="1180" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" style="edgeStyle=none;html=1;strokeWidth=2;fontSize=19;" edge="1" parent="1" source="51">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="840" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="440" y="840"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="51" value="候选人申请" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="740" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" style="edgeStyle=none;html=1;strokeWidth=2;fontSize=19;" edge="1" parent="1" source="53">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="990" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="440" y="990"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="53" value="候选人上传简历和资料" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fontSize=19;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="900" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

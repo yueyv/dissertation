@@ -66,6 +66,12 @@ class Base {
     homeJobSelect(param1, param2) {
         return knex(this.table).select().where(param1, '=', param2).orderBy('job_id', 'desc').limit(4)
     }
+    homeJobSelect2(param1, param2) {
+        return knex(this.table).select().where((builder) => {
+            builder.where(param1.type, '=', param1.value)
+                .andWhere(param2.type, '=',param2.value);
+        }).orderBy('job_id', 'desc').limit(4)
+    }
     selectChat(id1, id2) {
         return knex(this.table)
             .select()
