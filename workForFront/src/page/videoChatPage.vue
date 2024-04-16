@@ -1,13 +1,23 @@
+
 <script setup>
 import { ref, reactive, computed, onBeforeMount, shallowReactive, onUnmounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from "vue-router";
 import nprogress from "nprogress";
+import "nprogress/nprogress.css";
 import { useVideoChatStore } from "../store/index";
 import { InformationTypes } from "@/omcs";
 import RequestDialog2Active from "@/components/videoChat/RequestDialog2Active.vue";
 import RequestDialog2Passive from "@/components/videoChat/RequestDialog2Passive.vue";
 import axios from '../plugins/axiosBase';
+
+
+// import '/public/H5Media.iife.lock'
+// Object.keys(H5Media).forEach((key) => {
+//         if (key !== "default") {
+//           window[key] = H5Media[key];
+//         }
+//       });
 // import Tabs from "@/components/videoChat/Tabs.vue";
 let videoChatTo = ref()
 const videoMode = ref(false)
@@ -20,6 +30,7 @@ const formData = shallowReactive({
     password: "",
     serverIP: ""
 });
+
 // 对方的账号
 const targetUsername = ref("");
 // 摄像头 麦克风 阵列
@@ -468,20 +479,7 @@ const closeDesktop = (flag) => {
     desktopActiveUsername.value = "";
 };
 onBeforeMount(() => {
-    // import('/H5Media.iife.lock.js')
-    //     .then(() => Object.keys(H5Media).forEach((key) => {
-    //         if (key !== "default") {
-    //             window[key] = H5Media[key];
-    //         }
-    //     }))
-    //     .catch(error => {
-    //         console.error('Error loading external JavaScript file:', error);
-    //     })
-    // Object.keys(H5Media).forEach((key) => {
-    //       if (key !== "default") {
-    //         window[key] = H5Media[key];
-    //       }
-    //     });
+
     getId()
     if (sessionStorage.getItem("videoChat")) {
         videoChatTo.value = JSON.parse(sessionStorage.getItem("videoChat") ?? "")

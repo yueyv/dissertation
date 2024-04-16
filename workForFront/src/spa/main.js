@@ -8,9 +8,12 @@ import App from './App.vue'
 import '@/assets/reset.css';
 import '@/mock/index.js'
 import { storeToRefs } from 'pinia'
-import "nprogress/nprogress.css";
+
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
+import EventEmitter from 'events';
+EventEmitter.defaultMaxListeners = 20; // 增加到20个监听器
+
 const pinia=createPinia()
 pinia.use(piniaPluginPersistedstate)
 createApp(App).use(router).use(Antd).use(ElementPlus).use(pinia).mount('#app')

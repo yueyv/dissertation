@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from "node:url";
 // import ssr from 'vite-plugin-ssr/plugin'
 import viteCompression from 'vite-plugin-compression';
+import EventEmitter from 'events';
+EventEmitter.defaultMaxListeners = 20; 
 // gzip压缩打包
 // https://vitejs.dev/config/
 export default defineConfig({

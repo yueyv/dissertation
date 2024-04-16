@@ -278,10 +278,28 @@ onBeforeMount(() => {
             </div>
         </div>
     </div>
-
+    <div class="footer">
+        <div class="copyright"><div class="copyright">
+            <p>
+                <span>Copyright © 2024 yueyvlunhui</span>
+            </p>
+        </div></div>
+    </div>
 </template>
 
 <style scoped lang='scss'>
+.footer{
+    color: aliceblue;
+    text-align: center;
+    line-height: 5vh;
+    height: 5vh;
+    border-radius: 10px;
+    margin-top: 10vh;
+    background-color:#313438;
+}
+.job-item{
+    overflow: hidden;
+}
 .job-contain {
     margin-top: 5vh;
     // height: calc(100vh - 300px);

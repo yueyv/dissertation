@@ -35,7 +35,7 @@ const videoChatController = {
             //IM 访问别人的需要重新
             try {
                 let videoChatStatus=await Vc.select('to_username',username).orderBy('rtc_id', 'desc').first()
-                console.log(videoChatStatus.status);
+                console.log(videoChatStatus?.status);
                 if(videoChatStatus?.status==1){
                     res.json({
                         code: 200, message: "success",data:true,from_username:videoChatStatus.username,

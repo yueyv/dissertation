@@ -1,7 +1,8 @@
 {
   "name": "workforfront",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.8.0",
+  "license": "Apache-2.0",
   "type": "module",
   "author": "yueyvlunhui",
   "scripts": {
@@ -36,7 +37,8 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-ssr": "^0.4.142",
     "vue": "^3.4.15",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",
