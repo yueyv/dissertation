@@ -26,7 +26,7 @@ const accept = () => {
 .cookie-mes{
 
     padding-top: 3vh;
-    z-index: 999;
+    z-index: 9999;
     height: 15vh;
     position: fixed;
     top: 85vh;

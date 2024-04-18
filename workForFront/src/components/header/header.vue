@@ -11,25 +11,39 @@ import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
 // done使用pinia
+const getTip=()=>{
+    localStorage.removeItem('isHomeTip')
+    localStorage.removeItem('isChatTip')
+    message.success("已重置提示")
+}
 const router = useRouter()
 const ipStore = useIPStore()
 const isWatchMap=ref(false)
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
 const userId = ref("")
-
+const permission=ref(0)
+const isTip = ref(false)
+const toggleTip = () => {
+    isTip.value = !isTip.value;
+    // message.info(isTip.value); // 这里的 message.info() 是你自定义的提示信息函数，用来显示 isTip 的值
+};
 // UPDATE 修改为只允许运行一次，待更新
 onBeforeMount(() => {
+    permission.value=sessionStorage.getItem("permission")
+    // message.info(sessionStorage.getItem("permission"))
+    // message.info(permission.value)
     if (!sessionStorage.getItem("userIP")) {
         useGetIP()
         useGetCity()
         // 存到store中
     }
-    console.log(233);
+    // console.log(233);
     if (!sessionStorage.getItem("userInformation")) {
         axios.post('get_user').then((res) => {
             if (res.code == 200) {
                 sessionStorage.setItem("userInformation", JSON.stringify(res.data))
+                permission.value=res.data.permission
                 sessionStorage.setItem("permission", JSON.stringify(res.data.permission))
                 axios.post("searchUnreadMes", { user_id: res.data.userId }).then((res) => {
                     // console.log(res);
@@ -163,7 +177,10 @@ const closeMap=()=>{
                     </router-link>
                     <template #overlay>
                         <a-menu>
-                            <a-menu-item>
+                            <a-menu-item v-if="permission==1">
+                                <router-link to="/companyPage">公司介绍</router-link>
+                            </a-menu-item>
+                            <a-menu-item v-else>
                                 <router-link to="/personalPage">个人中心</router-link>
                             </a-menu-item>
                             <a-menu-item>
@@ -178,13 +195,101 @@ const closeMap=()=>{
             </li>
         </ul>
     </header>
+    <div class="faq">
+        <a href="/faqPage">
+            反馈
+        </a>
+    </div>
+    <div class="tip">
+        <!-- <a href="/faqPage"> -->
+        <div @click="toggleTip" class="tip-first">
+            操作
+        </div>
+        <div class="front" v-if="isTip" @click="router.go(1)">
+            前进
+        </div>
+        <div class="front" v-if="isTip" @click="router.go(-1)">
+            后退
+        </div>
+        <div class="front" v-if="isTip" @click="getTip()">
+            提示
+        </div>
+        <!-- </a> -->
+    </div>
 </template>
 
 <style scoped lang='scss'>
+.front {
+    margin-top: 1vh;
+    color: #ffffff;
+    background-color: #92ebdc;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    text-decoration: none;
+
+    &:hover {
+        background-color: #8addcfb0;
+        color: #fa7c6ee1;
+    }
+}
+
+.tip {
+    position: fixed;
+    z-index: 100;
+    color: #ffffff;
+    background-color: #92ebdc;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    text-decoration: none;
+    left: 1vw;
+    top: 50vh;
+
+
+}
+
+.tip-first {
+    &:hover {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        border-radius: 50%;
+        background-color: #8addcfb0;
+        color: #fa7c6ee1;
+    }
+}
+
+.faq{
+    position: fixed;
+    z-index: 100;
+    color: #e7cbc8;
+    background-color: #e7cbc8;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+    text-decoration: none;
+    left: 95vw;
+    top: 70vh;
+    a{
+        color:#fff;
+        text-decoration: none;
+    }
+    :hover{
+        color:#fa7c6e70;
+    }
+}
 .close-map{
     position: fixed;
     left: 70%;
-    z-index: 999;
+    z-index: 9999;
     top: 15vh;
     transform: translate(-50%,0);
 }

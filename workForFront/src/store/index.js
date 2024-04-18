@@ -36,6 +36,29 @@ const useUserStore = defineStore(Names.USER, {
         }
     }
 })
+const useApproveStore = defineStore(Names.APPROVE, {
+  state: () => {
+      return {
+          approve:false
+      }
+  },
+  //computed 计算修饰
+  getters: {
+      getAPPROVE(){
+          return this.approve
+      }
+  },
+  //mothods 做同步和异步 
+  actions: {
+      // async setAPPROVE() {
+      //     const result= await login()         
+      //     this.setAPPROVEId(result)
+      // },
+      setAPPROVE(approve){        
+          this.approve=approve
+      }
+  }
+})
 const useIPStore=defineStore(Names.IP,{
     state:()=>({
        ip:'127.0.0.1',

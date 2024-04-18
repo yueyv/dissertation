@@ -56,11 +56,11 @@ const { get, location, isLoading } = useIpLocation(() => {
         </a-button> -->
         <BMap enableScrollWheelZoom ref="map" :center="location.point || undefined" @initd="get" id="container"
             ak='fvXwhpXgSaG95X7jzIXeNv73USX3fvGJ' :plugins="['TrackAnimation']">
-            <template v-if="!isLoading">
-                <BMarker :position="location.point"></BMarker>
-            </template>
             <BLocation />
             <BZoom />
+            <div v-if="!isLoading">
+                <BMarker :position="location.point"></BMarker>
+            </div>
         </BMap>
     </div>
 </template>
@@ -80,11 +80,11 @@ const { get, location, isLoading } = useIpLocation(() => {
     top: 50%;
     border-radius: 20px;
     overflow: hidden;
-    z-index: 999;
+    z-index: 2000;
     transform: translate(-50%, -50%);
     // overflow: hidden;
     width: 60vw;
-    height: 60vh;
+    // height: 60vh;
     // margin: 0;
     font-family: "微软雅黑";
 }

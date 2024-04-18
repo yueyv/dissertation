@@ -7,7 +7,7 @@ import myHeader from '@/components/header/header.vue';
 const editorRef = shallowRef()
 
 // 内容 HTML
-const valueHtml = ref('在此输入相关信息')
+const valueHtml = ref('')
 
 // 模拟 ajax 异步获取内容
 

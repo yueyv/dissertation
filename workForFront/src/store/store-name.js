@@ -3,6 +3,7 @@ const Names = {
     TOKEN: 'token',
     IP: 'userIP',
     VIDEOCHAT:'videoChat',
+    APPROVE:'APPROVE'
   };
   
   export default Names;

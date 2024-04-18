@@ -17,6 +17,8 @@
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
     "@element-plus/icons-vue": "^2.3.1",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "add": "^2.0.6",
     "animate.css": "^4.1.1",
     "ant-design-vue": "^4.1.2",
@@ -39,8 +41,7 @@
     "vite-plugin-ssr": "^0.4.142",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
-    "vue3-baidu-map-gl": "^2.3.2",
-    "wangeditor": "^4.7.15"
+    "vue3-baidu-map-gl": "^2.3.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.3",

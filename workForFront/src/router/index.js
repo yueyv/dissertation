@@ -251,6 +251,46 @@ const routes = [
     }
   },
   {
+    path: '/companyPage',
+    name: 'companyPage',
+    meta: {
+      title: '公司页面',
+      permission: true
+    },
+    component: () => import('../page/companyPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否已登录
+      // IM 鉴权
+      if (isAuthenticated()) {
+        next();
+      } else {
+        import.meta.env.SSR ? false : age.warning("请先登录");
+        next("/login");
+
+      }
+    }
+  },
+  {
+    path: '/editCompanyPage',
+    name: 'editCompanyPage',
+    meta: {
+      title: '编辑页面',
+      permission: true
+    },
+    component: () => import('../page/editCompanyPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否已登录
+      // IM 鉴权
+      if (isAuthenticated()) {
+        next();
+      } else {
+        import.meta.env.SSR ? false : age.warning("请先登录");
+        next("/login");
+
+      }
+    }
+  },
+  {
     path: '/uploadResume',
     name: 'uploadResume',
     meta: {
