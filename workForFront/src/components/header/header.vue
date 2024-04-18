@@ -2,15 +2,18 @@
 import { ref, reactive, watch, onBeforeMount } from 'vue'
 import { Alert, Input, Space } from 'ant-design-vue';
 import { getCity, getIP } from '../../hooks/useGetCity'
+import cityMap from "../map/cityMap.vue";
 import { message } from 'ant-design-vue';
 import axios from '@/plugins/axiosBase.js';
 import { useRouter } from 'vue-router';
+import cookieMes from '../cookie/cookie.vue'
 import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
 // done使用pinia
 const router = useRouter()
 const ipStore = useIPStore()
+const isWatchMap=ref(false)
 const { city } = storeToRefs(ipStore)
 const { useGetIP, useGetCity, manualUpdateCity } = ipStore
 const userId = ref("")
@@ -84,10 +87,10 @@ const navItems = [{
     title: "FAQ"
 }, {
     linkTo: "/bringInPage/myEdit",
-    title: "招聘"
+    title: "我的招聘"
 }, {
     linkTo: "/huntJobPage",
-    title: "求职"
+    title: "我的求职"
 },]
 // done 受同源策略,后端更改
 // const fetchCity = async () => {
@@ -112,11 +115,20 @@ const handleOk = (e) => {
     open.value = false;
     manualUpdateCity(newCity.value)
 };
-
+const isAcceptCookie=localStorage?.getItem("isAcceptCookie")??false
+const watchMap=()=>{
+    isWatchMap.value=true
+}
+const closeMap=()=>{
+    isWatchMap.value=false
+}
 </script>
 
 
 <template>
+    <a-button v-if="isWatchMap" @click="closeMap" class="close-map">关闭地图</a-button>
+    <cityMap v-if="isWatchMap"></cityMap>
+    <cookieMes v-if="!isAcceptCookie"></cookieMes>
     <header>
         <ul class="top-nav">
             <li>云聘</li>
@@ -127,9 +139,11 @@ const handleOk = (e) => {
 
                     <p class="city-input" @click="switchCity()">[切换]</p>
                     <a-modal cancelText="取消" okText="确认" v-model:open="open" title="切换城市" @ok="handleOk">
-                        <a-space direction="vertical">
+                        <a-space direction="vertical" style="display: flex;justify-content: space-between;">
                             <a-input v-model:value="newCity" placeholder="请输入城市,例如南京" />
+                              
                         </a-space>
+                        <a-button type="primary" style="margin-top: 20px;" @click="watchMap()">查看地图</a-button>
                     </a-modal>
                 </div>
             </li>
@@ -167,6 +181,13 @@ const handleOk = (e) => {
 </template>
 
 <style scoped lang='scss'>
+.close-map{
+    position: fixed;
+    left: 70%;
+    z-index: 999;
+    top: 15vh;
+    transform: translate(-50%,0);
+}
 header {
     // position: fixed;
     top: 0%;

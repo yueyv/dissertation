@@ -5,6 +5,7 @@ import { createPinia } from 'pinia'
 import Antd from 'ant-design-vue';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from './App.vue'
+// import Vue3BaiduMapGL from 'vue3-baidu-map-gl'
 import '@/assets/reset.css';
 import '@/mock/index.js'
 import { storeToRefs } from 'pinia'
@@ -14,8 +15,13 @@ import "element-plus/dist/index.css";
 import EventEmitter from 'events';
 EventEmitter.defaultMaxListeners = 20; // 增加到20个监听器
 
-const pinia=createPinia()
+const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
-createApp(App).use(router).use(Antd).use(ElementPlus).use(pinia).mount('#app')
-// IM 初始化数据
-// done使用pinia
+
+const app = createApp(App)
+app.use(router)
+app.use(Antd)
+app.use(ElementPlus)
+app.use(pinia)
+// app.use(Vue3BaiduMapGL)
+app.mount('#app')

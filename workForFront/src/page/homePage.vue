@@ -4,6 +4,7 @@ import myHeader from '@/components/header/header.vue';
 import searchHome from '@/components/search/index.vue';
 import { useRouter } from 'vue-router';
 import axios from '@/plugins/axiosBase';
+import { LeftCircleOutlined, RightCircleOutlined } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 const router = useRouter()
 const jobItem = ref([])
@@ -11,6 +12,9 @@ const jobItem2 = ref([])
 const jobItem3 = ref([])
 const jobItem4 = ref([])
 const isShow = ref(false)
+const isShow2 = ref(false)
+const isShow3 = ref(false)
+const isShow4 = ref(false)
 // import.meta.env.SSR?false:message.info("222")
 const commendTags = [
     {
@@ -57,7 +61,7 @@ onBeforeMount(() => {
             // console.log(res.data);
             jobItem4.value = res.data
             // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
-            isShow.value = true
+            isShow4.value = true
             // console.log(jobItem.value[0].title);
         } else {
             message.error("服务器返回错误")
@@ -72,7 +76,7 @@ onBeforeMount(() => {
             // console.log(res.data);
             jobItem2.value = res.data
             // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
-            isShow.value = true
+            isShow2.value = true
             // console.log(jobItem.value[0].title);
         } else {
             message.error("服务器返回错误")
@@ -87,7 +91,7 @@ onBeforeMount(() => {
             // console.log(res.data);
             jobItem3.value = res.data
             // console.log(Array.isArray(jobItem.value) && jobItem.value.length !== 0);
-            isShow.value = true
+            isShow3.value = true
             // console.log(jobItem.value[0].title);
         } else {
             message.error("服务器返回错误")
@@ -101,7 +105,40 @@ onBeforeMount(() => {
 
 <template>
     <myHeader :active-nav="0"></myHeader>
-    <div class="advs">毕业设计火热制作中</div>
+
+    <a-carousel arrows autoplay >
+        <template #prevArrow>
+            <div class="custom-slick-arrow" style="left: 10px; z-index: 1">
+                <left-circle-outlined />
+            </div>
+        </template>
+        <template #nextArrow>
+            <div class="custom-slick-arrow" style="right: 10px">
+                <right-circle-outlined />
+            </div>
+        </template>
+        <div class="advs" >
+            <div>
+                <h3>春季招聘火热进行中</h3>
+            </div>
+        </div>
+        <div class="advs">
+            <div>
+                <h3>热门活动进行中</h3>
+            </div>
+        </div>
+        <div class="advs">
+            <div>
+                <h3>这是一个毕设设计</h3>
+            </div>
+        </div>
+        <div class="advs">
+            <div>
+                <h3>广告位招租</h3>
+            </div>
+        </div>
+    </a-carousel>
+
     <div style="margin-top:50px">
         <searchHome></searchHome>
         <!-- <div class="commend-tag">
@@ -196,7 +233,7 @@ onBeforeMount(() => {
             <router-link to="/searchPage">
                 <h1 class="job-title">兼职招聘</h1>
             </router-link>
-           
+
             <div class="job-contain" v-if="isShow">
                 <div class="job-item" v-for="item in jobItem3.length"
                     @click="moveToJobMainPage(jobItem3[item - 1].job_id)">
@@ -209,7 +246,7 @@ onBeforeMount(() => {
                 </div>
             </div>
             <!-- 骨架屏 -->
-            <div class="job-contain" v-if="!isShow">
+            <div class="job-contain" v-if="!isShow2">
                 <div class="job-item">
                     <a-card style="width: 20vw;height: 30vh;">
 
@@ -239,7 +276,7 @@ onBeforeMount(() => {
             <router-link to="/searchPage">
                 <h1 class="job-title">南京招聘</h1>
             </router-link>
-            <div class="job-contain" v-if="isShow">
+            <div class="job-contain" v-if="isShow3">
                 <div class="job-item" v-for="item in jobItem.length"
                     @click="moveToJobMainPage(jobItem4[item - 1].job_id)">
                     <a-card class="job-card" :title="jobItem4[item - 1].title" :bordered="false"
@@ -251,7 +288,7 @@ onBeforeMount(() => {
                 </div>
             </div>
             <!-- 骨架屏 -->
-            <div class="job-contain" v-if="!isShow">
+            <div class="job-contain" v-if="!isShow4">
                 <div class="job-item">
                     <a-card style="width: 20vw;height: 30vh;">
 
@@ -279,27 +316,64 @@ onBeforeMount(() => {
         </div>
     </div>
     <div class="footer">
-        <div class="copyright"><div class="copyright">
-            <p>
-                <span>Copyright © 2024 yueyvlunhui</span>
-            </p>
-        </div></div>
+        <div class="copyright">
+            <div class="copyright">
+                <p>
+                    <span>Copyright © 2024 yueyvlunhui</span>
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 
 <style scoped lang='scss'>
-.footer{
+/* For demo */
+:deep(.slick-slide) {
+    text-align: center;
+    //   height: 160px;
+    //   line-height: 160px;
+    //   background: #364d79;
+    overflow: hidden;
+}
+
+:deep(.slick-arrow.custom-slick-arrow) {
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    color: #fff;
+    background-color: rgba(31, 45, 61, 0.11);
+    transition: ease all 0.3s;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+:deep(.slick-arrow.custom-slick-arrow:before) {
+    display: none;
+}
+
+:deep(.slick-arrow.custom-slick-arrow:hover) {
+    color: #fff;
+    opacity: 0.5;
+}
+
+:deep(.slick-slide h3) {
+    color: #fff;
+}
+
+.footer {
     color: aliceblue;
     text-align: center;
     line-height: 5vh;
     height: 5vh;
     border-radius: 10px;
     margin-top: 10vh;
-    background-color:#313438;
+    background-color: #313438;
 }
-.job-item{
+
+.job-item {
     overflow: hidden;
 }
+
 .job-contain {
     margin-top: 5vh;
     // height: calc(100vh - 300px);
