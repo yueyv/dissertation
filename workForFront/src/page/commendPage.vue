@@ -14,8 +14,8 @@ const onChange = (pageNumber) => {
     console.log('Page: ', pageNumber);
 };
 // done 从后端返回
-onMounted(() => {
-    axios.post('getAllJob').then((res) => {
+const pullJob=()=>{
+    axios.post('getCommendJob').then((res) => {
         // console.log(res);
         if (res.code == 200) {
             console.log(res.data);
@@ -31,6 +31,9 @@ onMounted(() => {
         console.log(e);
         message.error("加载错误")
     })
+}
+onMounted(() => {
+   pullJob()
 })
 // done 到详情页面
 const moveToJobMainPage = (id) => {
@@ -41,7 +44,14 @@ const moveToJobMainPage = (id) => {
 <!--  -->
 <template>
     <myHeader :active-nav="1"></myHeader>
-    <div class="advs">热招岗位</div>
+    <div class="advs">
+        热招岗位
+        <!-- <p style="margin-top: 80px;"></p> -->
+        <br>
+        <a-space style="">
+            <a-button type="primary" ghost @click="pullJob()">重新推荐</a-button>
+        </a-space>
+    </div>
     <div class="job-contain" v-if="isShow">
         <div class="job-item" v-for="item in Math.min(8, jobItem.length - (currentPage - 1) * 8)"
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">
@@ -60,11 +70,11 @@ const moveToJobMainPage = (id) => {
             </a-card>
         </div>
     </div>
-    <div class="pagination-box">
+    <!-- <div class="pagination-box">
         <a-pagination v-model:current="currentPage" :defaultPageSize="8" :hideOnSinglePage="true"
             :showSizeChanger="false" :total="totalPage" @change="onChange" />
         <br />
-    </div>
+    </div> -->
 </template>
 
 <style scoped lang='scss'>
@@ -96,14 +106,15 @@ const moveToJobMainPage = (id) => {
 }
 
 .advs {
+    padding-top: 40px;
     font-weight: 800;
     color: white;
     letter-spacing: 5px;
-    line-height: 180px;
+    line-height: 60px;
     font-size: 40px;
     text-align: center;
     border-radius: 0px 0px 9px 9px;
-    height: 200px;
+    height: 160px;
     background: linear-gradient(to top left, #9fffef, #e7cbc8, #71e3ff);
 }
 </style>

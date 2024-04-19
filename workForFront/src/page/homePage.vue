@@ -297,7 +297,7 @@ onBeforeMount(() => {
         <div>
             <a href="/searchPage" style="text-decoration: none;">
                 <h1 class="job-title">
-                    {{city}}招聘
+                    {{ city }}招聘
                 </h1>
             </a>
             <div class="job-contain" v-if="isShow3">
@@ -345,12 +345,19 @@ onBeforeMount(() => {
             <el-card style="width: 100%;height: 100%;border-radius: 20px;text-align: center;">
                 <template #header>
                     <div class="card-header">
-                        <span>XXX有限公司</span>
+                        <span> 技术先锋科技</span>
                     </div>
                 </template>
-                <p v-for="o in 10" :key="o" class="text item">{{ 'List item ' + o }}</p>
+                <div style="font-size: 16px;line-height: 20px;margin-top: 20px;margin-bottom: 20px;height: 150px;">
+                    技术先锋科技是一家致力于推动科技创新的公司。<br>我们专注于开发领先的技术解决方案，为客户提供高质量的软件开发和咨询服务。<br>我们的团队由一群充满激情和创造力的工程师和设计师组成，致力于通过创新的技术为客户创造价值。
+                </div>
+
                 <template #footer>
-                    <a-button ghost type="primary">立刻联系</a-button>
+                    <a-button ghost type="primary">
+                        <a href="/company/1">
+                            查看公司
+                        </a>
+                    </a-button>
                 </template>
             </el-card>
         </div>
@@ -358,25 +365,33 @@ onBeforeMount(() => {
             <el-card style="width: 100%;height: 100%;border-radius: 20px;text-align: center;">
                 <template #header>
                     <div class="card-header">
-                        <span>XXX外资企业</span>
+                        <span>明日之光公益基金会</span>
                     </div>
                 </template>
-                <p v-for="o in 10" :key="o" class="text item">{{ 'List item ' + o }}</p>
-                <template #footer>
-                    <a-button ghost type="primary">立刻联系</a-button>
-                </template>
+                <div style="font-size: 16px;line-height: 20px;margin-top: 20px;margin-bottom: 20px;height: 150px;">
+                    明日之光公益基金会是一家致力于改善社会的非营利组织。<br>我们的使命是通过教育、环保和公益项目，为社会带来积极的变革。<br>我们与各界合作伙伴紧密合作，共同努力构建一个更加和谐和可持续的社会。
+                </div>
+                    <template #footer>
+                        <a-button ghost type="primary"> <a href="/company/1">
+                                查看公司
+                            </a></a-button>
+                    </template>
             </el-card>
         </div>
         <div class="company-item">
             <el-card style="width: 100%;height: 100%;border-radius: 20px;text-align: center;">
                 <template #header>
                     <div class="card-header">
-                        <span>XXX集团</span>
+                        <span>创意设计公司</span>
                     </div>
                 </template>
-                <p v-for="o in 10" :key="o" class="text item">{{ 'List item ' + o }}</p>
+                <div style="font-size: 16px;line-height: 20px;margin-top: 20px;margin-bottom: 20px;height: 150px;">
+                    创意视觉设计工作室是一家专注于创意设计和品牌营销的公司。<br>我们拥有一支充满灵感和创造力的设计团队，致力于为客户提供独特而具有影响力的设计解决方案。<br>无论是品牌标识、包装设计还是广告宣传，我们都能为您量身定制最佳方案。
+                </div>
                 <template #footer>
-                    <a-button ghost type="primary">立刻联系</a-button>
+                    <a-button ghost type="primary"> <a href="/company/1">
+                            查看公司
+                        </a></a-button>
                 </template>
             </el-card>
         </div>
@@ -395,7 +410,6 @@ onBeforeMount(() => {
 </template>
 
 <style scoped lang='scss'>
-
 .company-title {
     width: 100%;
 }
@@ -414,7 +428,7 @@ onBeforeMount(() => {
 
 .company-item {
     // display: flex;
-    height: 25vw;
+    // height: 25vw;
     width: 100%;
     border-radius: 20px;
     background-color: #fdffff;

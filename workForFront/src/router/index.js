@@ -101,6 +101,14 @@ const routes = [
     component: () => import('../page/jobPage.vue')
   },
   {
+    path: '/company/:id',
+    name: 'company',
+    meta: {
+      title: '公司详细页面'
+    },
+    component: () => import('../page/company.vue')
+  },
+  {
     path: '/editJobPage/:id',
     name: 'editJobPage',
     meta: {

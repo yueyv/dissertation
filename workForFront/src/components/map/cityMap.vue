@@ -11,6 +11,7 @@ const { get, location, isLoading } = useIpLocation(() => {
     map.value.resetCenter()
     if (location.value) {
         message.info(`城市已切换为：${location.value.name}`)
+        sessionStorage.setItem("userIP",JSON.stringify(location.value.name))
         manualUpdateCity(location.value.name)
     }
 })

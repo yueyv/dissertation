@@ -5,6 +5,7 @@ const useControllerUser = require('../controllers/user');
 const useControllerJob = require('../controllers/job');
 const useControllerMes = require('../controllers/message');
 const useControllerAdmin = require('../controllers/admin');
+const useControllerCompany = require('../controllers/company');
 const useControllerVideoChat = require('../controllers/video_chat');
 // mark 过滤文件
 const multer = require('multer');
@@ -34,11 +35,15 @@ router.post('/api/upload_resume', upload.single('file'), useControllerUser.uploa
 router.get('/api/get_isExistUpload', useControllerUser.isExistUpload)
 router.get('/api/getPermission', useControllerUser.getPermission)
 router.get('/api/getChatId', useControllerUser.getChatId)
-
+// 公司
+router.post('/api/uploadCompany', useControllerCompany.uploadCompany)
+router.post('/api/GetCompany', useControllerCompany.GetCompany)
+router.post('/api/searchCompany', useControllerCompany.searchCompany)
 // IM JOB
 router.post('/api/addJob', useControllerJob.addJob)
 router.post("/api/getMyEditJob", useControllerJob.getMyEditJob)
 router.post("/api/getAllJob", useControllerJob.getAllJob)
+router.post("/api/getCommendJob", useControllerJob.getCommendJob)
 router.post("/api/getAllPreJob", useControllerJob.getAllPreJob)
 router.post("/api/getHomeJob", useControllerJob.getHomeJob)
 router.post("/api/getHomeJob2", useControllerJob.getHomeJob2)

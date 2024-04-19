@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "功能模块设计/信息聊天模块.md",
+                "file": "绪论/论文框架结构.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "功能模块设计/信息聊天模块.md",
+                "file": "绪论/论文框架结构.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "功能模块设计/信息聊天模块.md",
+                "file": "绪论/论文框架结构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "功能模块设计/信息聊天模块.md"
+                "file": "绪论/论文框架结构.md"
               }
             }
           },
@@ -189,11 +189,28 @@
   },
   "active": "6fc4ea01517a69f5",
   "lastOpenFiles": [
+    "绪论/研究意义.md",
+    "绪论/国内外研究现状.md",
+    "绪论/研究背景.md",
+    "绪论/论文框架结构.md",
+    "致谢/致谢.md",
+    "系统结构设计/数据库设计.md",
+    "系统结构设计/系统结构设计.md",
+    "相关技术概述/Vite和Vue3概述.md",
+    "相关技术概述/express概述.md",
+    "相关技术概述/客户端渲染（SPA)和服务器渲染（SSR）概述.md",
+    "相关技术概述/Docker平台概述.md",
+    "相关技术概述/AES-128加密算法概述.md",
+    "相关技术概述/WebRTC概述.md",
+    "相关技术概述/JWT和HMAC-SHA256加密算法概述.md",
+    "相关技术概述/Socket通信概述.md",
+    "系统分析/需求分析.md",
+    "参考/可扩充.md",
+    "参考/目录.md",
     "功能模块设计/用户模块.md",
     "功能模块设计/招聘模块.md",
     "功能模块设计/信息聊天模块.md",
     "image/招聘模块.png",
-    "致谢/致谢.md",
     "致谢",
     "image/招聘模块.drawio",
     "image/上传下载.png",
@@ -202,31 +219,14 @@
     "image/注册登录模块.drawio",
     "image/注册登录模块",
     "image/在线求职平台系统功能模块.png",
-    "系统结构设计/数据库设计.md",
     "功能模块设计",
     "image/实体关系图.png",
-    "系统结构设计/系统结构设计.md",
-    "相关技术概述/WebRTC概述.md",
-    "相关技术概述/JWT和HMAC-SHA256加密算法概述.md",
-    "相关技术概述/AES-128加密算法概述.md",
-    "相关技术概述/Docker平台概述.md",
-    "相关技术概述/Socket通信概述.md",
-    "相关技术概述/客户端渲染（SPA)和服务器渲染（SSR）概述.md",
-    "相关技术概述/express概述.md",
-    "相关技术概述/Vite和Vue3概述.md",
-    "系统分析/需求分析.md",
     "image/实体关系图.drawio",
-    "参考/可扩充.md",
-    "参考/目录.md",
     "image/在线求职平台其他模块.png",
     "image/在线求职平台其他模块.xmind",
     "image/其他模块设计.xmind",
     "image/新建 文本文档.txt",
     "image/在线求职平台.png",
-    "绪论/论文框架结构.md",
-    "绪论/研究意义.md",
-    "绪论/国内外研究现状.md",
-    "绪论/研究背景.md",
     "image/WEBRTC.png",
     "image/管理员.png",
     "image/招聘用户.png",

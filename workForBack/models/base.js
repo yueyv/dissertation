@@ -32,6 +32,9 @@ class Base {
     update(id, params) {
         return knex(this.table).where('username', '=', id).update(params)
     }
+    updateCompany(id, params) {
+        return knex(this.table).where('user_id', '=', id).update(params)
+    }
     updateVc(id, params) {
         return knex(this.table).where('to_username', '=', id).update(params)
     }

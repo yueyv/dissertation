@@ -6,15 +6,19 @@ import {
 } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 import axios from '@/plugins/axiosBase.js'
+import { useRoute, useRouter } from 'vue-router';
 // const valueHtml = ref('')
+const router = useRouter()
+const route = useRoute()
+console.log(route.params.id);
 const companyData=ref({
     name:null,
     introduction:null,
 })
-const userInformation=JSON.parse(sessionStorage.getItem("userInformation"))
+// const userInformation=JSON.parse(sessionStorage.getItem("userInformation"))
 
   onBeforeMount(()=>{
-    axios.post('GetCompany',{user_id:userInformation.user_id}).then((res)=>{
+    axios.post('GetCompany',{company_id:route.params.id}).then((res)=>{
     if(res.code==200){
     //   message.success("拉取成功")
     //   console.log(res.data);
@@ -32,34 +36,25 @@ const userInformation=JSON.parse(sessionStorage.getItem("userInformation"))
 
 <template>
   <myHeader :active-nav="0"></myHeader>
+  <div>
+    <a-button type="primary" class="to-job">
+      <a :href="`/chatFindPage/${companyData.user_id}`">查看招聘</a>
+    </a-button>
+  </div>
   <div class="company-container">
     <h1 style="font-size: 20px;line-height: 40px;text-align: center;">{{ companyData.name }}</h1>
     <div id="introduction">
         <div v-html="companyData.introduction"></div>
     </div>
   </div>
-  <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="编辑公司信息">
-        <template #icon>
-            <EditOutlined />
-        </template>
-        <a-float-button tooltip="编辑公司信息">
-            <template #icon>
-                <router-link to="/editCompanyPage" >
-                    <EditOutlined />
-                </router-link>
-            </template>
-        </a-float-button>
-        <a-float-button tooltip="查看公司信息">
-            <template #icon>
-                <router-link :to="`/company/${companyData.company_id}`">
-                    <AlignCenterOutlined />
-                </router-link>
-            </template>
-        </a-float-button>
-    </a-float-button-group>
 </template>
 
 <style scoped lang='scss'>
+.to-job{
+  position: fixed;
+  top:15vh;
+  left:92vw;
+}
 #introduction{
     margin: 20px;
 }

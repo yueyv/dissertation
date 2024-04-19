@@ -89,7 +89,7 @@ const resetForm = () => {
 
 <template>
     <myHeader :active-nav="5"></myHeader>
-    <div class="auth" v-if="permission == 0">
+    <div class="auth" v-if="permission != 1">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">权限不足</h1>
             <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button>

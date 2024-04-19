@@ -62,7 +62,7 @@ const useApproveStore = defineStore(Names.APPROVE, {
 const useIPStore=defineStore(Names.IP,{
     state:()=>({
        ip:'127.0.0.1',
-       city:"定位中",
+       city:"南京",
     }),
     getters:{
  

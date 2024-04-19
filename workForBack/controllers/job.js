@@ -74,6 +74,21 @@ const useController = {
             res.json({ code: 0, message: "default", data: e })
         }
     },
+    getCommendJob: async function (req, res, next) {
+
+        try {
+            let jobData = await Job.select("vaild", "1").orderByRaw('RAND()').limit(8);
+            // console.log(jobData);
+            res.json({
+                code: 200,
+                message: "success",
+                data: jobData
+            })
+
+        } catch (e) {
+            res.json({ code: 0, message: "default", data: e })
+        }
+    },
     getAllPreJob: async function (req, res, next) {
 
         try {

@@ -28,13 +28,15 @@ const getCity = async (IP) => {
           // console.log(res);
           if (res.code === 200) {
               // console.log(res.city);
+              sessionStorage.setItem("userIP",JSON.stringify(res.city))
               return res.city!=''?res.city:"南京";
           }
       } catch (error) {
           console.error('获取城市地址时出现错误：', error);
       }
   }else{
-    return '手动定位';
+    // sessionStorage.setItem("userIP","手动定位")
+    // return '手动定位';
   }
 };
 // console.log(await getCity());
