@@ -25,6 +25,7 @@ router.post('/api/get_user', useControllerUser.showUser)
 router.post('/api/get_user_other', useControllerUser.showUserFromId)
 router.post('/api/update_user', useControllerUser.updateUser)
 router.get('/api/getApplyJob', useControllerUser.getApplyJob)
+router.post('/api/deleteApplyJob', useControllerUser.deleteApplyJob)
 // 登录
 router.post('/api/login', useControllerUser.login)
 router.post('/api/register', useControllerUser.register)

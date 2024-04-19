@@ -43,6 +43,16 @@ onMounted(() => {
     })
 
 })
+const copyText = async (content) => {
+    try {
+        await navigator.clipboard.writeText(content);
+        message.success(`已粘贴到剪切板,${content}`);
+    } catch {
+        message.warning(`粘贴失败,手动输入${content}`);
+    }
+
+
+};
 // done跳转聊天 明天做
 const clickButton = () => {
     const permission = JSON.parse(sessionStorage.getItem("permission"))
@@ -53,7 +63,9 @@ const clickButton = () => {
         // console.log(formState);
 
         axios.post("addChatAndJob", { user_id: formState.value[0].user_id, job_id: formState.value[0].job_id }).then((res) => {
-            message.success("已申请，前往聊天中")
+            message.success("已申请，前往聊天中，请主动发起问候")
+            message.info("相关信息已粘贴，请在对话框输入")
+            copyText(`您好，我想要申请贵公司的 ${formState.value[0].title}`)
             router.push('/chatPage')
         }).catch((e) => {
             console.log(e);

@@ -46,6 +46,42 @@ const useController = {
             res.json({ code: 100, message: "登录超时", data: e })
         })
     },
+    deleteApplyJob: async function (req, res, next) {
+        jwt.verify(req.headers.authorization).then(async username => {
+            // console.log(username);
+            //IM 访问别人的需要重新
+            try {
+                let data = await User.getApplyJob(username)
+                let resData = []
+                if (data?.job_id !== undefined&&data?.job_id !== null && data?.job_id !== "") {
+                    // console.log(data?.job_id);
+                    // console.log(req.body.job_id);
+                    const job_id = data?.job_id.split(",")
+                    const updateJobData=job_id.filter(item => item != req.body.job_id).join(',');
+                    await User.update(username,{job_id:updateJobData})
+                    // console.log(updateJobData);
+                    res.json({
+                        code: 200,
+                        message: "success",
+                    });
+                } else {
+                    res.json({
+                        code: 201,
+                        message: "success",
+                        data: resData
+                    });
+                }
+
+                // if(data.Permission==1)
+
+            } catch (e) {
+                console.log(e);
+                res.json({ code: 0, message: "default", data: e })
+            }
+        }).catch((e) => {
+            res.json({ code: 100, message: "登录超时", data: e })
+        })
+    },
     getChatId: async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
             // console.log(username);

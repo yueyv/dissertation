@@ -11,6 +11,9 @@ import { useIPStore } from '../../store/index.js'
 import { DownOutlined } from '@ant-design/icons-vue';
 import { storeToRefs } from 'pinia'
 // done使用pinia
+const reload=()=>{
+   window.location.reload()}
+
 const getTip=()=>{
     localStorage.removeItem('isHomeTip')
     localStorage.removeItem('isChatTip')
@@ -177,6 +180,13 @@ const closeMap=()=>{
                     </router-link>
                     <template #overlay>
                         <a-menu>
+                            
+                            <a-menu-item v-if="permission==1">
+                                <router-link to="/bringInPage/myEdit">招聘详情</router-link>
+                            </a-menu-item>
+                            <a-menu-item v-else>
+                                <router-link to="/huntJobPage">求职记录</router-link>
+                            </a-menu-item>
                             <a-menu-item v-if="permission==1">
                                 <router-link to="/companyPage">公司介绍</router-link>
                             </a-menu-item>
@@ -202,6 +212,8 @@ const closeMap=()=>{
     </div>
     <div class="tip">
         <!-- <a href="/faqPage"> -->
+
+           
         <div @click="toggleTip" class="tip-first">
             操作
         </div>
@@ -210,6 +222,9 @@ const closeMap=()=>{
         </div>
         <div class="front" v-if="isTip" @click="router.go(-1)">
             后退
+        </div>
+        <div class="front" v-if="isTip" @click="reload()">
+            刷新
         </div>
         <div class="front" v-if="isTip" @click="getTip()">
             提示
@@ -248,7 +263,7 @@ const closeMap=()=>{
     border-radius: 50%;
     text-decoration: none;
     left: 1vw;
-    top: 50vh;
+    top: 30vh;
 
 
 }

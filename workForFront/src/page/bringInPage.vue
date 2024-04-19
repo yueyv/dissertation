@@ -89,7 +89,7 @@ const resetForm = () => {
 
 <template>
     <myHeader :active-nav="5"></myHeader>
-    <div class="auth" v-if="permission != 1">
+    <div class="auth" v-if="permission == 0||permission == 2">
         <div class="auth-box">
             <h1 style="margin-top: 3vw;">权限不足</h1>
             <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button>
@@ -105,7 +105,7 @@ const resetForm = () => {
     </div>
     <div class="advs">编辑招聘详情
         <br>
-        <a-button type="primary" @click="moveToControl()" ghost>前往我的招聘</a-button>
+        <a-button type="primary" @click="moveToControl()" ghost>编辑招聘</a-button>
     </div>
     <div class="edit-job-contain" v-if="permission == 1">
         <a-form ref="formRef" :model="formState" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">

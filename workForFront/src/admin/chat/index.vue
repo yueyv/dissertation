@@ -171,7 +171,7 @@ onBeforeMount(() => {
 })
 // 挂载socket
 const token = JSON.parse(localStorage.getItem('token'))
-socket = io('http://localhost:3000', {
+socket = io('/socket.io', {
     reconnectionDelayMax: 10000,
     auth: { token: token }
 })

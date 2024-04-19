@@ -60,6 +60,15 @@ const moveToJobMainPage = (id) => {
 const back = () => {
     router.push("/bringInPage/myEdit")
 }
+const deleteJob=(job_id)=>{
+   
+    axios.post("deleteApplyJob",{job_id:job_id}).then((res)=>{
+        if(res.code==200){
+            message.success("删除成功")
+            window.location.reload();
+        }
+    })
+}
 </script>
 
 <template>
@@ -77,8 +86,7 @@ const back = () => {
             @click="moveToJobMainPage(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">
             <a-card class="job-card" :title="jobItem[(currentPage - 1) * 8 + item - 1].title" :bordered="false"
                 style="width: 20vw;height: 30vh;">
-                <p v-if="jobItem[(currentPage - 1) * 8 + item - 1].vaild == '0'" style="color: red;font-size: 20px;">
-                    未通过审核</p>
+                <a-button type="primary" danger ghost style="left: 60%;" @click.stop="deleteJob(jobItem[(currentPage - 1) * 8 + item - 1].job_id)">删除</a-button>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].company_name }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].walfare }}</p>
                 <p>{{ jobItem[(currentPage - 1) * 8 + item - 1].description }}</p>

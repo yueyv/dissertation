@@ -4,7 +4,7 @@ import myHeader from '@/components/header/header.vue';
 import axios from '../plugins/axiosBase.js';
 import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
-import { CustomerServiceOutlined, CommentOutlined,DownloadOutlined,PlusOutlined } from '@ant-design/icons-vue';
+import { CustomerServiceOutlined, CommentOutlined, DownloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
 const router = useRouter()
 const route = useRoute()
 const userData = ref({
@@ -80,7 +80,7 @@ const chatButton = () => {
     <div class="appointment-w3" v-if="isShow == 1 && permission == 1">
         <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="快捷操作">
             <template #icon>
-                <PlusOutlined  />
+                <PlusOutlined />
             </template>
             <a-float-button tooltip="下载简历">
                 <template #icon>
