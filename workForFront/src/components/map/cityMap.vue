@@ -10,6 +10,7 @@ const map = ref()
 const { get, location, isLoading } = useIpLocation(() => {
     map.value.resetCenter()
     if (location.value) {
+        // console.log(location);
         message.info(`城市已切换为：${location.value.name}`)
         sessionStorage.setItem("userIP",JSON.stringify(location.value.name))
         manualUpdateCity(location.value.name)
@@ -57,9 +58,11 @@ const { get, location, isLoading } = useIpLocation(() => {
         </a-button> -->
         <BMap enableScrollWheelZoom ref="map" :center="location.point || undefined" @initd="get" id="container"
             ak='fvXwhpXgSaG95X7jzIXeNv73USX3fvGJ' :plugins="['TrackAnimation']">
-            <BLocation />
+            <BLocation  />
             <BZoom />
+           
             <div v-if="!isLoading">
+                 <!-- <BMarker :position="location.point" icon="simple_red"></BMarker> -->
                 <BMarker :position="location.point"></BMarker>
             </div>
         </BMap>

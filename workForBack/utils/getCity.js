@@ -16,7 +16,7 @@ const useGetCity=async(ip)=>{
         }
       } catch (error) {
         console.error('获取城市地址时出现错误：', error);
-        return '手动定位';
+        return '南京';
       }
 }
 // const ip="120.243.227.17"

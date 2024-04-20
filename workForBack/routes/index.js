@@ -6,6 +6,7 @@ const useControllerJob = require('../controllers/job');
 const useControllerMes = require('../controllers/message');
 const useControllerAdmin = require('../controllers/admin');
 const useControllerCompany = require('../controllers/company');
+const useControllerLocation = require('../controllers/location');
 const useControllerVideoChat = require('../controllers/video_chat');
 // mark 过滤文件
 const multer = require('multer');
@@ -40,6 +41,10 @@ router.get('/api/getChatId', useControllerUser.getChatId)
 router.post('/api/uploadCompany', useControllerCompany.uploadCompany)
 router.post('/api/GetCompany', useControllerCompany.GetCompany)
 router.post('/api/searchCompany', useControllerCompany.searchCompany)
+// 定位
+
+router.post('/api/uploadLocation', useControllerLocation.uploadLocation)
+router.post('/api/GetLocation', useControllerLocation.GetLocation)
 // IM JOB
 router.post('/api/addJob', useControllerJob.addJob)
 router.post("/api/getMyEditJob", useControllerJob.getMyEditJob)

@@ -506,7 +506,7 @@ onBeforeMount(() => {
 })
 
 onUnmounted(() => {
-    // videoChat.multimediaManager.Dispose()
+    videoChat.multimediaManager.Dispose()
     // axios.post("videoChatOver").then(
     //     (res)=>{
     //         if(res.code==200){
@@ -547,22 +547,22 @@ onUnmounted(() => {
 
                     <div style="text-align: center;">
                         <div v-if="!isActiveRequestVideo">
-                            <a-button style="margin-top: 20px;" ghost type="primary"
+                            <a-button style="margin-top: 10px;" ghost type="primary"
                                 @click="requestVideoBtnHandler">申请视频聊天</a-button>
                         </div>
                         <div v-else>
-                            <a-button style="margin-top: 20px;" ghost type="primary" disabled>视频聊天已开启</a-button>
+                            <a-button style="margin-top: 10px;" ghost type="primary" disabled>视频聊天已开启</a-button>
                         </div>
                         <!-- <a-button danger>Danger Default</a-button> -->
 
                     </div>
                     <div style="text-align: center;">
                         <div v-if="!isActiveRequestDesktop">
-                            <a-button style="margin-top: 15px;" ghost type="primary"
+                            <a-button style="margin-top: 10px;" ghost type="primary"
                                 @click="requestDesktopBtnHandler">申请分享屏幕</a-button>
                         </div>
                         <div v-else>
-                            <a-button style="margin-top: 15px;" ghost type="primary" disabled>屏幕分享已开启</a-button>
+                            <a-button style="margin-top: 10px;" ghost type="primary" disabled>屏幕分享已开启</a-button>
                         </div>
                         <!-- <a-button type="primary">Primary Button</a-button>
                         <a-button danger>Danger Default</a-button> -->
@@ -570,12 +570,12 @@ onUnmounted(() => {
                     </div>
                     <div style="text-align: center;">
                         <div v-if="!videoMode">
-                            <a-button disabled style="margin-top: 15px;" ghost type="primary">当前显示视频聊天</a-button>
+                            <a-button disabled style="margin-top: 10px;" ghost type="primary">当前显示视频聊天</a-button>
                         </div>
                         <div v-else>
-                            <a-button disabled style=" margin-top: 15px;" ghost type="primary">当前显示屏幕分享</a-button>
+                            <a-button disabled style=" margin-top: 10px;" ghost type="primary">当前显示屏幕分享</a-button>
                         </div>
-                        <a-button style="margin-top: 15px;" ghost
+                        <a-button style="margin-top: 10px;" ghost
                             @click="() => { videoMode = !videoMode }">切换显示</a-button>
                     </div>
                     <!-- <div v-if="isActiveRequestVideo&&videoMode"> -->
@@ -646,6 +646,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang='scss'>
+
 .monitored {
     margin-top: 40px;
     text-align: center;
@@ -732,9 +733,9 @@ onUnmounted(() => {
 
 .video-to {
     background-color: rgba(97, 255, 255, 0.651);
-    height: 40%;
+    height: 50%;
     // padding: 20px;
-    margin: 10vh 20px 20px 20px;
+    margin: 20px 20px 20px 20px;
     border-radius: 10px;
 }
 
@@ -797,7 +798,7 @@ onUnmounted(() => {
 
 .video-btns {
     flex-shrink: 0;
-    margin-top: 20px;
+    margin-top: 5px;
     height: 80px;
     display: flex;
     gap: 10vw;
@@ -805,7 +806,7 @@ onUnmounted(() => {
     // background-color: #fff;
 
     >div {
-        font-size: 12px;
+        font-size: 10px;
         cursor: pointer;
         padding: 8px 20px;
         color: #fff;
