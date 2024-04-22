@@ -31,7 +31,7 @@ const productionURL = () => {
     if (process.env.NODE_ENV === 'production') {
         return "http://20.213.10.238:3000"
     } else {
-        return "http://192.168.1.107:3000"
+        return "http://localhost:3000"
     }
 }
 // 读取key，获取交流
