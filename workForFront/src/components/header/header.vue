@@ -15,9 +15,9 @@ const reload=()=>{
    window.location.reload()}
 
 const getTip=()=>{
-    localStorage.removeItem('isHomeTip')
-    localStorage.removeItem('isChatTip')
-    message.success("已重置提示")
+    // localStorage.removeItem('isHomeTip')
+    // localStorage.removeItem('isChatTip')
+    message.success("下载软件说明书")
 }
 const router = useRouter()
 const ipStore = useIPStore()
@@ -190,11 +190,20 @@ const closeMap=()=>{
                             <a-menu-item v-if="permission==1">
                                 <router-link to="/companyPage">公司介绍</router-link>
                             </a-menu-item>
+                            <a-menu-item v-if="permission==1">
+                                <router-link to="/personalCompanyPage">个人中心</router-link>
+                            </a-menu-item>
                             <a-menu-item v-else>
                                 <router-link to="/personalPage">个人中心</router-link>
                             </a-menu-item>
                             <a-menu-item>
                                 <router-link to="/chatPage">聊天页面</router-link>
+                            </a-menu-item>
+                            <a-menu-item v-if="permission!=1">
+                                <router-link to="/videoChatPage">进入面试</router-link>
+                            </a-menu-item>
+                            <a-menu-item v-if="permission!=1">
+                                <router-link to="/bringInPage/apply">我要招聘</router-link>
                             </a-menu-item>
                             <a-menu-item>
                                 <router-link to="/homePage" @click="exitLogin">退出</router-link>
@@ -227,7 +236,8 @@ const closeMap=()=>{
             刷新
         </div>
         <div class="front" v-if="isTip" @click="getTip()">
-            提示
+            <a href="'/api/file?filename='readme.md"
+                            download="软件说明书.md" style="text-decoration: none; color: white;">说明</a>
         </div>
         <!-- </a> -->
     </div>

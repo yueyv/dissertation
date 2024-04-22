@@ -5,6 +5,7 @@ const User = require('../models/user')
 const Company = require('../models/company')
 const Admin = require('../models/admin')
 const Mes = require('../models/message');
+const company = require('../models/company');
 const useController = {
     uploadCompany:async function (req, res, next) {
         jwt.verify(req.headers.authorization).then(async username => {
@@ -60,6 +61,22 @@ const useController = {
             }
         
     },
+    GetCompany_id:async function (req, res, next) {
+        try {
+            console.log(req.body);
+            let companyData=await company.select("user_id",req.body.user_id).select('company_id').first()
+            // console.log(companyData);
+                res.json({
+                    code: 200,
+                    message: "success",
+                    data:companyData
+                })
+        } catch (e) {
+            console.log(e);
+            res.json({ code: 0, message: "default", data: e })
+        }
+    
+},
     searchCompany:async function (req, res, next) {
         try {
             // console.log(req.body);

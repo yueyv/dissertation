@@ -9,6 +9,10 @@ import { CustomerServiceOutlined, CommentOutlined,ExclamationOutlined } from '@a
 const router = useRouter()
 const faqMain = [
 {
+    title: "我要如何找回密码？",
+    content: "请用个人资料中提交的手机号码拨打客服电话，或者使用个人资料中的电子邮箱发送客服电子邮箱。\n联系方式在右下角",
+  },
+{
     title: "我发送了消息，对面第一时间能收到吗",
     content: "如果对方在线，可以第一时间收到。消息会实时发送给对方。如果不在线，则会在对面上线时，提醒对方",
   },
@@ -40,18 +44,14 @@ const faqMain = [
     title: "如何查看已申请的职位",
     content: "您可以在您的个人账户中找到“已申请的职位”或类似选项，查看您之前提交的职位申请记录。",
   },
-  {
-    title: "如何重置密码",
-    content: "您可以在登录页面找到“忘记密码”选项，按照提示进行密码重置操作。",
-  },
-  {
-    title: "如何举报虚假招聘信息",
-    content: "如果您发现虚假招聘信息，您可以在该页面进行举报或者在招聘页面进行举报",
-  },
-  {
-    title: "如何设置求职意向",
-    content: "您可以在个人资料设置中找到“求职意向”或类似选项，填写您的求职意向信息。",
-  },
+  // {
+  //   title: "如何举报虚假招聘信息",
+  //   content: "如果您发现虚假招聘信息，您可以在该页面进行举报或者在招聘页面进行举报",
+  // // },
+  // {
+  //   title: "如何设置求职意向",
+  //   content: "您可以在个人资料设置中找到“求职意向”或类似选项，填写您的求职意向信息。",
+  // },
   {
     title: "如何申请职位",
     content: "在您感兴趣的职位详情页面，您可以找到申请职位的按钮，按照提示完成申请流程。",
@@ -64,22 +64,22 @@ const faqMain = [
     title: "如何提升简历曝光度",
     content: "您可以完善个人资料，添加工作经历、教育背景等信息，提升简历的完整性和吸引力。",
   },
-  {
-    title: "如何查看招聘会信息",
-    content: "您可以在平台首页或相关页面找到招聘会信息，了解最新的招聘会时间、地点和参与方式。",
-  },
-  {
-    title: "如何参加在线面试",
-    content: "如果您被邀请参加在线面试，您可以在消息中找到面试邀请，按照指引参加在线面试。",
-  },
+  // {
+  //   title: "如何查看招聘会信息",
+  //   content: "您可以在平台首页或相关页面找到招聘会信息，了解最新的招聘会时间、地点和参与方式。",
+  // },
+  // {
+  //   title: "如何参加在线面试",
+  //   content: "如果您被邀请参加在线面试，您可以在消息中找到面试邀请，按照指引参加在线面试。",
+  // },
   {
     title: "如何查看招聘方的公司介绍",
     content: "在职位详情页面，您可以找到招聘方提供的公司介绍，了解公司背景和文化。",
   },
-  {
-    title: "如何处理忘记密码情况",
-    content: "如果您忘记密码，您可以通过手机短信或邮箱验证重置密码，确保账户安全。",
-  }
+  // {
+  //   title: "如何处理忘记密码情况",
+  //   content: "如果您忘记密码，您可以通过手机短信或邮箱验证重置密码，确保账户安全。",
+  // }
 ]
 const faqActive = ref(Array(faqMain.length).fill(-1))
 const faqActiveFunc = (index) => {
@@ -87,9 +87,19 @@ const faqActiveFunc = (index) => {
   // console.log(faqActive.value);
 }
 // Mark 原生剪切
+const clipboard = navigator.clipboard || {
+          writeText: (text) => {
+            let copyInput = document.createElement('input');
+            copyInput.value = text;
+            document.body.appendChild(copyInput);
+            copyInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(copyInput);
+          }
+        }
 const copyText = async (content) => {
   try {
-    await navigator.clipboard.writeText(content);
+    await clipboard.writeText(content);
     message.success(`已粘贴到剪切板,${content}`);
   } catch {
     message.warning(`粘贴失败,手动输入${content}`);

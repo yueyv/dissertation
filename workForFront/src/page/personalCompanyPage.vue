@@ -2,11 +2,12 @@
 import { ref, reactive, onBeforeMount } from 'vue'
 import myHeader from '@/components/header/header.vue';
 import axios from '../plugins/axiosBase.js';
-import { useRoute, useRouter } from 'vue-router';
-import { message } from 'ant-design-vue';
-import { CustomerServiceOutlined, CommentOutlined, DownloadOutlined, PlusOutlined } from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
+import { UploadOutlined, DownloadOutlined, CustomerServiceOutlined, CommentOutlined, AlignCenterOutlined } from '@ant-design/icons-vue';
 const router = useRouter()
-const route = useRoute()
+import {
+    EditOutlined
+} from '@ant-design/icons-vue';
 const userData = ref({
     email: null,
     phone: null,
@@ -17,34 +18,13 @@ const userData = ref({
     salary: null,
     other: null
 });
-const clipboard = navigator.clipboard || {
-          writeText: (text) => {
-            let copyInput = document.createElement('input');
-            copyInput.value = text;
-            document.body.appendChild(copyInput);
-            copyInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(copyInput);
-          }
-        }
-// Mark 原生剪切
-const copyText = async (content) => {
-    try {
-        await clipboard.writeText(content);
-        message.success(`已粘贴到剪切板,${content}`);
-    } catch {
-        message.warning(`粘贴失败,手动输入${content}`);
-    }
 
-
-};
-console.log(route.params.id);
-const permission = ref(1);
+const permission = ref(0);
 const isShow = ref(false)
 onBeforeMount(() => {
-    axios.post('get_user_other', { user_id: route.params.id }).then((res) => {
-        userData.value = res.data[0]
-        console.log(res.data);
+    axios.post('get_user').then((res) => {
+        userData.value = res.data
+        console.log(userData.value);
     }
     ).catch((e) => {
         console.log("查询失败");
@@ -52,7 +32,6 @@ onBeforeMount(() => {
     })
     axios.get("getPermission").then((res) => {
         if (res.code == 200) {
-            // console.log(permission.value);
             permission.value = res.data.permission
             isShow.value = true
             console.log(permission.value);
@@ -61,61 +40,16 @@ onBeforeMount(() => {
     }
     )
 })
-const back = () => {
-    router.back()
-}
-const chatButton = () => {
-    axios.post("chatToApplicant", { user_id: userData.value.user_id }).then((res) => {
-        if (res.code == 200) {
-            message.info("跳转中")
-            router.push('/chatPage')
-        } else {
-            message.error("返回错误，请登录后重试")
-        }
-    })
-}
+// const back = () => {
+//     router.push("/bringInPage/myEdit")
+// }
 </script>
 
 <template>
     <myHeader></myHeader>
 
-    <div class="auth" v-if="permission == 0">
-        <div class="auth-box">
-            <h1 style="margin-top: 3vw;">权限不足</h1>
-            <!-- <a-button @click="moveToApply()" style="margin-top: 3vw; width: 10vw;height: 3vw;">申请</a-button> -->
-            <a-button @click="back()" style="margin-top: 3vw; width: 10vw;height: 3vw;">返回</a-button>
-        </div>
-    </div>
-    <div class="appointment-w3" v-if="isShow == 1 && permission == 1">
-        <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="快捷操作">
-            <template #icon>
-                <PlusOutlined />
-            </template>
-            <a-float-button tooltip="下载简历">
-                <template #icon>
-                    <a :href="'/api/resume?filename=' + `${userData.user_id}` + `_` + `${encodeURIComponent(userData.resume)}`"
-                        :download="userData.user_id + '_' + userData.resume">
-                        <DownloadOutlined />
-                    </a>
-                </template>
-            </a-float-button>
-            <a-float-button @click="copyText(`${userData.phone}`)" tooltip="复制电话">
-                <template #icon>
-                    <i class="bi bi-telephone"></i>
-                    <!-- MARK 黏贴到剪切板 -->
-                </template>
-            </a-float-button>
-            <a-float-button @click="copyText(`${userData.email}`)" tooltip="复制邮箱">
-                <template #icon>
-                    <i class="bi bi-envelope"></i>
-                </template>
-            </a-float-button>
-            <!-- done 和交流 -->
-            <a-float-button @click="chatButton()" tooltip="前往聊天">
-                <template #icon>
-                    <CustomerServiceOutlined />
-                </template></a-float-button>
-        </a-float-button-group>
+
+    <div class="appointment-w3" >
         <form action="#" method="post">
             <div class="personal">
                 <h2>个人信息</h2>
@@ -124,7 +58,7 @@ const chatButton = () => {
                     <input type="text" name="name" :placeholder="userData.name" required="" disabled>
                 </div>
                 <div class="form-right-w3ls ">
-                    <p>毕业院校</p>
+                    <p>公司名称</p>
                     <input type="text" name="collage" :placeholder="userData.college" required="" disabled>
                     <div class="clear"></div>
                 </div>
@@ -139,7 +73,7 @@ const chatButton = () => {
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="information">
+            <!-- <div class="information">
                 <h3>求职信息</h3>
                 <div class="form-add-w3ls">
                     <p>现住地</p>
@@ -160,7 +94,7 @@ const chatButton = () => {
                     </select>
                 </div>
                 <div class="clear"></div>
-            </div>
+            </div> -->
 
             <div class="other">
                 <h3>其他</h3>
@@ -171,32 +105,37 @@ const chatButton = () => {
             </div>
         </form>
     </div>
+    <a-float-button-group trigger="click" type="primary" :style="{ right: '8vw' }" tooltip="编辑个人信息">
+        <template #icon>
+            <EditOutlined />
+        </template>
+        <!-- <a-float-button tooltip="上传简历">
+            <template #icon>
+                <router-link to="uploadResume">
+                    <UploadOutlined />
+                </router-link>
+            </template>
+        </a-float-button>
+        <a-float-button tooltip="下载简历">
+            <template #icon>
+                <a :href="'/api/resume?filename='+`${userData.user_id}`+`_`+`${encodeURIComponent(userData.resume)}` " :download="userData.user_id + '_' + userData.resume">
+                    <DownloadOutlined />
+                </a>
+            </template>
+        </a-float-button> -->
+        <a-float-button tooltip="编辑个人信息">
+            <template #icon>
+                <router-link to="editPersonCompanyMesPage">
+                    <EditOutlined />
+                </router-link>
+            </template>
+        </a-float-button>
+
+    </a-float-button-group>
 </template>
 
 <style scoped lang='scss'>
-.auth {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #00000057;
 
-    .auth-box {
-        font-size: 30px;
-        background-color: rgba(240, 248, 255, 0.76);
-        width: 20vw;
-        height: 20vw;
-        display: flex;
-        justify-items: center;
-        flex-direction: column;
-        align-items: center;
-        border-radius: 30px;
-        position: fixed;
-        left: 50%;
-        top: 40%;
-        transform: translate(-50%, -50%);
-        ;
-    }
-}
 
 .edit {
     color: black;

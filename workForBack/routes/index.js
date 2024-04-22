@@ -41,6 +41,9 @@ router.get('/api/getChatId', useControllerUser.getChatId)
 router.post('/api/uploadCompany', useControllerCompany.uploadCompany)
 router.post('/api/GetCompany', useControllerCompany.GetCompany)
 router.post('/api/searchCompany', useControllerCompany.searchCompany)
+router.post('/api/GetCompany_id', useControllerCompany.GetCompany_id)
+//
+
 // 定位
 
 router.post('/api/uploadLocation', useControllerLocation.uploadLocation)

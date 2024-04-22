@@ -539,7 +539,7 @@ onUnmounted(() => {
                 </div>
                 <div class="video-to" style="overflow: hidden;">
                     <div v-if="!isReady">
-                        <h2 class="title" style="padding-top: 10px;">交流对象：</h2>
+                        <h2 class="title" style="padding-top: 10px;">交流对象：{{ targetUsername }}</h2>
                     </div>
                     <div v-else>
                         <h2 class="title" style="padding-top: 10px;">交流对象：{{ targetUsername }}</h2>

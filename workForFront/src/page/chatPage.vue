@@ -15,20 +15,22 @@ import {
 // 上一个
 // MARK 根据permission 进行不同页面的跳转
 const router = useRouter()
-const isVideoChat=ref(false)
+const company_id = ref()
+const isVideoChat = ref(false)
 const permission = ref(-1)
 const selectedKeys = ref([]);
 const inputText = ref("")
 const openKeys = ref();
 const activeKey = ref()
+const userData=ref()
 const user_id = ref()
 // todo 存储在indexedDB中
 const chatLog = reactive({})
 const isShow = ref(false)
-const productionURL=()=>{
-    if(process.env.NODE_ENV === 'production'){
+const productionURL = () => {
+    if (process.env.NODE_ENV === 'production') {
         return "http://20.213.10.238:3000"
-    }else{
+    } else {
         return "http://192.168.1.107:3000"
     }
 }
@@ -130,7 +132,7 @@ let socket = undefined
 // };\
 const chatItem = (chat_id) => {
     to_id.value = chat_id
-    activeKey.value=chat_id
+    activeKey.value = chat_id
     //         // 获取历史记录
     //         // done从存储中获取
     getChatLog(chat_id)
@@ -145,13 +147,13 @@ const searchItem = (search_id) => {
 }
 const videoChatItem = (item) => {
     if (permission.value == 1) {
-        sessionStorage.setItem('videoChat',JSON.stringify(item))
+        sessionStorage.setItem('videoChat', JSON.stringify(item))
         // window.open('/videoChatPage', '_blank');
         router.push("/videoChatPage")
-        axios.post('/videoChatTo',{to_name:item.label}).then(()=>{
+        axios.post('/videoChatTo', { to_name: item.label }).then(() => {
             message.info("已发送请求")
         })
-    }else{
+    } else {
         message.info("发送失败,重新登录")
     }
 
@@ -294,6 +296,7 @@ onBeforeMount(() => {
         router.push("/")
     }
     user_id.value = userInformation.user_id
+    userData.value=userInformation
     axios.get('getChatId').then((res) => {
         if (res.code == 200) {
             const chatId = res.data
@@ -364,14 +367,22 @@ onBeforeMount(() => {
 
 })
 onMounted(() => {
-    axios.post('videoChatSearch').then((res)=>{
-        if(res.code==200){
-            if(res.data){
+    axios.post("GetCompany_id", { user_id: user_id.value }).then((res) => {
+        if (res.code == 200) {
+            // message.info(222)
+            company_id.value = res.data.company_id
+        }
+    }).catch((e) => {
+        // message.warning("返回错误")
+    })
+    axios.post('videoChatSearch').then((res) => {
+        if (res.code == 200) {
+            if (res.data) {
                 message.info(`${res.from_username}向你发送的面试邀约`)
-                isVideoChat.value=true
+                isVideoChat.value = true
             }
         }
-        
+
     })
 
     // console.log(items.value[0].key);
@@ -385,22 +396,70 @@ onUpdated(() => {
 onUnmounted(() => {
     socket.disconnect()
 })
-const ToVideoPage=()=>{
+const ToVideoPage = () => {
     // window.open('/videoChatPage', '_blank')
     router.push("/videoChatPage")
+}
+const searchCompany = (user_id) => {
+    // console.log(user_id);
+    axios.post("GetCompany_id", { user_id: user_id }).then((res) => {
+        if (res.code == 200) {
+
+            router.push(`/company/${res.data.company_id}`)
+        }
+
+    }).catch((e) => {
+        message.warning("返回错误")
+    })
+
 }
 // MARK 测试
 // watch(selectedKeys, () => {
 //     console.log(selectedKeys.value);
 //     ref
 // })
+const clipboard = navigator.clipboard || {
+    writeText: (text) => {
+        let copyInput = document.createElement('input');
+        copyInput.value = text;
+        document.body.appendChild(copyInput);
+        copyInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(copyInput);
+    }
+}
+const copyText = async (content, textContent) => {
+    try {
+        await clipboard.writeText(textContent);
+        message.success(`已粘贴到剪切板,${content}`);
+    } catch {
+        message.warning(`粘贴失败,手动输入${content}`);
+    }
+
+
+};
+
 </script>
 
 <template>
+
     <myHeader></myHeader>
     <div class="videoChat" v-if="isVideoChat" @click="ToVideoPage">
         面试
         <br>邀约
+    </div>
+
+    <div class="function-button">
+        <div v-if="permission == 1">
+            <a-button type="primary"
+                @click="copyText('请输入对话框', ` <a href='/company/${company_id}' style='color: red;'>点此访问公司</a><p>,上述为我司的详情介绍</p>`)">发送公司介绍</a-button>
+                <a-button type="primary"  @click="copyText('请输入对话框', ` <a href='/companyLocation/${user_id}' style='color: blue;'>点此进入公司定位</a>`)">发送公司定位</a-button>
+            <a-button type="primary"  @click="copyText('请输入对话框，附上时间', ` <a href='/videoChatPage' style='color: green;'>点此进入面试页面</a>`)">发送面试邀约</a-button>
+        </div>
+        <div v-else>
+            <a-button type="primary" @click="copyText('请输入对话框，并检查是否上传简历', `<p>您好，这是我的个人简历，</p><a href='/api/resume?filename=${userData.user_id}_${encodeURIComponent(userData.resume)} ' download='${userData.resume}'>点此下载</a>`)">发送个人简历</a-button>
+            <a-button type="primary"  @click="copyText('请输入对话框', `<p>您好，这是我的个人资料</p> <a href='/applicantPage/${user_id}' style='color: blue;'>点此查看</a>`)">发送个人资料</a-button>
+        </div>
     </div>
     <div class="chat-contain">
         <div class="chat-box">
@@ -412,9 +471,9 @@ const ToVideoPage=()=>{
                     v-model:selectedKeys="selectedKeys" mode="vertical" :items="items" @click="handleClick" /> -->
                 <div v-if="!isShow" class="menu-item">
                     <div class="item-label" v-for="item in 3">
-                                <!-- <MailOutlined style="color: #ffe29f;" /> -->
-                                <a-skeleton :loading="true" active :paragraph="{ rows: 1,width:'100%' }"  :title="false"/>
-                            </div>
+                        <!-- <MailOutlined style="color: #ffe29f;" /> -->
+                        <a-skeleton :loading="true" active :paragraph="{ rows: 1, width: '100%' }" :title="false" />
+                    </div>
                 </div>
                 <div v-if="isShow" class="menu-item">
                     <div v-for="(item, index) in items">
@@ -429,11 +488,19 @@ const ToVideoPage=()=>{
                                         <CommentOutlined />
                                         查看聊天
                                     </a-menu-item>
-                                    <a-menu-item class="item" @click="searchItem(item.key)">
+                                    <a-menu-item v-if="permission == 1" class="item" @click="searchItem(item.key)">
                                         <AlignLeftOutlined />
                                         查看资料
                                     </a-menu-item>
-                                    <a-menu-item class="item" v-if="permission==1" @click="videoChatItem(item)">
+                                    <a-menu-item v-if="permission != 1" class="item" @click="searchItem(item.key)">
+                                        <AlignLeftOutlined />
+                                        查看招聘
+                                    </a-menu-item>
+                                    <a-menu-item v-if="permission != 1" class="item" @click="searchCompany(item.key)">
+                                        <AlignLeftOutlined />
+                                        查看公司
+                                    </a-menu-item>
+                                    <a-menu-item class="item" v-if="permission == 1" @click="videoChatItem(item)">
                                         <VideoCameraFilled />
                                         视频面试
                                     </a-menu-item>
@@ -451,16 +518,16 @@ const ToVideoPage=()=>{
                 <div class="chat-content" ref="scrollContainer">
                     <div v-for="item in chatLog[to_id]" :key="item.message_id">
                         <div v-if="item.to_id == user_id" class="chat-item-left">
-                            {{ item.content }}
+                            <div v-html="item.content"></div>
                         </div>
                         <div v-if="item.to_id != user_id" class="chat-item-right">
-                            {{ item.content }}
+                            <div v-html="item.content"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="chat-input">
-                    <a-textarea v-model:value="inputText" @keyup.enter="sendMsg()" placeholder="在此输入聊天内容。输入回车发送"
+                    <a-textarea v-model:value="inputText" @keyup.enter="sendMsg()" placeholder="在此输入聊天内容。输入回车发送,支持富文本格式"
                         :auto-size="{ minRows: 3, maxRows: 3 }" />
 
                 </div>
@@ -470,20 +537,39 @@ const ToVideoPage=()=>{
 </template>
 
 <style scoped lang='scss'>
-.videoChat{
+
+.function-button {
+    position: fixed;
+    z-index: 100;
+    // color: #e7cbc8;
+    // background-color: #e7cbc8;
+    // width: 50px;
+    // height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50%;
+    // width: 100px;
+    text-decoration: none;
+    left: 90vw;
+    top: 40vh;
+}
+
+.videoChat {
     padding-top: 0px;
     background-color: aqua;
     height: 80px;
     width: 80px;
     position: fixed;
-    line-height: 40px; 
+    line-height: 40px;
     left: 80vw;
     border-radius: 50%;
     text-align: center;
-    &:hover{
+
+    &:hover {
         background-color: rgba(0, 255, 255, 0.301);
     }
 }
+
 .unread {
     color: #9c5e70 !important;
 }

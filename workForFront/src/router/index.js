@@ -109,6 +109,14 @@ const routes = [
     component: () => import('../page/company.vue')
   },
   {
+    path: '/companyLocation/:id',
+    name: 'companyLocation',
+    meta: {
+      title: '公司定位页面'
+    },
+    component: () => import('../page/companyLocation.vue')
+  },
+  {
     path: '/editJobPage/:id',
     name: 'editJobPage',
     meta: {
@@ -152,6 +160,25 @@ const routes = [
       permission: true
     },
     component: () => import('../page/editPersonMesPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否有权限
+      if (isAuthenticated()) {
+        next();
+      } else {
+        import.meta.env.SSR ? false : message.warning("请先登录");
+
+        next("/login");
+      }
+    }
+  },
+  {
+    path: '/editPersonCompanyMesPage',
+    name: 'editPersonCompanyMesPage',
+    meta: {
+      title: '修改信息',
+      permission: true
+    },
+    component: () => import('../page/editPersonCompanyMesPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否有权限
       if (isAuthenticated()) {
@@ -246,6 +273,26 @@ const routes = [
       permission: true
     },
     component: () => import('../page/personalPage.vue'),
+    beforeEnter: (to, from, next) => {
+      // 检查用户是否已登录
+      // IM 鉴权
+      if (isAuthenticated()) {
+        next();
+      } else {
+        import.meta.env.SSR ? false : age.warning("请先登录");
+        next("/login");
+
+      }
+    }
+  },
+  {
+    path: '/personalCompanyPage',
+    name: 'personalCompanyPage',
+    meta: {
+      title: '个人页面',
+      permission: true
+    },
+    component: () => import('../page/personalCompanyPage.vue'),
     beforeEnter: (to, from, next) => {
       // 检查用户是否已登录
       // IM 鉴权
