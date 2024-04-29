@@ -1,0 +1,527 @@
+<mxfile host="65bd71144e">
+    <diagram id="gSietCOMMmEVJ4TakfUS" name="第 1 页">
+        <mxGraphModel dx="1655" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="203" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="1" source="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="636.9999999999998" y="130" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="&lt;div&gt;基于nodejs和vue的在线&lt;span style=&quot;background-color: initial;&quot;&gt;求职平台&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=18;" vertex="1" parent="1">
+                    <mxGeometry x="447" y="10" width="380" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="970" y="130" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="65" source="67">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="67" value="&lt;div&gt;屏幕分享模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="65">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1110" y="130" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="68" source="70">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="70" value="&lt;div&gt;F&lt;/div&gt;&lt;div&gt;A&lt;/div&gt;&lt;div&gt;Q模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="68">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="10" y="130" width="190" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="" style="group" vertex="1" connectable="0" parent="116">
+                    <mxGeometry x="160" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="&lt;div&gt;用户注册登录&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="86">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="86">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="107" value="" style="group" vertex="1" connectable="0" parent="116">
+                    <mxGeometry x="120" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="108" value="&lt;div&gt;用户资料管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="107">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="107">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="110" value="" style="group" vertex="1" connectable="0" parent="116">
+                    <mxGeometry x="80" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="&lt;div&gt;用户权限验证&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="110">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="112" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="110">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="105" value="&lt;div&gt;简历管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="116">
+                    <mxGeometry x="40" y="240" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="116">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="54.659999999999854" y="210" as="targetPoint"/>
+                        <mxPoint x="54.659999999999854" y="234" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="101" value="" style="group" vertex="1" connectable="0" parent="116">
+                    <mxGeometry y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="&lt;div&gt;用户权限申请&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="101">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="101">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="113" value="" style="group" vertex="1" connectable="0" parent="116">
+                    <mxGeometry x="80" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="用户模块" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="113">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="113">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="114" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="116">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="20" y="210" as="sourcePoint"/>
+                        <mxPoint x="170" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="115" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="116" target="55">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="95" y="210" as="sourcePoint"/>
+                        <mxPoint x="80" y="160" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="121" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="210" y="130" width="110" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="119" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="121" source="51">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="55" y="220" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="51" value="&lt;div&gt;管理员模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="121">
+                    <mxGeometry x="40" y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="121">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="54.709999999999866" as="targetPoint"/>
+                        <mxPoint x="54.709999999999866" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="118" value="" style="group" vertex="1" connectable="0" parent="121">
+                    <mxGeometry y="210" width="110" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="" style="group" vertex="1" connectable="0" parent="118">
+                    <mxGeometry x="40" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="&lt;div&gt;职位管理模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="79">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="79">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="120" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="79">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-20" as="sourcePoint"/>
+                        <mxPoint x="50" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="89" value="" style="group" vertex="1" connectable="0" parent="118">
+                    <mxGeometry width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="&lt;div&gt;用户管理模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="89">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="89">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="95" value="" style="group" vertex="1" connectable="0" parent="118">
+                    <mxGeometry x="80" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="&lt;div&gt;管理员聊天模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="95">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="95">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="141" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="350" y="130" width="110" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="" style="group" vertex="1" connectable="0" parent="141">
+                    <mxGeometry y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="&lt;div&gt;职位管理模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="80">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="80">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="140" value="" style="group" vertex="1" connectable="0" parent="141">
+                    <mxGeometry x="20" width="90" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="124" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="140" source="47">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="35" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="47" value="&lt;div&gt;招聘模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="140">
+                    <mxGeometry x="20" y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="140">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="34.659999999999854" as="targetPoint"/>
+                        <mxPoint x="34.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="83" value="" style="group" vertex="1" connectable="0" parent="140">
+                    <mxGeometry x="20" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="&lt;div&gt;求职者申请管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="83">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="83">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="92" value="" style="group" vertex="1" connectable="0" parent="140">
+                    <mxGeometry x="60" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="&lt;div&gt;公司管理模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="92">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="92">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="125" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="140">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint y="210" as="sourcePoint"/>
+                        <mxPoint x="70" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="142" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="490" y="130" width="110" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="128" value="" style="group" vertex="1" connectable="0" parent="142">
+                    <mxGeometry x="40" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="&lt;div&gt;检索和推荐模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="128">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="128">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="129" value="" style="group" vertex="1" connectable="0" parent="142">
+                    <mxGeometry x="40" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="130" value="&lt;div&gt;检索模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="129">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="129">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="132" value="" style="group" vertex="1" connectable="0" parent="142">
+                    <mxGeometry x="80" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="133" value="&lt;div&gt;推荐模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="132">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="134" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="132">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="135" value="" style="group" vertex="1" connectable="0" parent="142">
+                    <mxGeometry y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" value="&lt;div&gt;定位模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="135">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="137" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="135">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999854" as="targetPoint"/>
+                        <mxPoint x="14.659999999999854" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="138" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="142">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="20" y="209.43" as="sourcePoint"/>
+                        <mxPoint x="90" y="209.43" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="139" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="142" source="44">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="55" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="158" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="1" source="35">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="695" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="171" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="640" y="130" width="110" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="146" value="" style="group" vertex="1" connectable="0" parent="171">
+                    <mxGeometry x="40" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="&lt;div&gt;信息聊天模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="146">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="146">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.659999999999968" as="targetPoint"/>
+                        <mxPoint x="14.659999999999968" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="155" value="" style="group" vertex="1" connectable="0" parent="171">
+                    <mxGeometry y="210" width="110" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="148" value="" style="group" vertex="1" connectable="0" parent="155">
+                    <mxGeometry width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="&lt;div&gt;聊天对象管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="148">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="144" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="148">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.70999999999998" as="targetPoint"/>
+                        <mxPoint x="14.70999999999998" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="152" value="" style="group" vertex="1" connectable="0" parent="155">
+                    <mxGeometry x="80" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="153" value="&lt;div&gt;离线聊天&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="152">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="154" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="152">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="14.70999999999998" as="targetPoint"/>
+                        <mxPoint x="14.70999999999998" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="150" value="&lt;div&gt;在线聊天&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="155">
+                    <mxGeometry x="40" y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="151" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="155">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="54.70999999999998" as="targetPoint"/>
+                        <mxPoint x="54.70999999999998" y="24" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="157" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="155">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="20" y="2.8421709430404007e-13" as="sourcePoint"/>
+                        <mxPoint x="90" y="2.8421709430404007e-13" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="175" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="930" y="340" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="176" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="175" source="177">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="177" value="&lt;div&gt;屏幕分享通知&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="175">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="178" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="970" y="340" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="179" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="178" source="180">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="180" value="&lt;div&gt;屏幕分享管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="178">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="182" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1010" y="340" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="183" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="182" source="184">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="184" value="&lt;div&gt;屏幕分享切换&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="182">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="185" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="950" y="339.44" as="sourcePoint"/>
+                        <mxPoint x="1020" y="339.44" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="186" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="1" source="67">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="985" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="187" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="790" y="130" width="110" height="400" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="" style="group" vertex="1" connectable="0" parent="187">
+                    <mxGeometry x="40" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="64" source="38">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="38" value="&lt;div&gt;视频聊天模块&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="64">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="159" value="" style="group" vertex="1" connectable="0" parent="187">
+                    <mxGeometry x="40" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="160" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="159" source="161">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="161" value="&lt;div&gt;语言聊天管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="159">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="165" value="" style="group" vertex="1" connectable="0" parent="187">
+                    <mxGeometry x="80" y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="166" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="165" source="167">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="167" value="面试管理" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="165">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="168" value="" style="group" vertex="1" connectable="0" parent="187">
+                    <mxGeometry y="210" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="169" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="168" source="170">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="170" value="&lt;div&gt;视频聊天管理&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="168">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="172" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="187">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="20" y="210" as="sourcePoint"/>
+                        <mxPoint x="90" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="174" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="187" source="38">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="55" y="220" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="188" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1070" y="340" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="192" value="" style="group" vertex="1" connectable="0" parent="188">
+                    <mxGeometry width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="189" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="192" source="190">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="190" value="联系客服" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="192">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="193" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1110" y="340" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="194" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="193" source="195">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="195" value="系统公告&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22group%22%20vertex%3D%221%22%20connectable%3D%220%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22670%22%20y%3D%22940%22%20width%3D%2230%22%20height%3D%22190%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20style%3D%22edgeStyle%3Dnone%3Bshape%3Dconnector%3Brounded%3D0%3BjumpStyle%3Dnone%3BjumpSize%3D2%3Bhtml%3D1%3BlabelBackgroundColor%3Ddefault%3BstrokeColor%3Ddefault%3BstrokeWidth%3D2%3BfontFamily%3DHelvetica%3BfontSize%3D18%3BfontColor%3Ddefault%3BendArrow%3Dnone%3BendFill%3D0%3BstartSize%3D0%3BendSize%3D1%3BsourcePerimeterSpacing%3D6%3BtargetPerimeterSpacing%3D6%3B%22%20edge%3D%221%22%20parent%3D%222%22%20source%3D%224%22%3E%3CmxGeometry%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CmxPoint%20x%3D%2215%22%20as%3D%22targetPoint%22%2F%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20value%3D%22%E8%81%94%E7%B3%BB%E5%AE%A2%E6%9C%8D%22%20style%3D%22rounded%3D1%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3BfontFamily%3DHelvetica%3BfontSize%3D18%3BfontColor%3Ddefault%3Bhorizontal%3D1%3BverticalAlign%3Dmiddle%3Balign%3Dcenter%3B%22%20vertex%3D%221%22%20parent%3D%222%22%3E%3CmxGeometry%20y%3D%2230%22%20width%3D%2230%22%20height%3D%22160%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="193">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="196" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1150" y="340" width="30" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="197" style="edgeStyle=none;shape=connector;rounded=0;jumpStyle=none;jumpSize=2;html=1;labelBackgroundColor=default;strokeColor=default;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontColor=default;endArrow=none;endFill=0;startSize=0;endSize=1;sourcePerimeterSpacing=6;targetPerimeterSpacing=6;" edge="1" parent="196" source="198">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="198" value="操作提示" style="rounded=1;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=18;fontColor=default;horizontal=1;verticalAlign=middle;align=center;" vertex="1" parent="196">
+                    <mxGeometry y="30" width="30" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="199" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1090" y="339.44000000000005" as="sourcePoint"/>
+                        <mxPoint x="1160" y="339.44000000000005" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="200" style="edgeStyle=none;rounded=0;html=1;strokeWidth=2;endArrow=none;endFill=0;" edge="1" parent="1" source="70">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1125" y="340" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="201" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=2;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="110" y="130" as="sourcePoint"/>
+                        <mxPoint x="1120" y="130" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
