@@ -11,7 +11,9 @@ var http = require('http');
 const clientEvent = require('../utils/socket.js');
 const fs = require('fs');
 const path = require('path');
-
+// 视频聊天API
+const videoChat= require('express')();
+const wsInstance = require('express-ws')(videoChat);
 // 定义日志文件路径
 const logFilePath = path.join("./log/", 'console.log');
 const logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
@@ -50,7 +52,17 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 io.on('connection', clientEvent);
-
+videoChat.ws('/', ws => {
+	ws.on('message', data => {
+		// 未做业务处理，收到消息后直接广播
+		wsInstance.getWss().clients.forEach(server => {
+			if (server !== ws) {
+				server.send(data);
+			}
+		});
+	});
+});
+videoChat.listen(9900);
 /**
  * Normalize a port into a number, string, or false.
  */

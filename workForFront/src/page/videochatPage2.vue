@@ -16,7 +16,7 @@ const logText = ref('');
 let localVideo 
 let remoteVideo 
 const startbutton = ref(null)
-const testServer = 'ws://localhost:8080'
+const testServer = 'ws://localhost:9900'
 const logger = {
 log(msg) {
   logText.value += `<span>${new Date().toLocaleTimeString()}：${msg}</span><br/>`;
@@ -37,7 +37,7 @@ async function startLive (offerSdp) {
 				return;
 			}
 
-			logger.log(`------ WebRTC ${target === 'sender' ? '发起方' : '接收方'}流程开始 ------`);
+			logger.log(`------ WebRTC ${target === 'offer' ? '发起方' : '接收方'}流程开始 ------`);
 			logger.log('将媒体轨道添加到轨道集');
 			stream.getTracks().forEach(track => {
 				peer.addTrack(track, stream);
