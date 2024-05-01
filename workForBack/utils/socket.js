@@ -47,7 +47,10 @@ module.exports = (socket) => {
         
 
     })
-
+    // socket.on('videoChat', data => {
+	// 	// 未做业务处理，收到消息后直接广播
+		
+	// });
     socket.on('private_chat', async(params) => {
         // console.log({
         //         user_id:socket.user_id,

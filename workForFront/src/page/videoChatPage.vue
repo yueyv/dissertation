@@ -10,8 +10,11 @@ import { InformationTypes } from "@/omcs";
 import RequestDialog2Active from "@/components/videoChat/RequestDialog2Active.vue";
 import RequestDialog2Passive from "@/components/videoChat/RequestDialog2Passive.vue";
 import axios from '../plugins/axiosBase';
-
-
+const otherMission=ref(0)
+const connectTimeout=setTimeout(()=>{
+    message.error("中继服务器或信令服务器出错，请重新尝试")
+    otherMission.value=1
+},3000)
 // import '/public/H5Media.iife.lock'
 // Object.keys(H5Media).forEach((key) => {
 //         if (key !== "default") {
@@ -144,6 +147,8 @@ const videoChatStart = () => {
                 // message.success("上线成功");
                 userStatus.value = "在线中"
                 // 更新与服务器连接状态
+                clearTimeout(connectTimeout)
+                otherMission.value=0
                 videoChat.updateServerConnect(true);
                 // 跳转页面
                 // router.replace("/home");
@@ -516,9 +521,20 @@ onUnmounted(() => {
     // )
     // TODO 发送请求
 })
+const connectError=()=>{
+    message.info("进入其他路线中")
+}
 </script>
 
 <template>
+    <div class="retry-connect" v-if="otherMission">
+        <a-button @click="connectError()" type="primary" danger ghost style="position: fixed;
+        left: 50%;
+        top: 10%;
+        transform: translate(-50%,-50%); width:300px">
+            连接不上，请尝试点击这个
+        </a-button>
+    </div>
     <a-layout class="container">
         <a-layout-header class="header">
             <div class="monitored"  v-if="isMonitored">
