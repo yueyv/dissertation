@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import {router} from '@/router/index.js'
+import { router } from '@/router/index.js'
 import 'bootstrap-icons/font/bootstrap-icons.scss'
 import { createPinia } from 'pinia'
 import Antd from 'ant-design-vue';

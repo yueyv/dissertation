@@ -15,7 +15,7 @@ const columns = [
     {
         title: '职位序号',
         dataIndex: 'job_id',
-        key: 'job_id',
+            key: 'job_id',
         customFilterDropdown: true,
         onFilter: (value, record) => record.user_id == value,
         onFilterDropdownOpenChange: visible => {

@@ -4,13 +4,13 @@ import zhCN from "ant-design-vue/lib/locale/zh_CN";
 
 export default {
   components: {
-    ConfigProvider
+    ConfigProvider,
   },
   data() {
     return {
-      locale: zhCN
+      locale: zhCN,
     };
-  }
+  },
 };
 </script>
 
