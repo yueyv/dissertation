@@ -598,18 +598,15 @@ const connectError = () => {
   message.info("进入其他路线中");
   const permission = sessionStorage.getItem("permission");
   if (permission == 1) {
-    router.push("/videoChatPage2?type=offer");
+    router.push("/videoChat/offer");
   } else {
-    router.push("/videoChatPage2?type=answer");
+    router.push("/videoChat/answer");
   }
 };
 </script>
 
 <template>
-  <div
-    class="retry-connect"
-    v-if="otherMission"
-  >
+  <div class="retry-connect">
     <a-button
       @click="connectError()"
       type="primary"
@@ -623,15 +620,12 @@ const connectError = () => {
         width: 300px;
       "
     >
-      连接不上，请尝试点击这个
+      其他方式
     </a-button>
   </div>
   <a-layout class="container">
     <a-layout-header class="header">
-      <div
-        class="monitored"
-        v-if="isMonitored"
-      >
+      <div class="monitored" v-if="isMonitored">
         <span class="username">{{ desktopPassiveUsername }}</span>
         <span>正在观看你的屏幕</span>
         <a-button @click="disconnectBtnHandler">断开连接</a-button>
@@ -642,37 +636,19 @@ const connectError = () => {
       </div>
     </a-layout-header>
     <a-layout class="header">
-      <a-layout-sider
-        :width="'40vw'"
-        class="sider"
-      >
+      <a-layout-sider :width="'40vw'" class="sider">
         <h1 class="title">我的摄像头</h1>
-        <div
-          class="my-video"
-          style="overflow: hidden"
-        >
-          <video
-            id="local-video"
-            autoplay
-          ></video>
+        <div class="my-video" style="overflow: hidden">
+          <video id="local-video" autoplay></video>
         </div>
-        <div
-          class="video-to"
-          style="overflow: hidden"
-        >
+        <div class="video-to" style="overflow: hidden">
           <div v-if="!isReady">
-            <h2
-              class="title"
-              style="padding-top: 10px"
-            >
+            <h2 class="title" style="padding-top: 10px">
               交流对象：{{ targetUsername }}
             </h2>
           </div>
           <div v-else>
-            <h2
-              class="title"
-              style="padding-top: 10px"
-            >
+            <h2 class="title" style="padding-top: 10px">
               交流对象：{{ targetUsername }}
             </h2>
           </div>
@@ -688,11 +664,7 @@ const connectError = () => {
               >
             </div>
             <div v-else>
-              <a-button
-                style="margin-top: 10px"
-                ghost
-                type="primary"
-                disabled
+              <a-button style="margin-top: 10px" ghost type="primary" disabled
                 >视频聊天已开启</a-button
               >
             </div>
@@ -709,11 +681,7 @@ const connectError = () => {
               >
             </div>
             <div v-else>
-              <a-button
-                style="margin-top: 10px"
-                ghost
-                type="primary"
-                disabled
+              <a-button style="margin-top: 10px" ghost type="primary" disabled
                 >屏幕分享已开启</a-button
               >
             </div>
@@ -722,20 +690,12 @@ const connectError = () => {
           </div>
           <div style="text-align: center">
             <div v-if="!videoMode">
-              <a-button
-                disabled
-                style="margin-top: 10px"
-                ghost
-                type="primary"
+              <a-button disabled style="margin-top: 10px" ghost type="primary"
                 >当前显示视频聊天</a-button
               >
             </div>
             <div v-else>
-              <a-button
-                disabled
-                style="margin-top: 10px"
-                ghost
-                type="primary"
+              <a-button disabled style="margin-top: 10px" ghost type="primary"
                 >当前显示屏幕分享</a-button
               >
             </div>
@@ -753,24 +713,15 @@ const connectError = () => {
           <!-- <div v-if="isActiveRequestVideo&&videoMode"> -->
           <div v-if="!videoMode && videoingid !== ''">
             <div class="video-btns">
-              <div
-                class="mic-btn"
-                @click="micBtnHandler"
-              >
+              <div class="mic-btn" @click="micBtnHandler">
                 <img :src="micBtnData[micBtnIndex].img_url" />
                 <span>{{ micBtnData[micBtnIndex].text }}</span>
               </div>
-              <div
-                class="speaker-btn"
-                @click="speakerBtnHandler"
-              >
+              <div class="speaker-btn" @click="speakerBtnHandler">
                 <img :src="speakerBtnData[speakerBtnIndex].img_url" />
                 <span>{{ speakerBtnData[speakerBtnIndex].text }}</span>
               </div>
-              <div
-                class="camera-btn"
-                @click="cameraBtnHandler"
-              >
+              <div class="camera-btn" @click="cameraBtnHandler">
                 <img :src="cameraBtnData[cameraBtnIndex].img_url" />
                 <span>{{ cameraBtnData[cameraBtnIndex].text }}</span>
               </div>
@@ -794,10 +745,7 @@ const connectError = () => {
             class="video-area"
             style="background-color: aliceblue"
           >
-            <video
-              id="remote-video"
-              autoplay
-            ></video>
+            <video id="remote-video" autoplay></video>
             <!-- v-show="videoingid !== ''" -->
             <div
               class="close-btn"
@@ -814,10 +762,7 @@ const connectError = () => {
             class="desktop-area"
             style="background-color: aqua"
           >
-            <video
-              id="remote-desktop"
-              autoplay
-            ></video>
+            <video id="remote-desktop" autoplay></video>
             <!-- v-show="desktopActiveUsername !== ''"  -->
             <div
               class="close-btn"

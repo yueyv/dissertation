@@ -143,258 +143,279 @@ const closeMap=()=>{
 
 
 <template>
-    <a-button v-if="isWatchMap" @click="closeMap" class="close-map">关闭地图</a-button>
-    <cityMap v-if="isWatchMap"></cityMap>
-    <cookieMes v-if="!isAcceptCookie"></cookieMes>
-    <header>
-        <ul class="top-nav">
-            <li>云聘</li>
-            <li style="display: flex;justify-content: center; align-items: center;"><img
-                    style="width: 1.2em;margin-bottom: 3px;"
-                    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMwMjg0YzciIGQ9Ik0xMiAxMnEuODI1IDAgMS40MTMtLjU4N1QxNCAxMHEwLS44MjUtLjU4Ny0xLjQxMlQxMiA4cS0uODI1IDAtMS40MTIuNTg4VDEwIDEwcTAgLjgyNS41ODggMS40MTNUMTIgMTJtMCAxMHEtNC4wMjUtMy40MjUtNi4wMTItNi4zNjJUNCAxMC4ycTAtMy43NSAyLjQxMy01Ljk3NVQxMiAycTMuMTc1IDAgNS41ODggMi4yMjVUMjAgMTAuMnEwIDIuNS0xLjk4NyA1LjQzOFQxMiAyMiIvPjwvc3ZnPg==">
-                <div>{{ city }}
+  <a-button v-if="isWatchMap" @click="closeMap" class="close-map"
+    >关闭地图</a-button
+  >
+  <cityMap v-if="isWatchMap"></cityMap>
+  <cookieMes v-if="!isAcceptCookie"></cookieMes>
+  <header>
+    <ul class="top-nav">
+      <li>云聘</li>
+      <li style="display: flex; justify-content: center; align-items: center">
+        <img
+          style="width: 1.2em; margin-bottom: 3px"
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9IiMwMjg0YzciIGQ9Ik0xMiAxMnEuODI1IDAgMS40MTMtLjU4N1QxNCAxMHEwLS44MjUtLjU4Ny0xLjQxMlQxMiA4cS0uODI1IDAtMS40MTIuNTg4VDEwIDEwcTAgLjgyNS41ODggMS40MTNUMTIgMTJtMCAxMHEtNC4wMjUtMy40MjUtNi4wMTItNi4zNjJUNCAxMC4ycTAtMy43NSAyLjQxMy01Ljk3NVQxMiAycTMuMTc1IDAgNS41ODggMi4yMjVUMjAgMTAuMnEwIDIuNS0xLjk4NyA1LjQzOFQxMiAyMiIvPjwvc3ZnPg=="
+        />
+        <div>
+          {{ city }}
 
-                    <p class="city-input" @click="switchCity()">[切换]</p>
-                    <a-modal cancelText="取消" okText="确认" v-model:open="open" title="切换城市" @ok="handleOk">
-                        <a-space direction="vertical" style="display: flex;justify-content: space-between;">
-                            <a-input v-model:value="newCity" placeholder="请输入城市,例如南京" />
-                              
-                        </a-space>
-                        <a-button type="primary" style="margin-top: 20px;" @click="watchMap()">查看地图</a-button>
-                    </a-modal>
-                </div>
-            </li>
-            <!-- done 从后端返回city数据，[切换按钮实现手动输入] -->
-            <!-- 通过ip和腾讯服务实现 -->
-            <li v-for="(item, index) in navItems" :key="index" :class="index == activeNav ? `active` : ``">
-                <router-link :to="item.linkTo">
-                    {{ item.title }}
-                </router-link>
-            </li>
-            <li v-if="!userId"><router-link to="login">登录</router-link>/<router-link to="register">注册</router-link></li>
-            <li v-else class="user-id">
-                <a-dropdown>
-                    <router-link to="/chatPage" class="ant-dropdown-link" @click.prevent>
-                        {{ userId }}
-                        <DownOutlined />
-                    </router-link>
-                    <template #overlay>
-                        <a-menu>
-                            
-                            <a-menu-item v-if="permission==1">
-                                <router-link to="/bringInPage/myEdit">招聘详情</router-link>
-                            </a-menu-item>
-                            <a-menu-item v-else>
-                                <router-link to="/huntJobPage">求职记录</router-link>
-                            </a-menu-item>
-                            <a-menu-item v-if="permission==1">
-                                <router-link to="/companyPage">公司介绍</router-link>
-                            </a-menu-item>
-                            <a-menu-item v-if="permission==1">
-                                <router-link to="/personalCompanyPage">个人中心</router-link>
-                            </a-menu-item>
-                            <a-menu-item v-else>
-                                <router-link to="/personalPage">个人中心</router-link>
-                            </a-menu-item>
-                            <a-menu-item>
-                                <router-link to="/chatPage">聊天页面</router-link>
-                            </a-menu-item>
-                            <a-menu-item v-if="permission!=1">
-                                <router-link to="/videoChatPage">进入面试</router-link>
-                            </a-menu-item>
-                            <a-menu-item v-if="permission!=1">
-                                <router-link to="/bringInPage/apply">我要招聘</router-link>
-                            </a-menu-item>
-                            <a-menu-item>
-                                <router-link to="/homePage" @click="exitLogin">退出</router-link>
-                            </a-menu-item>
-                        </a-menu>
-                    </template>
-                </a-dropdown>
-            </li>
-        </ul>
-    </header>
-    <div class="faq">
-        <a href="/faqPage">
-            反馈
-        </a>
-    </div>
-    <div class="tip">
-        <!-- <a href="/faqPage"> -->
+          <p class="city-input" @click="switchCity()">[切换]</p>
+          <a-modal
+            cancelText="取消"
+            okText="确认"
+            v-model:open="open"
+            title="切换城市"
+            @ok="handleOk"
+          >
+            <a-space
+              direction="vertical"
+              style="display: flex; justify-content: space-between"
+            >
+              <a-input
+                v-model:value="newCity"
+                placeholder="请输入城市,例如南京"
+              />
+            </a-space>
+            <a-button
+              type="primary"
+              style="margin-top: 20px"
+              @click="watchMap()"
+              >查看地图</a-button
+            >
+          </a-modal>
+        </div>
+      </li>
+      <!-- done 从后端返回city数据，[切换按钮实现手动输入] -->
+      <!-- 通过ip和腾讯服务实现 -->
+      <li
+        v-for="(item, index) in navItems"
+        :key="index"
+        :class="index == activeNav ? `active` : ``"
+      >
+        <router-link :to="item.linkTo">
+          {{ item.title }}
+        </router-link>
+      </li>
+      <li v-if="!userId">
+        <router-link to="login">登录</router-link>/<router-link to="register"
+          >注册</router-link
+        >
+      </li>
+      <li v-else class="user-id">
+        <a-dropdown>
+          <router-link to="/chatPage" class="ant-dropdown-link" @click.prevent>
+            {{ userId }}
+            <DownOutlined />
+          </router-link>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item v-if="permission == 1">
+                <router-link to="/bringInPage/myEdit">招聘详情</router-link>
+              </a-menu-item>
+              <a-menu-item v-else>
+                <router-link to="/huntJobPage">求职记录</router-link>
+              </a-menu-item>
+              <a-menu-item v-if="permission == 1">
+                <router-link to="/companyPage">公司介绍</router-link>
+              </a-menu-item>
+              <a-menu-item v-if="permission == 1">
+                <router-link to="/personalCompanyPage">个人中心</router-link>
+              </a-menu-item>
+              <a-menu-item v-else>
+                <router-link to="/personalPage">个人中心</router-link>
+              </a-menu-item>
+              <a-menu-item>
+                <router-link to="/chatPage">聊天页面</router-link>
+              </a-menu-item>
+              <a-menu-item v-if="permission != 1">
+                <router-link to="/videoChatPage">进入面试</router-link>
+              </a-menu-item>
+              <a-menu-item v-if="permission != 1">
+                <router-link to="/bringInPage/apply">我要招聘</router-link>
+              </a-menu-item>
+              <a-menu-item>
+                <router-link to="/homePage" @click="exitLogin"
+                  >退出</router-link
+                >
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
+      </li>
+    </ul>
+  </header>
+  <div class="faq">
+    <a href="/faqPage"> 反馈 </a>
+  </div>
+  <div class="tip">
+    <!-- <a href="/faqPage"> -->
 
-           
-        <div @click="toggleTip" class="tip-first">
-            操作
-        </div>
-        <div class="front" v-if="isTip" @click="router.go(1)">
-            前进
-        </div>
-        <div class="front" v-if="isTip" @click="router.go(-1)">
-            后退
-        </div>
-        <div class="front" v-if="isTip" @click="reload()">
-            刷新
-        </div>
-        <div class="front" v-if="isTip" @click="getTip()">
-            <a href="'/api/file?filename='readme.md"
-                            download="软件说明书.md" style="text-decoration: none; color: white;">说明</a>
-        </div>
-        <!-- </a> -->
+    <div @click="toggleTip" class="tip-first">操作</div>
+    <div class="front" v-if="isTip" @click="router.go(1)">前进</div>
+    <div class="front" v-if="isTip" @click="router.go(-1)">后退</div>
+    <div class="front" v-if="isTip" @click="reload()">刷新</div>
+    <div class="front" v-if="isTip" @click="getTip()">
+      <a
+        href="'/api/file?filename='readme.md"
+        download="软件说明书.md"
+        style="text-decoration: none; color: white"
+        >说明</a
+      >
     </div>
+    <!-- </a> -->
+  </div>
 </template>
 
 <style scoped lang='scss'>
 .front {
-    margin-top: 1vh;
-    color: #ffffff;
-    background-color: #92ebdc;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    border-radius: 50%;
-    text-decoration: none;
+  margin-top: 1vh;
+  color: #ffffff;
+  background-color: #92ebdc;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+  text-decoration: none;
 
-    &:hover {
-        background-color: #8addcfb0;
-        color: #fa7c6ee1;
-    }
+  &:hover {
+    background-color: #8addcfb0;
+    color: #fa7c6ee1;
+  }
 }
 
 .tip {
-    position: fixed;
-    z-index: 100;
-    color: #ffffff;
-    background-color: #92ebdc;
+  position: fixed;
+  z-index: 100;
+  color: #ffffff;
+  background-color: #92ebdc;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+  text-decoration: none;
+  left: 1vw;
+  top: 30vh;
+}
+
+.tip-first {
+  &:hover {
     width: 60px;
     height: 60px;
     line-height: 60px;
     text-align: center;
     border-radius: 50%;
+    background-color: #8addcfb0;
+    color: #fa7c6ee1;
+  }
+}
+
+.faq {
+  position: fixed;
+  z-index: 100;
+  color: #e7cbc8;
+  background-color: #e7cbc8;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  text-decoration: none;
+  left: 95vw;
+  top: 70vh;
+  a {
+    color: #fff;
     text-decoration: none;
-    left: 1vw;
-    top: 30vh;
-
-
+  }
+  :hover {
+    color: #fa7c6e70;
+  }
 }
-
-.tip-first {
-    &:hover {
-        width: 60px;
-        height: 60px;
-        line-height: 60px;
-        text-align: center;
-        border-radius: 50%;
-        background-color: #8addcfb0;
-        color: #fa7c6ee1;
-    }
-}
-
-.faq{
-    position: fixed;
-    z-index: 100;
-    color: #e7cbc8;
-    background-color: #e7cbc8;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    border-radius: 50%;
-    text-decoration: none;
-    left: 95vw;
-    top: 70vh;
-    a{
-        color:#fff;
-        text-decoration: none;
-    }
-    :hover{
-        color:#fa7c6e70;
-    }
-}
-.close-map{
-    position: fixed;
-    left: 70%;
-    z-index: 9999;
-    top: 15vh;
-    transform: translate(-50%,0);
+.close-map {
+  position: fixed;
+  left: 70%;
+  z-index: 9999;
+  top: 15vh;
+  transform: translate(-50%, 0);
 }
 header {
-    // position: fixed;
-    top: 0%;
-    height: 5vh;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 9px 9px 0px 0px;
+  // position: fixed;
+  top: 0%;
+  height: 5vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 9px 9px 0px 0px;
 }
 
 .user-id {
-    background-color: rgba(127, 255, 212, 0.603);
-    border-radius: 20px;
+  background-color: rgba(127, 255, 212, 0.603);
+  border-radius: 20px;
 
-    &:hover {
-        background-color: rgba(127, 255, 212);
-    }
+  &:hover {
+    background-color: rgba(127, 255, 212);
+  }
 }
 
 .top-nav {
-    z-index: 2;
-    font-size: 1.2rem;
-    // position: fixed;
-    padding: 0 10vw 0 10vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 100%;
-    line-height: 5vh;
+  z-index: 2;
+  font-size: 1.2rem;
+  // position: fixed;
+  padding: 0 10vw 0 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  line-height: 5vh;
 
-    li {
-        flex-grow: 1;
-        color: #FFFFFF;
+  li {
+    flex-grow: 1;
+    color: #ffffff;
 
-        &.active {
-            color: #FF4081;
-            pointer-events: none;
-        }
-
-        &:hover {
-            color: #E91E63;
-        }
-
-        a {
-            color: inherit;
-            font-size: inherit;
-            text-decoration: none;
-            font-size: inherit;
-
-            &:hover {
-                color: #E91E63;
-            }
-        }
-
-        &:nth-child(2) {
-            color: #FFFFFF;
-        }
+    &.active {
+      color: #ff4081;
+      pointer-events: none;
     }
 
-    li:first-child {
-        font-weight: 600;
-        font-size: larger;
-        color: #f1a9a9;
+    &:hover {
+      color: #e91e63;
     }
 
-    li:last-child {
-        line-height: 4vh;
-        color: white;
+    a {
+      color: inherit;
+      font-size: inherit;
+      text-decoration: none;
+      font-size: inherit;
+
+      &:hover {
+        color: #e91e63;
+      }
     }
+
+    &:nth-child(2) {
+      color: #ffffff;
+    }
+  }
+
+  li:first-child {
+    font-weight: 600;
+    font-size: larger;
+    color: #f1a9a9;
+  }
+
+  li:last-child {
+    line-height: 4vh;
+    color: white;
+  }
 }
 
 .city-input {
-    display: inline-block;
-    font-size: x-small;
+  display: inline-block;
+  font-size: x-small;
 
-    &:hover {
-        color: #E91E63;
-    }
+  &:hover {
+    color: #e91e63;
+  }
 }
 </style>
