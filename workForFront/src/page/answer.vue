@@ -8,7 +8,7 @@ const editorRef = shallowRef();
 const route = useRoute();
 const target = "answer";
 const logText = ref("");
-const logshow = ref(true);
+const logshow = ref(false);
 const targetUsername = target == "offer" ? "发起者" : "接收者";
 const videoMode = ref(false);
 const isActiveRequestVideo = ref(false);
@@ -56,7 +56,51 @@ const peerVideo = new PeerConnection();
 const socket = new WebSocket(testServer);
 let localVideo;
 let stream;
+async function startLive(offerSdp) {
+  try {
+    logger.log("尝试调取本地摄像头/麦克风");
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true,
+    });
+    logger.log("摄像头/麦克风获取成功！");
+    localVideo.srcObject = stream;
+  } catch (e) {
+    console.log(e);
+    message.info("摄像头/麦克风获取失败！");
+    logger.error("视频聊天摄像头/麦克风获取失败！");
+    return;
+  }
 
+  logger.log(
+    `------ WebRTC ${target === "offer" ? "发起方" : "接收方"}流程开始 ------`
+  );
+  logger.log("将媒体轨道添加到轨道集");
+  stream.getTracks().forEach((track) => {
+    peer.addTrack(track, stream);
+  });
+  try {
+    if (!offerSdp) {
+      logger.log("创建本地SDP");
+      const offer = await peer.createOffer();
+      await peer.setLocalDescription(offer);
+
+      logger.log(`传输发起方本地SDP`);
+      socket.send(JSON.stringify(offer));
+    } else {
+      logger.log("接收到发送方SDP");
+      await peer.setRemoteDescription(offerSdp);
+
+      logger.log("创建接收方（应答）SDP");
+      const answer = await peer.createAnswer();
+      logger.log(`传输接收方（应答）SDP`);
+      socket.send(JSON.stringify(answer));
+      await peer.setLocalDescription(answer);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 async function startLiveDesktop(offerSdp) {
   try {
     logger.log("尝试调取屏幕");
@@ -105,6 +149,7 @@ async function startLiveDesktop(offerSdp) {
   }
 }
 let sendSDPDesktop;
+let sendSDPVideo;
 onMounted(() => {
   localVideo = document.querySelector("#local-video");
   // remoteVideo = document.querySelector("#remote-video");
@@ -149,6 +194,17 @@ onMounted(() => {
         startLiveDesktop(
           new RTCSessionDescription({
             type,
+            sdp,
+          })
+        );
+      };
+    } else if (type === "offerVideo") {
+      open1.value = true;
+      sendSDPVideo = () => {
+        open1.value = false;
+        startLive(
+          new RTCSessionDescription({
+            type: "offer",
             sdp,
           })
         );
@@ -243,7 +299,7 @@ function stopSharingAndNotify() {
 }
 </script>
 <template>
-  <a-modal v-model:open="open1" title="申请视频聊天通知框" @ok="starDesktop()">
+  <a-modal v-model:open="open1" title="申请视频聊天通知框" @ok="sendSDPVideo()">
     <p>确定接受视频聊天</p>
   </a-modal>
   <a-modal
@@ -321,11 +377,6 @@ function stopSharingAndNotify() {
             </div>
             <!-- <a-button style="margin-top: 10px" ghost @click="toggleVideoMode()">切换显示</a-button> -->
             <div style="margin-top: 20px; border-radius: 20px">
-              <a-textarea
-                v-model:value="textarea"
-                placeholder="在此发送信息..."
-                :auto-size="{ minRows: 5, maxRows: 5 }"
-              />
               <a-button
                 @click="sendMeg()"
                 style="margin-top: 10px"
@@ -333,6 +384,11 @@ function stopSharingAndNotify() {
                 type="primary"
                 >发送</a-button
               >
+              <a-textarea
+                v-model:value="textarea"
+                placeholder="在此发送信息..."
+                :auto-size="{ minRows: 5, maxRows: 5 }"
+              />
             </div>
           </div>
         </div>

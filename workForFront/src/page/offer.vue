@@ -5,7 +5,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const target = "offer";
 const logText = ref("");
-const logshow = ref(true);
+const logshow = ref(false);
 const targetUsername = target == "offer" ? "发起者" : "接收者";
 const videoMode = ref(false);
 const isActiveRequestVideo = ref(false);
@@ -40,10 +40,9 @@ let remoteDesktop;
 // 视频流
 let stream;
 async function startLive(offerSdp) {
-  let stream;
   try {
     logger.log("尝试调取本地摄像头/麦克风");
-    stream = await navigator.mediaDevices.getDisplayMedia({
+    stream = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
     });
@@ -68,11 +67,20 @@ async function startLive(offerSdp) {
       logger.log("创建本地SDP");
       const offer = await peer.createOffer();
       await peer.setLocalDescription(offer);
-
+      console.log(offer);
       logger.log(`传输发起方本地SDP`);
-      socket.send(JSON.stringify(offer));
+      //   console.log(JSON.stringify(offer, "video"));
+      //   offer.videoType = "video";
+      //   console.log(offer);
+      socket.send(
+        JSON.stringify({
+          type: "offerVideo",
+          sdp: offer.sdp,
+        })
+      );
     } else {
       logger.log("接收到发送方SDP");
+
       await peer.setRemoteDescription(offerSdp);
 
       logger.log("创建接收方（应答）SDP");
@@ -278,6 +286,7 @@ function stopSharingAndNotify() {
   isActiveRequestDesktop.value = false;
   isActiveRequestVideo.value = false;
   message.info("已断开");
+  logger.log("断开连接");
 }
 const showModal1 = () => {
   open1.value = true;
@@ -370,15 +379,11 @@ const showModal2 = () => {
                 >当前显示屏幕分享</a-button
               >
             </div>
+            <!-- 
             <a-button style="margin-top: 10px" ghost @click="toggleVideoMode()"
               >切换显示</a-button
-            >
+            >-->
             <div style="margin-top: 20px; border-radius: 20px">
-              <a-textarea
-                v-model:value="textarea"
-                placeholder="在此发送信息..."
-                :auto-size="{ minRows: 5, maxRows: 5 }"
-              />
               <a-button
                 @click="sendMeg()"
                 style="margin-top: 10px"
@@ -386,6 +391,11 @@ const showModal2 = () => {
                 type="primary"
                 >发送</a-button
               >
+              <a-textarea
+                v-model:value="textarea"
+                placeholder="在此发送信息..."
+                :auto-size="{ minRows: 5, maxRows: 5 }"
+              />
             </div>
           </div>
         </div>
